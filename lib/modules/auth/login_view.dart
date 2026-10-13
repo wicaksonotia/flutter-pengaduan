@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:elingk/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../app/theme/app_theme.dart';
 import 'auth_service.dart';
 import 'otp_view.dart';
 
@@ -110,7 +110,7 @@ class _LoginViewState extends State<LoginView> {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: AppTheme.navy,
+                    color: AppColors.navy,
                     borderRadius: BorderRadius.circular(19),
                   ),
                   child: const Icon(
@@ -123,7 +123,7 @@ class _LoginViewState extends State<LoginView> {
                 const Text(
                   'Selamat datang\ndi eLingk',
                   style: TextStyle(
-                    color: AppTheme.navy,
+                    color: AppColors.navy,
                     fontSize: 31,
                     fontWeight: FontWeight.w800,
                     height: 1.2,
@@ -135,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                   'Masuk untuk menyampaikan pengaduan dan '
                   'memantau tindak lanjut dari instansi.',
                   style: TextStyle(
-                    color: AppTheme.textSecondary,
+                    color: AppColors.textSecondary,
                     fontSize: 14,
                     height: 1.7,
                   ),
@@ -144,7 +144,7 @@ class _LoginViewState extends State<LoginView> {
                 const Text(
                   'Nomor HP',
                   style: TextStyle(
-                    color: AppTheme.navy,
+                    color: AppColors.navy,
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                   ),
@@ -161,16 +161,16 @@ class _LoginViewState extends State<LoginView> {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: Color(0xFFE5EAF2)),
+                      borderSide: const BorderSide(color: AppColors.border),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: Color(0xFFE5EAF2)),
+                      borderSide: const BorderSide(color: AppColors.border),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
-                        color: AppTheme.blue,
+                        color: AppColors.blue,
                         width: 1.5,
                       ),
                     ),
@@ -197,7 +197,7 @@ class _LoginViewState extends State<LoginView> {
                   child: ElevatedButton(
                     onPressed: _loading ? null : _requestOtp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.blue,
+                      backgroundColor: AppColors.blue,
                       foregroundColor: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
@@ -228,7 +228,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     Icon(
                       Icons.lock_outline_rounded,
-                      color: AppTheme.textSecondary,
+                      color: AppColors.textSecondary,
                       size: 18,
                     ),
                     SizedBox(width: 9),
@@ -237,7 +237,7 @@ class _LoginViewState extends State<LoginView> {
                         'Nomor HP digunakan untuk verifikasi '
                         'identitas dan keamanan akun.',
                         style: TextStyle(
-                          color: AppTheme.textSecondary,
+                          color: AppColors.textSecondary,
                           fontSize: 12,
                           height: 1.6,
                         ),

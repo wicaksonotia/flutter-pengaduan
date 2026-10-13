@@ -1,8 +1,7 @@
+import 'package:elingk/app/theme/app_colors.dart';
 import 'package:elingk/modules/complaints/complaint_list_view.dart';
 import 'package:elingk/modules/profile/profile_view.dart';
 import 'package:flutter/material.dart';
-
-import '../../app/theme/app_theme.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -27,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: Colors.white,
-          border: Border(top: BorderSide(color: Color(0xFFE9EEF5))),
+          border: Border(top: BorderSide(color: AppColors.border, width: 1)),
         ),
         child: SafeArea(
           top: false,
@@ -107,7 +106,7 @@ class HomeContent extends StatelessWidget {
           width: 46,
           height: 46,
           decoration: BoxDecoration(
-            color: AppTheme.navy,
+            color: AppColors.navy,
             borderRadius: BorderRadius.circular(15),
           ),
           child: const Icon(
@@ -126,13 +125,13 @@ class HomeContent extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.w800,
-                  color: AppTheme.navy,
+                  color: AppColors.navy,
                   letterSpacing: -0.6,
                 ),
               ),
               Text(
                 'Layanan Pengaduan Masyarakat',
-                style: TextStyle(fontSize: 11, color: AppTheme.textSecondary),
+                style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
               ),
             ],
           ),
@@ -143,13 +142,13 @@ class HomeContent extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: const Color(0xFFE8EDF5)),
+            border: Border.all(color: AppColors.border),
           ),
           child: IconButton(
             onPressed: () {},
             icon: const Icon(
               Icons.notifications_none_rounded,
-              color: AppTheme.navy,
+              color: AppColors.navy,
             ),
           ),
         ),
@@ -164,7 +163,7 @@ class HomeContent extends StatelessWidget {
         Text(
           'Halo, Sahabat Lingkungan 👋',
           style: TextStyle(
-            color: AppTheme.textSecondary,
+            color: AppColors.textSecondary,
             fontSize: 13,
             fontWeight: FontWeight.w500,
           ),
@@ -177,7 +176,7 @@ class HomeContent extends StatelessWidget {
             height: 1.25,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.8,
-            color: AppTheme.navy,
+            color: AppColors.navy,
           ),
         ),
       ],
@@ -196,7 +195,7 @@ class HomeContent extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.blue.withValues(alpha: 0.20),
+            color: AppColors.blue.withValues(alpha: 0.20),
             blurRadius: 22,
             offset: const Offset(0, 10),
           ),
@@ -269,7 +268,7 @@ class HomeContent extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: AppTheme.blue,
+                    foregroundColor: AppColors.blue,
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     shape: RoundedRectangleBorder(
@@ -299,7 +298,7 @@ class HomeContent extends StatelessWidget {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w800,
-              color: AppTheme.navy,
+              color: AppColors.navy,
             ),
           ),
         ),
@@ -308,7 +307,7 @@ class HomeContent extends StatelessWidget {
           child: Text(
             action,
             style: const TextStyle(
-              color: AppTheme.blue,
+              color: AppColors.blue,
               fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
@@ -326,7 +325,7 @@ class HomeContent extends StatelessWidget {
             icon: Icons.assignment_outlined,
             label: 'Total',
             value: '0',
-            color: AppTheme.blue,
+            color: AppColors.blue,
             background: const Color(0xFFEAF2FF),
           ),
         ),
@@ -384,7 +383,7 @@ class HomeContent extends StatelessWidget {
           Text(
             value,
             style: const TextStyle(
-              color: AppTheme.navy,
+              color: AppColors.navy,
               fontSize: 23,
               fontWeight: FontWeight.w800,
             ),
@@ -393,7 +392,7 @@ class HomeContent extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-              color: AppTheme.textSecondary,
+              color: AppColors.textSecondary,
               fontSize: 11,
               fontWeight: FontWeight.w500,
             ),
@@ -420,7 +419,7 @@ class HomeContent extends StatelessWidget {
             'Belum ada pengaduan',
             style: TextStyle(
               fontSize: 14,
-              color: AppTheme.navy,
+              color: AppColors.navy,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -430,7 +429,7 @@ class HomeContent extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 12,
-              color: AppTheme.textSecondary,
+              color: AppColors.textSecondary,
               height: 1.5,
             ),
           ),
@@ -459,7 +458,7 @@ class HomeContent extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w800,
-                    color: AppTheme.navy,
+                    color: AppColors.navy,
                   ),
                 ),
                 SizedBox(height: 4),
@@ -467,7 +466,7 @@ class HomeContent extends StatelessWidget {
                   'Pantau perkembangan laporanmu melalui aplikasi.',
                   style: TextStyle(
                     fontSize: 11,
-                    color: AppTheme.textSecondary,
+                    color: AppColors.textSecondary,
                     height: 1.5,
                   ),
                 ),
@@ -491,7 +490,7 @@ class HomeContent extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,
-                  color: AppTheme.navy,
+                  color: AppColors.navy,
                 ),
               ),
             ),
@@ -508,7 +507,7 @@ class HomeContent extends StatelessWidget {
               child: const Text(
                 'Lihat semua',
                 style: TextStyle(
-                  color: AppTheme.blue,
+                  color: AppColors.blue,
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
                 ),
@@ -560,7 +559,7 @@ class HomeContent extends StatelessWidget {
                     Text(
                       'Informasi Pelayanan Publik',
                       style: TextStyle(
-                        color: AppTheme.navy,
+                        color: AppColors.navy,
                         fontSize: 14,
                         fontWeight: FontWeight.w800,
                       ),
@@ -570,7 +569,7 @@ class HomeContent extends StatelessWidget {
                       'Informasi resmi dari instansi akan ditampilkan '
                       'di bagian ini.',
                       style: TextStyle(
-                        color: AppTheme.textSecondary,
+                        color: AppColors.textSecondary,
                         fontSize: 12,
                         height: 1.5,
                       ),
@@ -607,7 +606,7 @@ class HomeContent extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w800,
-            color: AppTheme.navy,
+            color: AppColors.navy,
           ),
         ),
         const SizedBox(height: 12),
@@ -624,7 +623,7 @@ class HomeContent extends StatelessWidget {
                 title: 'Informasi dan Kegiatan Instansi',
                 date: 'Informasi terbaru',
                 color: const Color(0xFFE8F1FF),
-                iconColor: AppTheme.blue,
+                iconColor: AppColors.blue,
               ),
               const SizedBox(width: 12),
               _newsCard(
@@ -720,7 +719,7 @@ class HomeContent extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    color: AppTheme.navy,
+                    color: AppColors.navy,
                     fontSize: 13,
                     fontWeight: FontWeight.w800,
                     height: 1.3,
@@ -730,7 +729,7 @@ class HomeContent extends StatelessWidget {
                 Text(
                   date,
                   style: const TextStyle(
-                    color: AppTheme.textSecondary,
+                    color: AppColors.textSecondary,
                     fontSize: 10,
                   ),
                 ),
@@ -771,7 +770,7 @@ class SimplePage extends StatelessWidget {
                   color: const Color(0xFFE8F1FF),
                   borderRadius: BorderRadius.circular(26),
                 ),
-                child: Icon(icon, size: 42, color: AppTheme.blue),
+                child: Icon(icon, size: 42, color: AppColors.blue),
               ),
               const SizedBox(height: 22),
               Text(
@@ -779,7 +778,7 @@ class SimplePage extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 23,
                   fontWeight: FontWeight.w800,
-                  color: AppTheme.navy,
+                  color: AppColors.navy,
                 ),
               ),
               const SizedBox(height: 9),
@@ -789,7 +788,7 @@ class SimplePage extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 14,
                   height: 1.6,
-                  color: AppTheme.textSecondary,
+                  color: AppColors.textSecondary,
                 ),
               ),
             ],

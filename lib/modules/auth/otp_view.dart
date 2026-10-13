@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:elingk/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../app/theme/app_theme.dart';
 import '../../core/storage/token_storage.dart';
 import '../home/home_view.dart';
 import 'auth_service.dart';
@@ -88,8 +88,10 @@ class _OtpViewState extends State<OtpView> {
         message = data['message']?.toString() ?? message;
 
         final errors = data['errors'];
+
         if (errors is Map && errors.isNotEmpty) {
           final firstError = errors.values.first;
+
           if (firstError is List && firstError.isNotEmpty) {
             message = firstError.first.toString();
           }
@@ -107,7 +109,9 @@ class _OtpViewState extends State<OtpView> {
         SnackBar(content: Text(e.toString().replaceFirst('Exception: ', ''))),
       );
     } finally {
-      if (mounted) setState(() => _loading = false);
+      if (mounted) {
+        setState(() => _loading = false);
+      }
     }
   }
 
@@ -136,6 +140,7 @@ class _OtpViewState extends State<OtpView> {
       if (!mounted) return;
 
       final data = e.response?.data;
+
       final message = data is Map
           ? data['message']?.toString() ?? 'Gagal meminta OTP baru.'
           : 'Tidak dapat menghubungi server.';
@@ -149,14 +154,20 @@ class _OtpViewState extends State<OtpView> {
         SnackBar(content: Text(e.toString().replaceFirst('Exception: ', ''))),
       );
     } finally {
-      if (mounted) setState(() => _resending = false);
+      if (mounted) {
+        setState(() => _resending = false);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.navy,
+        elevation: 0,
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(Icons.arrow_back_rounded),
@@ -172,12 +183,12 @@ class _OtpViewState extends State<OtpView> {
                 width: 62,
                 height: 62,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE8F1FF),
+                  color: AppColors.blueLight.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Icon(
                   Icons.sms_outlined,
-                  color: AppTheme.blue,
+                  color: AppColors.blue,
                   size: 31,
                 ),
               ),
@@ -185,7 +196,7 @@ class _OtpViewState extends State<OtpView> {
               const Text(
                 'Verifikasi nomor HP',
                 style: TextStyle(
-                  color: AppTheme.navy,
+                  color: AppColors.textPrimary,
                   fontSize: 27,
                   fontWeight: FontWeight.w800,
                   letterSpacing: -0.6,
@@ -195,7 +206,7 @@ class _OtpViewState extends State<OtpView> {
               const Text(
                 'Masukkan kode OTP 6 digit untuk melanjutkan.',
                 style: TextStyle(
-                  color: AppTheme.textSecondary,
+                  color: AppColors.textSecondary,
                   fontSize: 14,
                   height: 1.7,
                 ),
@@ -204,21 +215,24 @@ class _OtpViewState extends State<OtpView> {
               Text(
                 widget.phone,
                 style: const TextStyle(
-                  color: AppTheme.navy,
+                  color: AppColors.textPrimary,
                   fontSize: 15,
                   fontWeight: FontWeight.w800,
                 ),
               ),
 
+              // DEVELOPMENT OTP
               if (_developmentOtp != null && _developmentOtp!.isNotEmpty) ...[
                 const SizedBox(height: 24),
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFF7E6),
+                    color: AppColors.warning.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFFFD98A)),
+                    border: Border.all(
+                      color: AppColors.warning.withValues(alpha: 0.45),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,14 +241,14 @@ class _OtpViewState extends State<OtpView> {
                         children: [
                           Icon(
                             Icons.developer_mode_rounded,
-                            color: Color(0xFF9A6700),
+                            color: AppColors.textPrimary,
                             size: 19,
                           ),
                           SizedBox(width: 8),
                           Text(
                             'MODE DEVELOPMENT',
                             style: TextStyle(
-                              color: Color(0xFF9A6700),
+                              color: AppColors.textPrimary,
                               fontWeight: FontWeight.w800,
                               fontSize: 12,
                               letterSpacing: 0.5,
@@ -249,7 +263,7 @@ class _OtpViewState extends State<OtpView> {
                             child: SelectableText(
                               _developmentOtp!,
                               style: const TextStyle(
-                                color: AppTheme.navy,
+                                color: AppColors.textPrimary,
                                 fontSize: 29,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 7,
@@ -261,7 +275,7 @@ class _OtpViewState extends State<OtpView> {
                             onPressed: _copyOtp,
                             icon: const Icon(
                               Icons.copy_rounded,
-                              color: AppTheme.blue,
+                              color: AppColors.blue,
                             ),
                           ),
                         ],
@@ -271,7 +285,7 @@ class _OtpViewState extends State<OtpView> {
                         'Kode pengujian sementara. Jangan gunakan '
                         'mode ini di production.',
                         style: TextStyle(
-                          color: Color(0xFF765B24),
+                          color: AppColors.textSecondary,
                           fontSize: 12,
                           height: 1.5,
                         ),
@@ -282,6 +296,8 @@ class _OtpViewState extends State<OtpView> {
               ],
 
               const SizedBox(height: 28),
+
+              // INPUT OTP
               TextField(
                 controller: _otpController,
                 keyboardType: TextInputType.number,
@@ -296,45 +312,50 @@ class _OtpViewState extends State<OtpView> {
                   fontSize: 27,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 12,
-                  color: AppTheme.navy,
+                  color: AppColors.textPrimary,
                 ),
                 decoration: InputDecoration(
                   hintText: '••••••',
                   hintStyle: const TextStyle(
-                    color: Color(0xFFBCC7D7),
+                    color: AppColors.textHint,
                     letterSpacing: 8,
                   ),
                   counterText: '',
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: AppColors.surface,
                   contentPadding: const EdgeInsets.symmetric(vertical: 20),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(17),
-                    borderSide: const BorderSide(color: Color(0xFFE5EAF2)),
+                    borderSide: const BorderSide(color: AppColors.border),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(17),
-                    borderSide: const BorderSide(color: Color(0xFFE5EAF2)),
+                    borderSide: const BorderSide(color: AppColors.border),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(17),
                     borderSide: const BorderSide(
-                      color: AppTheme.blue,
+                      color: AppColors.blue,
                       width: 1.5,
                     ),
                   ),
                 ),
                 onSubmitted: (_) => _verifyOtp(),
               ),
+
               const SizedBox(height: 22),
+
+              // BUTTON VERIFIKASI
               SizedBox(
                 width: double.infinity,
                 height: 54,
                 child: ElevatedButton(
                   onPressed: _loading ? null : _verifyOtp,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.blue,
-                    foregroundColor: Colors.white,
+                    backgroundColor: AppColors.blue,
+                    foregroundColor: AppColors.textOnPrimary,
+                    disabledBackgroundColor: AppColors.surfaceMuted,
+                    disabledForegroundColor: AppColors.textMuted,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -346,7 +367,7 @@ class _OtpViewState extends State<OtpView> {
                           height: 22,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.white,
+                            color: AppColors.blue,
                           ),
                         )
                       : const Text(
@@ -358,7 +379,10 @@ class _OtpViewState extends State<OtpView> {
                         ),
                 ),
               ),
+
               const SizedBox(height: 16),
+
+              // RESEND OTP
               Center(
                 child: TextButton(
                   onPressed: (_resending || _loading) ? null : _resendOtp,
@@ -367,7 +391,7 @@ class _OtpViewState extends State<OtpView> {
                         ? 'Meminta kode baru...'
                         : 'Kirim ulang kode OTP',
                     style: const TextStyle(
-                      color: AppTheme.blue,
+                      color: AppColors.blue,
                       fontWeight: FontWeight.w700,
                     ),
                   ),

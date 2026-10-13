@@ -1,3 +1,4 @@
+import 'package:elingk/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintHelpers {
@@ -42,24 +43,24 @@ class ComplaintHelpers {
     switch (status) {
       case 'selesai':
       case 'ditutup':
-        return const Color(0xFF168653);
+        return AppColors.success;
 
       case 'menunggu_verifikasi':
-        return const Color(0xFFE68A17);
+        return AppColors.warning;
 
       case 'diproses':
       case 'ditugaskan':
-        return const Color(0xFF2878F0);
+        return AppColors.blue;
 
       case 'diverifikasi':
-        return const Color(0xFF087E8B);
+        return AppColors.info;
 
       case 'ditolak':
-        return const Color(0xFFDC4545);
+        return AppColors.danger;
 
       case 'diajukan':
       default:
-        return const Color(0xFF64748B);
+        return AppColors.textMuted;
     }
   }
 
