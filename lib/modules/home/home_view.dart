@@ -1,3 +1,4 @@
+import 'package:elingk/modules/complaints/complaint_list_view.dart';
 import 'package:elingk/modules/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +16,7 @@ class _HomeViewState extends State<HomeView> {
 
   final List<Widget> _pages = const [
     HomeContent(),
-    SimplePage(
-      icon: Icons.assignment_outlined,
-      title: 'Pengaduan Saya',
-      subtitle: 'Pantau perkembangan pengaduanmu di sini.',
-    ),
+    ComplaintListView(),
     ProfileView(),
   ];
 
