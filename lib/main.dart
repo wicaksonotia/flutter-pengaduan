@@ -5,7 +5,7 @@ import 'app/theme/app_theme.dart';
 import 'core/storage/token_storage.dart';
 import 'modules/auth/auth_service.dart';
 import 'modules/auth/login_view.dart';
-import 'modules/home/home_view.dart';
+import 'modules/masyarakat/views/home/home_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

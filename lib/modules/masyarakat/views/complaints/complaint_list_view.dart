@@ -1,9 +1,11 @@
 import 'package:elingk/app/theme/app_colors.dart';
+import 'package:elingk/modules/masyarakat/bindings/complaint_list_binding.dart';
+import 'package:elingk/modules/masyarakat/controllers/complaint_list_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'complaint_detail_view.dart';
 import 'complaint_form_view.dart';
-import 'complaint_service.dart';
 import 'widgets/list/complaint_list_card.dart';
 import 'widgets/list/complaint_list_header.dart';
 import 'widgets/list/complaint_list_section_heading.dart';
@@ -17,59 +19,14 @@ class ComplaintListView extends StatefulWidget {
 }
 
 class _ComplaintListViewState extends State<ComplaintListView> {
-  final ComplaintService _service = ComplaintService();
-
-  List<Map<String, dynamic>> _complaints = [];
-  bool _loading = true;
-  String? _error;
-  int _total = 0;
+  late final ComplaintListController controller;
 
   @override
   void initState() {
     super.initState();
-    _loadComplaints();
-  }
 
-  Future<void> _loadComplaints() async {
-    if (mounted) {
-      setState(() {
-        _loading = true;
-        _error = null;
-      });
-    }
-
-    try {
-      final response = await _service.getComplaints();
-      final pagination = response['data'];
-      final rawData = pagination is Map ? pagination['data'] : null;
-
-      final items = rawData is List
-          ? rawData
-                .whereType<Map>()
-                .map((item) => Map<String, dynamic>.from(item))
-                .toList()
-          : <Map<String, dynamic>>[];
-
-      final total = pagination is Map
-          ? int.tryParse('${pagination['total'] ?? items.length}') ??
-                items.length
-          : items.length;
-
-      if (!mounted) return;
-
-      setState(() {
-        _complaints = items;
-        _total = total;
-        _loading = false;
-      });
-    } catch (_) {
-      if (!mounted) return;
-
-      setState(() {
-        _error = 'Gagal memuat pengaduan. Periksa koneksi lalu coba lagi.';
-        _loading = false;
-      });
-    }
+    ComplaintListBinding().dependencies();
+    controller = Get.find<ComplaintListController>();
   }
 
   Future<void> _openCreateForm() async {
@@ -80,7 +37,7 @@ class _ComplaintListViewState extends State<ComplaintListView> {
     if (!mounted) return;
 
     if (result == true) {
-      await _loadComplaints();
+      await controller.loadComplaints();
     }
   }
 
@@ -117,7 +74,7 @@ class _ComplaintListViewState extends State<ComplaintListView> {
           ),
         ),
       ),
-      body: _buildBody(),
+      body: Obx(_buildBody),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _openCreateForm,
         backgroundColor: AppColors.blue,
@@ -129,25 +86,30 @@ class _ComplaintListViewState extends State<ComplaintListView> {
   }
 
   Widget _buildBody() {
-    if (_loading && _complaints.isEmpty) {
+    final complaints = controller.complaints;
+    final loading = controller.loading.value;
+    final error = controller.error.value;
+    final total = controller.total.value;
+
+    if (loading && complaints.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(color: AppColors.blue),
       );
     }
 
-    if (_error != null && _complaints.isEmpty) {
+    if (error != null && complaints.isEmpty) {
       return ComplaintListStateMessage(
         icon: Icons.cloud_off_rounded,
         title: 'Belum bisa memuat data',
-        message: _error!,
+        message: error,
         buttonText: 'Coba Lagi',
-        onPressed: _loadComplaints,
+        onPressed: controller.loadComplaints,
       );
     }
 
-    if (_complaints.isEmpty) {
+    if (complaints.isEmpty) {
       return RefreshIndicator(
-        onRefresh: _loadComplaints,
+        onRefresh: controller.loadComplaints,
         color: AppColors.blue,
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -181,21 +143,21 @@ class _ComplaintListViewState extends State<ComplaintListView> {
     }
 
     return RefreshIndicator(
-      onRefresh: _loadComplaints,
+      onRefresh: controller.loadComplaints,
       color: AppColors.blue,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(18, 18, 18, 28),
         children: [
-          ComplaintListHeader(total: _total),
+          ComplaintListHeader(total: total),
           const SizedBox(height: 25),
-          ComplaintListSectionHeading(displayed: _complaints.length),
+          ComplaintListSectionHeading(displayed: complaints.length),
           const SizedBox(height: 13),
-          if (_error != null) ...[
-            Text(_error!, style: const TextStyle(color: Colors.red)),
+          if (error != null) ...[
+            Text(error, style: const TextStyle(color: Colors.red)),
             const SizedBox(height: 10),
           ],
-          ..._complaints.map(
+          ...complaints.map(
             (item) =>
                 ComplaintListCard(item: item, onTap: () => _openDetail(item)),
           ),

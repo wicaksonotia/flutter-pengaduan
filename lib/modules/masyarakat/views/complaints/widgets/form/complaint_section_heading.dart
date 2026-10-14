@@ -25,7 +25,7 @@ class ComplaintSectionHeading extends StatelessWidget {
           height: 36,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: AppColors.blue.withOpacity(0.09),
+            color: AppColors.blue.withValues(alpha: 0.09),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(

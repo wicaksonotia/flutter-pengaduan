@@ -1,4 +1,4 @@
-import 'package:elingk/modules/complaints/complaint_helpers.dart';
+import 'package:elingk/modules/masyarakat/views/complaints/complaint_helpers.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintStatusBadge extends StatelessWidget {

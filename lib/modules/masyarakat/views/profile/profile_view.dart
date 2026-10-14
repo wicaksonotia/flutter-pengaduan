@@ -1,5 +1,6 @@
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/profile/controller/profile_controller.dart';
+import 'package:elingk/modules/masyarakat/bindings/profile_binding.dart';
+import 'package:elingk/modules/masyarakat/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,15 +8,26 @@ import 'widgets/edit_profile_sheet.dart';
 import 'widgets/profile_header_card.dart';
 import 'widgets/profile_information_card.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.isRegistered<ProfileController>()
-        ? Get.find<ProfileController>()
-        : Get.put(ProfileController());
+  State<ProfileView> createState() => _ProfileViewState();
+}
 
+class _ProfileViewState extends State<ProfileView> {
+  late final ProfileController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    ProfileBinding().dependencies();
+    controller = Get.find<ProfileController>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -74,7 +86,7 @@ class ProfileView extends StatelessWidget {
                     phone: controller.phone,
                     initials: controller.initials,
                     isSaving: isSaving,
-                    onEdit: () => _editProfile(context, controller),
+                    onEdit: () => _editProfile(context),
                   ),
 
                 const SizedBox(height: 22),
@@ -89,7 +101,9 @@ class ProfileView extends StatelessWidget {
                 const SizedBox(height: 22),
 
                 OutlinedButton.icon(
-                  onPressed: () => controller.confirmLogout(context),
+                  onPressed: isSaving
+                      ? null
+                      : () => controller.confirmLogout(context),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.danger,
                     side: BorderSide(
@@ -123,21 +137,16 @@ class ProfileView extends StatelessWidget {
     );
   }
 
-  Future<void> _editProfile(
-    BuildContext context,
-    ProfileController controller,
-  ) async {
-    final result = await EditProfileSheet.show(
+  Future<void> _editProfile(BuildContext context) async {
+    if (controller.isSaving.value) return;
+
+    await EditProfileSheet.show(
       context,
       name: controller.user['name']?.toString() ?? '',
       email: controller.email,
-    );
-
-    if (result == null) return;
-
-    await controller.saveProfile(
-      name: result['name']!,
-      email: result['email']!,
+      onSave: (name, email) {
+        return controller.saveProfile(name: name, email: email);
+      },
     );
   }
 }

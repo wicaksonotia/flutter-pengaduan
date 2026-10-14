@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../core/storage/token_storage.dart';
-import '../home/home_view.dart';
+import '../masyarakat/views/home/home_view.dart';
 import 'auth_service.dart';
 
 class OtpView extends StatefulWidget {

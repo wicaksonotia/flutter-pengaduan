@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-
-import '../../core/network/api_client.dart';
+import 'package:elingk/core/network/api_client.dart';
 
 class ComplaintService {
   final Dio _dio = ApiClient.dio;

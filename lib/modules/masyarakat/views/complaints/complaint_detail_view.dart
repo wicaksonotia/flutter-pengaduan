@@ -1,9 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:elingk/app/theme/app_colors.dart';
+import 'package:elingk/modules/masyarakat/bindings/complaint_detail_binding.dart';
+import 'package:elingk/modules/masyarakat/controllers/complaint_detail_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../core/network/api_client.dart';
-import 'complaint_service.dart';
 import 'widgets/detail/complaint_detail_header.dart';
 import 'widgets/detail/complaint_detail_history.dart';
 import 'widgets/detail/complaint_detail_information.dart';
@@ -21,89 +21,28 @@ class ComplaintDetailView extends StatefulWidget {
 }
 
 class _ComplaintDetailViewState extends State<ComplaintDetailView> {
-  final ComplaintService _service = ComplaintService();
-  final Dio _dio = ApiClient.dio;
-
-  Map<String, dynamic>? _complaint;
-  bool _loading = true;
-  String? _error;
+  late final ComplaintDetailController controller;
+  late final String controllerTag;
 
   @override
   void initState() {
     super.initState();
-    _loadDetail();
+
+    final binding = ComplaintDetailBinding(complaintId: widget.complaintId);
+
+    controllerTag = binding.tag;
+    binding.dependencies();
+
+    controller = Get.find<ComplaintDetailController>(tag: controllerTag);
   }
 
-  Future<void> _loadDetail() async {
-    setState(() {
-      _loading = true;
-      _error = null;
-    });
-
-    try {
-      final response = await _service.getComplaintDetail(widget.complaintId);
-
-      final raw = response['data'];
-
-      if (raw is! Map) {
-        throw Exception('Data detail pengaduan tidak ditemukan.');
-      }
-
-      if (!mounted) return;
-
-      setState(() {
-        _complaint = Map<String, dynamic>.from(raw);
-        _loading = false;
-      });
-    } catch (e) {
-      if (!mounted) return;
-
-      setState(() {
-        _error = _errorMessage(e);
-        _loading = false;
-      });
-    }
-  }
-
-  String _errorMessage(Object error) {
-    if (error is DioException) {
-      final data = error.response?.data;
-
-      if (data is Map && data['message'] != null) {
-        return data['message'].toString();
-      }
-
-      if (error.response?.statusCode == 404) {
-        return 'Pengaduan tidak ditemukan atau tidak dapat diakses.';
-      }
-
-      return 'Tidak dapat mengambil detail pengaduan. Periksa koneksi.';
+  @override
+  void dispose() {
+    if (Get.isRegistered<ComplaintDetailController>(tag: controllerTag)) {
+      Get.delete<ComplaintDetailController>(tag: controllerTag, force: true);
     }
 
-    return 'Detail pengaduan gagal dimuat. Silakan coba lagi.';
-  }
-
-  List<Map<String, dynamic>> _mapList(dynamic value) {
-    if (value is! List) return [];
-
-    return value
-        .whereType<Map>()
-        .map((item) => Map<String, dynamic>.from(item))
-        .toList();
-  }
-
-  String _imageUrl(dynamic value) {
-    final path = (value ?? '').toString().trim();
-
-    if (path.isEmpty) return '';
-
-    final uri = Uri.tryParse(path);
-
-    if (uri != null && uri.hasScheme) {
-      return path;
-    }
-
-    return Uri.parse(_dio.options.baseUrl).resolve(path).toString();
+    super.dispose();
   }
 
   @override
@@ -123,17 +62,31 @@ class _ComplaintDetailViewState extends State<ComplaintDetailView> {
           ),
         ),
       ),
-      body: _loading
-          ? const Center(
-              child: CircularProgressIndicator(color: AppColors.blue),
-            )
-          : _error != null
-          ? _buildError()
-          : _buildContent(),
+      body: Obx(() {
+        if (controller.loading.value) {
+          return const Center(
+            child: CircularProgressIndicator(color: AppColors.blue),
+          );
+        }
+
+        final error = controller.error.value;
+
+        if (error != null) {
+          return _buildError(error);
+        }
+
+        final data = controller.complaint.value;
+
+        if (data == null) {
+          return _buildError('Data detail pengaduan tidak ditemukan.');
+        }
+
+        return _buildContent(data);
+      }),
     );
   }
 
-  Widget _buildError() {
+  Widget _buildError(String message) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(28),
@@ -147,13 +100,13 @@ class _ComplaintDetailViewState extends State<ComplaintDetailView> {
             ),
             const SizedBox(height: 16),
             Text(
-              _error!,
+              message,
               textAlign: TextAlign.center,
               style: const TextStyle(color: AppColors.textMuted, height: 1.5),
             ),
             const SizedBox(height: 18),
             FilledButton(
-              onPressed: _loadDetail,
+              onPressed: controller.loadDetail,
               child: const Text('Coba Lagi'),
             ),
           ],
@@ -162,21 +115,19 @@ class _ComplaintDetailViewState extends State<ComplaintDetailView> {
     );
   }
 
-  Widget _buildContent() {
-    final data = _complaint!;
+  Widget _buildContent(Map<String, dynamic> data) {
+    final photos = controller.mapList(data['photos']);
 
-    final photos = _mapList(data['photos']);
-
-    final histories = _mapList(
+    final histories = controller.mapList(
       data['status_histories'] ?? data['statusHistories'],
     );
 
-    final responses = _mapList(data['responses']);
+    final responses = controller.mapList(data['responses']);
 
     final submittedAt = data['diajukan_pada'] ?? data['created_at'];
 
     return RefreshIndicator(
-      onRefresh: _loadDetail,
+      onRefresh: controller.loadDetail,
       color: AppColors.blue,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -187,33 +138,28 @@ class _ComplaintDetailViewState extends State<ComplaintDetailView> {
             status: data['status'],
             submittedAt: submittedAt,
           ),
-
           const SizedBox(height: 18),
-
           ComplaintDetailInformation(
             judul: data['judul'],
             isiPengaduan: data['isi_pengaduan'],
             category: data['category'],
             unit: data['unit'],
           ),
-
           const SizedBox(height: 15),
-
           ComplaintDetailLocation(
             alamat: data['alamat'],
             latitude: data['latitude'],
             longitude: data['longitude'],
           ),
-
           if (photos.isNotEmpty) ...[
             const SizedBox(height: 15),
-            ComplaintDetailPhotos(photos: photos, resolveImageUrl: _imageUrl),
+            ComplaintDetailPhotos(
+              photos: photos,
+              resolveImageUrl: controller.imageUrl,
+            ),
           ],
-
           const SizedBox(height: 15),
-
           ComplaintDetailHistory(histories: histories),
-
           if (responses.isNotEmpty) ...[
             const SizedBox(height: 15),
             ComplaintDetailResponses(responses: responses),

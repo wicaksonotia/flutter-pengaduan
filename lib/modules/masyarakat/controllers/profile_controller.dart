@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:elingk/modules/auth/auth_service.dart';
+import 'package:elingk/modules/auth/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../auth/auth_service.dart';
-import '../../auth/login_view.dart';
 
 class ProfileController extends GetxController {
   ProfileController({AuthService? authService})
@@ -22,13 +21,15 @@ class ProfileController extends GetxController {
   }
 
   Future<void> loadProfile() async {
+    if (isSaving.value) return;
+
     isLoading.value = true;
 
     try {
       final response = await _authService.getMe();
       user.assignAll(_extractUser(response));
     } catch (error) {
-      showMessage(errorMessage(error));
+      showMessage(errorMessage(error), isError: true);
     } finally {
       isLoading.value = false;
     }
@@ -56,11 +57,11 @@ class ProfileController extends GetxController {
     return {};
   }
 
-  Future<void> saveProfile({
+  Future<bool> saveProfile({
     required String name,
     required String email,
   }) async {
-    if (isSaving.value) return;
+    if (isSaving.value) return false;
 
     isSaving.value = true;
 
@@ -87,14 +88,19 @@ class ProfileController extends GetxController {
       showMessage(
         response['message']?.toString() ?? 'Profil berhasil diperbarui.',
       );
+
+      return true;
     } catch (error) {
-      showMessage(errorMessage(error));
+      showMessage(errorMessage(error), isError: true);
+      return false;
     } finally {
       isSaving.value = false;
     }
   }
 
   Future<void> confirmLogout(BuildContext context) async {
+    if (isSaving.value) return;
+
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) {
@@ -105,11 +111,15 @@ class ProfileController extends GetxController {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(dialogContext, false),
+              onPressed: () {
+                Navigator.pop(dialogContext, false);
+              },
               child: const Text('Batal'),
             ),
             ElevatedButton(
-              onPressed: () => Navigator.pop(dialogContext, true),
+              onPressed: () {
+                Navigator.pop(dialogContext, true);
+              },
               child: const Text('Keluar'),
             ),
           ],
@@ -122,8 +132,10 @@ class ProfileController extends GetxController {
     try {
       await _authService.logout();
     } catch (_) {
-      // Tetap lanjutkan logout lokal jika API gagal.
+      // Logout lokal tetap harus dilanjutkan jika API gagal.
     }
+
+    if (Get.context == null) return;
 
     Get.offAll(() => const LoginView());
   }
@@ -158,11 +170,11 @@ class ProfileController extends GetxController {
     return 'Terjadi kesalahan. Silakan coba lagi.';
   }
 
-  void showMessage(String message) {
+  void showMessage(String message, {bool isError = false}) {
     if (Get.context == null) return;
 
     Get.snackbar(
-      '',
+      isError ? 'Perhatian' : 'Informasi',
       message,
       snackPosition: SnackPosition.BOTTOM,
       margin: const EdgeInsets.all(16),
@@ -180,6 +192,7 @@ class ProfileController extends GetxController {
 
   String get initials {
     final name = displayName.trim();
+
     if (name.isEmpty) return 'U';
 
     final parts = name.split(RegExp(r'\s+'));
