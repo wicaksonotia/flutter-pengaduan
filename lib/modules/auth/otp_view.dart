@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:elingk/app/theme/app_colors.dart';
+import 'package:elingk/core/storage/token_storage.dart';
+import 'package:elingk/modules/auth/auth_redirect_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../core/storage/token_storage.dart';
-import '../masyarakat/views/home/home_view.dart';
 import 'auth_service.dart';
 
 class OtpView extends StatefulWidget {
@@ -77,7 +77,7 @@ class _OtpViewState extends State<OtpView> {
 
       if (!mounted) return;
 
-      Get.offAll(() => const HomeView());
+      Get.offAll(() => const AuthRedirectView());
     } on DioException catch (e) {
       if (!mounted) return;
 

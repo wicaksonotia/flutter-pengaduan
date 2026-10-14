@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../core/network/api_client.dart';
 import '../../core/storage/token_storage.dart';
@@ -59,6 +60,11 @@ class AuthService {
 
   Future<Map<String, dynamic>> getMe() async {
     final response = await _dio.get('/me');
+
+    debugPrint('=== RESPONS API /me ===');
+    debugPrint(response.data.toString());
+    debugPrint('=== AKHIR RESPONS API /me ===');
+
     return _asMap(response.data);
   }
 
