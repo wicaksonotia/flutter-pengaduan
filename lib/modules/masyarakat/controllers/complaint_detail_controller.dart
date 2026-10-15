@@ -65,18 +65,4 @@ class ComplaintDetailController extends GetxController {
         .map((item) => Map<String, dynamic>.from(item))
         .toList();
   }
-
-  String imageUrl(dynamic value) {
-    final path = (value ?? '').toString().trim();
-
-    if (path.isEmpty) return '';
-
-    final uri = Uri.tryParse(path);
-
-    if (uri != null && uri.hasScheme) {
-      return path;
-    }
-
-    return Uri.parse(ApiClient.dio.options.baseUrl).resolve(path).toString();
-  }
 }

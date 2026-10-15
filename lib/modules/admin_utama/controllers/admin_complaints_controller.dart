@@ -90,8 +90,13 @@ class AdminComplaintsController extends GetxController {
     String? status,
     bool? hanyaBelumDidelegasikan,
   }) async {
-    selectedStatus.value = status ?? '';
-    belumDidelegasikan.value = hanyaBelumDidelegasikan ?? false;
+    if (status != null) {
+      selectedStatus.value = status;
+    }
+
+    if (hanyaBelumDidelegasikan != null) {
+      belumDidelegasikan.value = hanyaBelumDidelegasikan;
+    }
 
     await loadComplaints();
   }

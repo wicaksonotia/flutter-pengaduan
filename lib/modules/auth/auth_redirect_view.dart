@@ -22,7 +22,12 @@ class _AuthRedirectViewState extends State<AuthRedirectView> {
 
   Future<void> _redirect() async {
     try {
+      debugPrint('=== AUTH REDIRECT DIMULAI ===');
+
       final response = await AuthService().getMe();
+
+      debugPrint('AUTH REDIRECT: respons diterima');
+      debugPrint('AUTH REDIRECT: response = $response');
       if (!mounted) return;
 
       final role = _extractRole(response);
@@ -69,72 +74,52 @@ class _AuthRedirectViewState extends State<AuthRedirectView> {
   }
 
   String? _extractRole(Map<String, dynamic> response) {
-    dynamic data = response;
+    final data = response['data'];
+    if (data is! Map) return null;
 
-    for (var i = 0; i < 5 && data is Map; i++) {
-      final map = Map<String, dynamic>.from(data);
+    final user = data['user'];
+    if (user is! Map) return null;
 
-      final rawRoles = map['roles'];
-      final rawRole = map['role'];
+    final roles = user['roles'];
 
-      final candidates = [
-        ?rawRole,
-        if (rawRoles is List) ...rawRoles,
-        if (rawRoles != null && rawRoles is! List) rawRoles,
-      ];
+    if (roles is! List) {
+      return null;
+    }
 
-      for (final item in candidates) {
-        String? value;
+    const supportedRoles = {
+      'masyarakat',
+      'main_admin',
+      'unit_admin',
+      'field_officer',
+    };
 
-        if (item is String) {
-          value = item;
-        } else if (item is Map) {
-          value =
-              (item['kode'] ??
-                      item['slug'] ??
-                      item['name'] ??
-                      item['nama'] ??
-                      item['key'] ??
-                      '')
-                  .toString();
-        }
+    const aliases = {
+      'admin_utama': 'main_admin',
+      'admin_unit': 'unit_admin',
+      'petugas_lapangan': 'field_officer',
+    };
 
-        if (value == null) continue;
+    for (final item in roles) {
+      if (item is! Map) continue;
 
-        final normalized = value.trim().toLowerCase().replaceAll(
-          RegExp(r'[\s-]+'),
-          '_',
-        );
+      final rawCode = item['kode'] ?? item['slug'] ?? item['key'];
 
-        const aliases = {
-          'admin_utama': 'main_admin',
-          'admin_unit': 'unit_admin',
-          'petugas_lapangan': 'field_officer',
-        };
+      if (rawCode == null) continue;
 
-        final role = aliases[normalized] ?? normalized;
+      final normalized = rawCode.toString().trim().toLowerCase().replaceAll(
+        RegExp(r'[\s-]+'),
+        '_',
+      );
 
-        const supportedRoles = {
-          'masyarakat',
-          'main_admin',
-          'unit_admin',
-          'field_officer',
-        };
+      final role = aliases[normalized] ?? normalized;
 
-        if (supportedRoles.contains(role)) {
-          return role;
-        }
-      }
-
-      if (map['user'] is Map) {
-        data = map['user'];
-      } else if (map['data'] is Map) {
-        data = map['data'];
-      } else {
-        break;
+      if (supportedRoles.contains(role)) {
+        debugPrint('Role berhasil dikenali: $role');
+        return role;
       }
     }
 
+    debugPrint('Role tidak dikenali. Data roles: $roles');
     return null;
   }
 

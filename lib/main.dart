@@ -1,3 +1,4 @@
+import 'package:elingk/modules/admin_utama/views/dashboard/admin_utama_dashboard_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,87 +56,55 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   String? _extractRole(Map<String, dynamic> response) {
-    final recognizedRoles = <String>{
+    final data = response['data'];
+    if (data is! Map) return null;
+
+    final user = data['user'];
+    if (user is! Map) return null;
+
+    final roles = user['roles'];
+    if (roles is! List) return null;
+
+    const aliases = {
+      'admin_utama': 'main_admin',
+      'admin_unit': 'unit_admin',
+      'petugas_lapangan': 'field_officer',
+    };
+
+    const supportedRoles = {
       'masyarakat',
       'main_admin',
       'unit_admin',
       'field_officer',
     };
 
-    String? normalize(dynamic value) {
-      if (value is! String || value.trim().isEmpty) {
-        return null;
-      }
+    for (final item in roles) {
+      if (item is! Map) continue;
 
-      final role = value.trim().toLowerCase().replaceAll(
+      // Prioritaskan kode role dari API Laravel.
+      final rawCode = item['kode'];
+
+      if (rawCode == null) continue;
+
+      final normalized = rawCode.toString().trim().toLowerCase().replaceAll(
         RegExp(r'[\s-]+'),
         '_',
       );
 
-      const aliases = {
-        'admin_utama': 'main_admin',
-        'admin_unit': 'unit_admin',
-        'petugas_lapangan': 'field_officer',
-      };
+      final role = aliases[normalized] ?? normalized;
 
-      final normalized = aliases[role] ?? role;
+      debugPrint('AUTH GATE: kode role API = $rawCode');
+      debugPrint('AUTH GATE: role hasil normalisasi = $role');
 
-      return recognizedRoles.contains(normalized) ? normalized : null;
+      if (supportedRoles.contains(role)) {
+        return role;
+      }
     }
 
-    String? readRoleValue(dynamic value) {
-      if (value is String) {
-        return normalize(value);
-      }
+    debugPrint('AUTH GATE: tidak menemukan role yang didukung.');
+    debugPrint('AUTH GATE: data roles = $roles');
 
-      if (value is Map) {
-        final map = Map<String, dynamic>.from(value);
-
-        for (final key in ['slug', 'name', 'key', 'role']) {
-          final result = normalize(map[key]);
-          if (result != null) return result;
-        }
-
-        return null;
-      }
-
-      if (value is List) {
-        for (final item in value) {
-          final result = readRoleValue(item);
-          if (result != null) return result;
-        }
-      }
-
-      return null;
-    }
-
-    String? search(dynamic value, {int depth = 0}) {
-      if (depth > 5 || value is! Map) return null;
-
-      final map = Map<String, dynamic>.from(value);
-
-      // Role bisa berupa string, objek, atau daftar role.
-      for (final key in ['role', 'roles']) {
-        if (map.containsKey(key)) {
-          final result = readRoleValue(map[key]);
-          if (result != null) return result;
-        }
-      }
-
-      // Periksa bentuk respons API yang umum.
-      for (final key in ['user', 'data', 'result', 'profile']) {
-        final nested = map[key];
-
-        if (nested is Map) {
-          final result = search(nested, depth: depth + 1);
-          if (result != null) return result;
-        }
-      }
-
-      return null;
-    }
-
-    return search(response);
+    return null;
   }
 
   @override
@@ -164,10 +133,7 @@ class _AuthGateState extends State<AuthGate> {
             return const HomeView();
 
           case 'main_admin':
-            return const RolePlaceholderPage(
-              title: 'Admin Utama',
-              description: 'Halaman Admin Utama siap dikembangkan.',
-            );
+            return const AdminUtamaDashboardView();
 
           case 'unit_admin':
             return const RolePlaceholderPage(
