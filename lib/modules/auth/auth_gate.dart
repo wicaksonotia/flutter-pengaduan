@@ -46,6 +46,13 @@ class _AuthGateState extends State<AuthGate> {
     if (user is! Map) return null;
 
     final roles = user['roles'];
+
+    // Masyarakat tidak wajib memiliki role di database.
+    if (roles is List && roles.isEmpty) {
+      debugPrint('AUTH GATE: role kosong, diarahkan sebagai masyarakat.');
+      return 'masyarakat';
+    }
+
     if (roles is! List) return null;
 
     const aliases = {
