@@ -1,16 +1,10 @@
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/app/utils/image_url_helper.dart';
 import 'package:elingk/modules/masyarakat/bindings/complaint_detail_binding.dart';
 import 'package:elingk/modules/masyarakat/controllers/complaint_detail_controller.dart';
+import 'package:elingk/modules/masyarakat/widgets/detail/complaint_detail_content.dart';
+import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_error.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'widgets/detail/complaint_detail_header.dart';
-import 'widgets/detail/complaint_detail_history.dart';
-import 'widgets/detail/complaint_detail_information.dart';
-import 'widgets/detail/complaint_detail_location.dart';
-import 'widgets/detail/complaint_detail_photos.dart';
-import 'widgets/detail/complaint_detail_responses.dart';
 
 class ComplaintDetailView extends StatefulWidget {
   const ComplaintDetailView({super.key, required this.complaintId});
@@ -73,100 +67,27 @@ class _ComplaintDetailViewState extends State<ComplaintDetailView> {
         final error = controller.error.value;
 
         if (error != null) {
-          return _buildError(error);
+          return SharedComplaintError(
+            message: error,
+            onRetry: controller.loadDetail,
+          );
         }
 
         final data = controller.complaint.value;
 
         if (data == null) {
-          return _buildError('Data detail pengaduan tidak ditemukan.');
+          return SharedComplaintError(
+            message: 'Data detail pengaduan tidak ditemukan.',
+            onRetry: controller.loadDetail,
+          );
         }
 
-        return _buildContent(data);
+        return ComplaintDetailContent(
+          data: Map<String, dynamic>.from(data),
+          onRefresh: controller.loadDetail,
+          mapList: controller.mapList,
+        );
       }),
-    );
-  }
-
-  Widget _buildError(String message) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(28),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.cloud_off_rounded,
-              color: AppColors.textMuted,
-              size: 58,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.textMuted, height: 1.5),
-            ),
-            const SizedBox(height: 18),
-            FilledButton(
-              onPressed: controller.loadDetail,
-              child: const Text('Coba Lagi'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContent(Map<String, dynamic> data) {
-    final photos = controller.mapList(data['photos']);
-
-    final histories = controller.mapList(
-      data['status_histories'] ?? data['statusHistories'],
-    );
-
-    final responses = controller.mapList(data['responses']);
-
-    final submittedAt = data['diajukan_pada'] ?? data['created_at'];
-
-    return RefreshIndicator(
-      onRefresh: controller.loadDetail,
-      color: AppColors.blue,
-      child: ListView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(18, 18, 18, 30),
-        children: [
-          ComplaintDetailHeader(
-            nomorPengaduan: data['nomor_pengaduan'],
-            status: data['status'],
-            submittedAt: submittedAt,
-          ),
-          const SizedBox(height: 18),
-          ComplaintDetailInformation(
-            judul: data['judul'],
-            isiPengaduan: data['isi_pengaduan'],
-            category: data['category'],
-            unit: data['unit'],
-          ),
-          const SizedBox(height: 15),
-          ComplaintDetailLocation(
-            alamat: data['alamat'],
-            latitude: data['latitude'],
-            longitude: data['longitude'],
-          ),
-          if (photos.isNotEmpty) ...[
-            const SizedBox(height: 15),
-            ComplaintDetailPhotos(
-              photos: photos,
-              resolveImageUrl: ImageUrlHelper.resolve,
-            ),
-          ],
-          const SizedBox(height: 15),
-          ComplaintDetailHistory(histories: histories),
-          if (responses.isNotEmpty) ...[
-            const SizedBox(height: 15),
-            ComplaintDetailResponses(responses: responses),
-          ],
-        ],
-      ),
     );
   }
 }

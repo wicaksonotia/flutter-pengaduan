@@ -1,8 +1,7 @@
 import 'package:elingk/app/theme/app_colors.dart';
 import 'package:elingk/modules/masyarakat/views/complaints/complaint_helpers.dart';
+import 'package:elingk/modules/shared/views/complaint/complaint_detail_section.dart';
 import 'package:flutter/material.dart';
-
-import 'complaint_detail_section.dart';
 
 class ComplaintDetailResponses extends StatelessWidget {
   const ComplaintDetailResponses({super.key, required this.responses});

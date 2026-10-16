@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'widgets/form/complaint_form_header.dart';
-import 'widgets/form/complaint_location_card.dart';
-import 'widgets/form/complaint_photo_section.dart';
+import '../../widgets/form/complaint_form_header.dart';
+import '../../widgets/form/complaint_location_card.dart';
+import '../../widgets/form/complaint_photo_section.dart';
 
 class ComplaintFormView extends StatefulWidget {
   const ComplaintFormView({super.key});

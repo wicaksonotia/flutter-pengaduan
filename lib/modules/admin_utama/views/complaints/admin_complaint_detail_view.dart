@@ -2,11 +2,12 @@ import 'package:elingk/app/theme/app_colors.dart';
 import 'package:elingk/app/utils/image_url_helper.dart';
 import 'package:elingk/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
 import 'package:elingk/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_actions.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_photos.dart';
-import 'package:elingk/modules/masyarakat/views/complaints/widgets/detail/complaint_detail_header.dart';
-import 'package:elingk/modules/masyarakat/views/complaints/widgets/detail/complaint_detail_history.dart';
-import 'package:elingk/modules/masyarakat/views/complaints/widgets/detail/complaint_detail_information.dart';
-import 'package:elingk/modules/masyarakat/views/complaints/widgets/detail/complaint_detail_location.dart';
+import 'package:elingk/modules/shared/views/complaint/complaint_detail_header.dart';
+import 'package:elingk/modules/shared/views/complaint/complaint_detail_history.dart';
+import 'package:elingk/modules/shared/views/complaint/complaint_detail_information.dart';
+import 'package:elingk/modules/shared/views/complaint/complaint_detail_location.dart';
+import 'package:elingk/modules/shared/views/complaint/complaint_detail_photos.dart';
+import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_error.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,28 +65,29 @@ class _AdminComplaintDetailViewState extends State<AdminComplaintDetailView> {
           );
         }
 
-        if (controller.error.value != null && data == null) {
-          return _errorView(controller.error.value!);
-        }
-
         if (data == null) {
-          return _errorView('Data detail pengaduan tidak tersedia.');
+          return SharedComplaintError(
+            message:
+                controller.error.value ??
+                'Data detail pengaduan tidak tersedia.',
+            onRetry: controller.loadDetail,
+          );
         }
 
         final photos = controller.mapList(data['photos']);
 
-        debugPrint('=== DEBUG FOTO ADMIN ===');
-        debugPrint('Complaint ID: ${widget.complaintId}');
-        debugPrint('Data photos: ${data['photos']}');
-        debugPrint('Jumlah foto: ${photos.length}');
+        // debugPrint('=== DEBUG FOTO ADMIN ===');
+        // debugPrint('Complaint ID: ${widget.complaintId}');
+        // debugPrint('Data photos: ${data['photos']}');
+        // debugPrint('Jumlah foto: ${photos.length}');
 
-        for (final photo in photos) {
-          debugPrint('Path foto: ${photo['path']}');
-          debugPrint('URL foto API: ${photo['url']}');
-          debugPrint(
-            'URL hasil resolve: ${ImageUrlHelper.resolve(photo['url'] ?? photo['path'])}',
-          );
-        }
+        // for (final photo in photos) {
+        //   debugPrint('Path foto: ${photo['path']}');
+        //   debugPrint('URL foto API: ${photo['url']}');
+        //   debugPrint(
+        //     'URL hasil resolve: ${ImageUrlHelper.resolve(photo['url'] ?? photo['path'])}',
+        //   );
+        // }
 
         final histories = controller.mapList(
           data['status_histories'] ?? data['statusHistories'],
@@ -107,7 +109,6 @@ class _AdminComplaintDetailViewState extends State<AdminComplaintDetailView> {
                     status: data['status'],
                     submittedAt: submittedAt,
                   ),
-
                   const SizedBox(height: 16),
 
                   ComplaintDetailInformation(
@@ -116,7 +117,6 @@ class _AdminComplaintDetailViewState extends State<AdminComplaintDetailView> {
                     category: data['category'],
                     unit: data['unit'],
                   ),
-
                   const SizedBox(height: 16),
 
                   ComplaintDetailLocation(
@@ -127,21 +127,17 @@ class _AdminComplaintDetailViewState extends State<AdminComplaintDetailView> {
 
                   if (photos.isNotEmpty) ...[
                     const SizedBox(height: 16),
-
-                    AdminComplaintDetailPhotos(
+                    ComplaintDetailPhotos(
                       photos: photos,
                       resolveImageUrl: ImageUrlHelper.resolve,
                     ),
                   ],
 
                   const SizedBox(height: 16),
-
                   ComplaintDetailHistory(histories: histories),
-
                   const SizedBox(height: 20),
 
                   AdminComplaintDetailActions(controller: controller),
-
                   const SizedBox(height: 16),
                 ],
               ),
@@ -171,44 +167,6 @@ class _AdminComplaintDetailViewState extends State<AdminComplaintDetailView> {
           ],
         );
       }),
-    );
-  }
-
-  Widget _errorView(String message) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.cloud_off_outlined,
-              size: 48,
-              color: AppColors.textMuted,
-            ),
-
-            const SizedBox(height: 12),
-
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.textBody, height: 1.5),
-            ),
-
-            const SizedBox(height: 16),
-
-            FilledButton.icon(
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.blue,
-                foregroundColor: AppColors.textOnPrimary,
-              ),
-              onPressed: controller.loadDetail,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Coba Lagi'),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 
 import 'complaint_detail_view.dart';
 import 'complaint_form_view.dart';
-import 'widgets/list/complaint_list_card.dart';
-import 'widgets/list/complaint_list_header.dart';
-import 'widgets/list/complaint_list_section_heading.dart';
-import 'widgets/list/complaint_list_state_message.dart';
+import '../../widgets/list/complaint_list_card.dart';
+import '../../widgets/list/complaint_list_header.dart';
+import '../../widgets/list/complaint_list_section_heading.dart';
+import '../../widgets/list/complaint_list_state_message.dart';
 
 class ComplaintListView extends StatefulWidget {
   const ComplaintListView({super.key});
