@@ -1,3 +1,4 @@
+import 'package:elingk/modules/admin_unit/views/dashboard/admin_unit_dashboard_view.dart';
 import 'package:elingk/modules/admin_utama/views/dashboard/admin_utama_dashboard_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -136,10 +137,7 @@ class _AuthGateState extends State<AuthGate> {
             return const AdminUtamaDashboardView();
 
           case 'unit_admin':
-            return const RolePlaceholderPage(
-              title: 'Admin Unit',
-              description: 'Halaman Admin Unit siap dikembangkan.',
-            );
+            return const AdminUnitDashboardView();
 
           case 'field_officer':
             return const RolePlaceholderPage(

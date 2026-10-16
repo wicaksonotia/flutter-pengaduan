@@ -1,11 +1,11 @@
-import 'package:elingk/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:elingk/app/theme/app_colors.dart';
 
-class AdminComplaintError extends StatelessWidget {
-  const AdminComplaintError({
+class SharedComplaintError extends StatelessWidget {
+  const SharedComplaintError({
+    super.key,
     required this.message,
     required this.onRetry,
-    super.key,
   });
 
   final String message;
@@ -17,6 +17,7 @@ class AdminComplaintError extends StatelessWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(24),
       children: [
+        const SizedBox(height: 32),
         const Icon(
           Icons.cloud_off_outlined,
           size: 54,
@@ -42,13 +43,14 @@ class AdminComplaintError extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Center(
-          child: ElevatedButton(
+          child: ElevatedButton.icon(
             onPressed: onRetry,
+            icon: const Icon(Icons.refresh),
+            label: const Text('Coba lagi'),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.blue,
               foregroundColor: AppColors.white,
             ),
-            child: const Text('Coba lagi'),
           ),
         ),
       ],

@@ -1,12 +1,17 @@
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/admin_utama/controllers/admin_complaints_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class AdminComplaintSummary extends StatelessWidget {
-  const AdminComplaintSummary({required this.controller, super.key});
+class SharedComplaintSummary extends StatelessWidget {
+  const SharedComplaintSummary({
+    super.key,
+    required this.total,
+    this.title = 'Total Pengaduan',
+    this.subtitle = 'Data pengaduan masyarakat',
+  });
 
-  final AdminComplaintsController controller;
+  final int total;
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +30,18 @@ class AdminComplaintSummary extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Total Pengaduan',
-                  style: TextStyle(color: AppColors.white, fontSize: 13),
+                  title,
+                  style: const TextStyle(color: AppColors.white, fontSize: 13),
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(
-                  'Data pengaduan masyarakat',
-                  style: TextStyle(
+                  subtitle,
+                  style: const TextStyle(
                     color: AppColors.white,
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -45,14 +50,13 @@ class AdminComplaintSummary extends StatelessWidget {
               ],
             ),
           ),
-          Obx(
-            () => Text(
-              '${controller.total.value}',
-              style: const TextStyle(
-                color: AppColors.white,
-                fontSize: 32,
-                fontWeight: FontWeight.w800,
-              ),
+          const SizedBox(width: 12),
+          Text(
+            '$total',
+            style: const TextStyle(
+              color: AppColors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ],

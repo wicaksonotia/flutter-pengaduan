@@ -72,7 +72,7 @@ class _CategoryFormBottomSheetState extends State<CategoryFormBottomSheet> {
       padding: EdgeInsets.only(bottom: bottomInset),
       child: Container(
         constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.88,
+          maxHeight: MediaQuery.of(context).size.height * 0.75,
         ),
         decoration: const BoxDecoration(
           color: AppColors.surface,

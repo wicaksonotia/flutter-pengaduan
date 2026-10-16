@@ -49,14 +49,14 @@ class _UnitPickerBottomSheetState extends State<UnitPickerBottomSheet> {
       return nama.contains(query) || kode.contains(query);
     }).toList();
 
-    final keyboardInset = MediaQuery.of(context).viewInsets.bottom;
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
     final screenHeight = MediaQuery.of(context).size.height;
-    final maxSheetHeight = screenHeight * 0.88;
+    final maxSheetHeight = screenHeight * 0.75;
 
     return AnimatedPadding(
       duration: const Duration(milliseconds: 180),
       curve: Curves.easeOut,
-      padding: EdgeInsets.only(bottom: keyboardInset),
+      padding: EdgeInsets.only(bottom: bottomInset),
       child: Container(
         height: maxSheetHeight,
         decoration: const BoxDecoration(

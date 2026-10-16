@@ -3,10 +3,12 @@ import 'package:elingk/app/widgets/app_empty_state.dart';
 import 'package:elingk/app/widgets/app_header.dart';
 import 'package:elingk/modules/admin_utama/controllers/admin_complaints_controller.dart';
 import 'package:elingk/modules/admin_utama/views/complaints/admin_complaint_detail_view.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/admin_complaint_card.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/admin_complaint_error.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/admin_complaint_filters.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/admin_complaint_summary.dart';
+import 'package:elingk/modules/shared/constants/complaint_status.dart';
+import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_card.dart';
+import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_error.dart';
+import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_loading.dart';
+import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_status_filter.dart';
+import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,14 +57,15 @@ class _AdminComplaintsViewState extends State<AdminComplaintsView> {
       ),
       body: Obx(() {
         if (controller.isLoading.value && controller.complaints.isEmpty) {
-          return const Center(
-            child: CircularProgressIndicator(color: AppColors.blue),
+          return const SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: SharedComplaintLoading(),
           );
         }
 
         if (controller.errorMessage.value.isNotEmpty &&
             controller.complaints.isEmpty) {
-          return AdminComplaintError(
+          return SharedComplaintError(
             message: controller.errorMessage.value,
             onRetry: controller.refresh,
           );
@@ -75,10 +78,16 @@ class _AdminComplaintsViewState extends State<AdminComplaintsView> {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.all(16),
             children: [
-              AdminComplaintSummary(controller: controller),
+              Obx(
+                () => SharedComplaintSummary(
+                  title: 'Total Pengaduan',
+                  subtitle: 'Data pengaduan masyarakat',
+                  total: controller.total.value,
+                ),
+              ),
               const SizedBox(height: 16),
 
-              AdminComplaintFilters(controller: controller),
+              _buildFilters(),
               const SizedBox(height: 20),
 
               AppHeader(
@@ -99,36 +108,41 @@ class _AdminComplaintsViewState extends State<AdminComplaintsView> {
                 )
               else
                 ...controller.complaints.map((complaint) {
-                  return AdminComplaintCard(
-                    complaint: complaint,
-                    onTap: () async {
-                      final id = int.tryParse('${complaint['id']}');
+                  return Padding(
+                    key: ValueKey(complaint['id']),
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: SharedComplaintCard(
+                      complaint: complaint,
+                      onTap: () async {
+                        final id = int.tryParse('${complaint['id']}');
 
-                      if (id == null) {
-                        Get.snackbar(
-                          'Error',
-                          'ID pengaduan tidak valid.',
-                          snackPosition: SnackPosition.BOTTOM,
+                        if (id == null) {
+                          Get.snackbar(
+                            'Error',
+                            'ID pengaduan tidak valid.',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                          return;
+                        }
+
+                        await Get.to(
+                          () => AdminComplaintDetailView(complaintId: id),
                         );
-                        return;
-                      }
 
-                      await Get.to(
-                        () => AdminComplaintDetailView(complaintId: id),
-                      );
+                        if (!mounted) return;
 
-                      if (!mounted) return;
-
-                      await controller.refresh();
-                    },
+                        await controller.refresh();
+                      },
+                    ),
                   );
                 }),
 
               if (controller.isLoadingMore.value)
-                const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.blue),
+                const SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: SharedComplaintLoading(
+                    itemCount: 1,
+                    showSummary: false,
                   ),
                 ),
 
@@ -158,6 +172,18 @@ class _AdminComplaintsViewState extends State<AdminComplaintsView> {
           ),
         );
       }),
+    );
+  }
+
+  Widget _buildFilters() {
+    return Obx(
+      () => SharedComplaintStatusFilter(
+        selectedStatus: controller.selectedStatus.value,
+        statusOptions: ComplaintStatus.statusLabels,
+        onChanged: (status) {
+          controller.applyFilter(status: status);
+        },
+      ),
     );
   }
 }

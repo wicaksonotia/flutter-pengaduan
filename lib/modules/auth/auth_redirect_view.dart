@@ -1,3 +1,4 @@
+import 'package:elingk/modules/admin_unit/views/dashboard/admin_unit_dashboard_view.dart';
 import 'package:elingk/modules/admin_utama/views/dashboard/admin_utama_dashboard_view.dart';
 import 'package:elingk/modules/masyarakat/views/home/home_view.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +43,7 @@ class _AuthRedirectViewState extends State<AuthRedirectView> {
           break;
 
         case 'unit_admin':
-          Get.offAll(
-            () => const _RolePlaceholder(
-              title: 'Admin Unit',
-              message: 'Halaman Admin Unit siap dikembangkan.',
-            ),
-          );
+          Get.offAll(() => const AdminUnitDashboardView());
           break;
 
         case 'field_officer':

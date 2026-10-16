@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:elingk/core/network/api_client.dart';
 import 'package:elingk/modules/masyarakat/views/complaints/complaint_service.dart';
 import 'package:get/get.dart';
 

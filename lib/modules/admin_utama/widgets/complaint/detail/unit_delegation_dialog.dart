@@ -101,14 +101,15 @@ class _UnitDelegationDialogState extends State<UnitDelegationDialog> {
       return name.contains(searchQuery) || code.contains(searchQuery);
     }).toList();
 
-    final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
-    final screenHeight = MediaQuery.sizeOf(context).height;
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final maxSheetHeight = screenHeight * 0.75;
 
     return Padding(
       padding: EdgeInsets.only(bottom: bottomInset),
       child: SizedBox(
         width: double.infinity,
-        height: screenHeight * 0.82,
+        height: maxSheetHeight,
         child: Column(
           children: [
             // Handle bottom sheet
@@ -293,7 +294,7 @@ class _UnitDelegationDialogState extends State<UnitDelegationDialog> {
                           vertical: 4,
                         ),
                         itemCount: filteredUnits.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 6),
+                        separatorBuilder: (_, _) => const SizedBox(height: 6),
                         itemBuilder: (context, index) {
                           final item = filteredUnits[index];
                           final id = _idOf(item);
