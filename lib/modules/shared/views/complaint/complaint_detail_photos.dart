@@ -8,10 +8,14 @@ class ComplaintDetailPhotos extends StatelessWidget {
     super.key,
     required this.photos,
     required this.resolveImageUrl,
+    this.title = 'Foto Pengaduan',
+    this.icon = Icons.photo_library_outlined,
   });
 
   final List<Map<String, dynamic>> photos;
   final String Function(dynamic value) resolveImageUrl;
+  final String title;
+  final IconData icon;
 
   void _showImage(BuildContext context, String url) {
     if (url.isEmpty) return;
@@ -61,8 +65,8 @@ class ComplaintDetailPhotos extends StatelessWidget {
     }
 
     return ComplaintDetailSection(
-      title: 'Foto Pengaduan',
-      icon: Icons.photo_library_outlined,
+      title: title,
+      icon: icon,
       child: SizedBox(
         height: 112,
         child: ListView.separated(

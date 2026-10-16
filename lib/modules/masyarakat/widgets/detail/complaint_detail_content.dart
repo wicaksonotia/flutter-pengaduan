@@ -24,6 +24,7 @@ class ComplaintDetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final photos = mapList(data['photos']);
+    final evidencePhotos = mapList(data['evidence_photos']);
 
     final histories = mapList(
       data['status_histories'] ?? data['statusHistories'],
@@ -58,6 +59,7 @@ class ComplaintDetailContent extends StatelessWidget {
             latitude: data['latitude'],
             longitude: data['longitude'],
           ),
+
           if (photos.isNotEmpty) ...[
             const SizedBox(height: 15),
             ComplaintDetailPhotos(
@@ -65,6 +67,17 @@ class ComplaintDetailContent extends StatelessWidget {
               resolveImageUrl: ImageUrlHelper.resolve,
             ),
           ],
+
+          if (evidencePhotos.isNotEmpty) ...[
+            const SizedBox(height: 15),
+            ComplaintDetailPhotos(
+              photos: evidencePhotos,
+              resolveImageUrl: ImageUrlHelper.resolve,
+              title: 'Foto Bukti Penanganan',
+              icon: Icons.fact_check_outlined,
+            ),
+          ],
+
           const SizedBox(height: 15),
           ComplaintDetailHistory(histories: histories),
           if (responses.isNotEmpty) ...[
