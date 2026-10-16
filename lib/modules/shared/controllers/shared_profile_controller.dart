@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:elingk/modules/auth/auth_service.dart';
 import 'package:elingk/modules/auth/login_view.dart';
 
-class AdminProfileController extends GetxController {
+class SharedProfileController extends GetxController {
   final isLoggingOut = false.obs;
 
   Future<void> logout() async {

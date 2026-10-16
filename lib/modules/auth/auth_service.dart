@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:elingk/core/network/api_client.dart';
+import 'package:elingk/core/storage/token_storage.dart';
 import 'package:flutter/foundation.dart';
-
-import '../../core/network/api_client.dart';
-import '../../core/storage/token_storage.dart';
 
 class AuthService {
   final Dio _dio = ApiClient.dio;

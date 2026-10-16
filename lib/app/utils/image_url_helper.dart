@@ -8,20 +8,21 @@ class ImageUrlHelper {
 
     if (path.isEmpty) return '';
 
-    // Jika API memberikan URL lengkap, gunakan langsung.
     final uri = Uri.tryParse(path);
-    if (uri != null && uri.hasScheme) {
+    if (uri != null &&
+        (uri.scheme == 'http' || uri.scheme == 'https') &&
+        uri.host.isNotEmpty) {
       return path;
     }
 
-    // Ambil alamat server tanpa path /api.
     final baseUri = Uri.parse(ApiClient.dio.options.baseUrl);
     final serverUri = baseUri.replace(path: '', query: null, fragment: null);
 
-    // Pastikan path foto menggunakan /storage/.
-    final storagePath = path.startsWith('/storage/')
-        ? path
-        : '/storage/${path.replaceFirst(RegExp(r'^/+'), '')}';
+    final normalizedPath = path.replaceFirst(RegExp(r'^/+'), '');
+
+    final storagePath = normalizedPath.startsWith('storage/')
+        ? '/$normalizedPath'
+        : '/storage/$normalizedPath';
 
     return serverUri.resolve(storagePath).toString();
   }

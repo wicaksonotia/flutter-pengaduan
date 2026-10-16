@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/shared/controllers/admin_profile_controller.dart';
+import 'package:elingk/modules/shared/controllers/shared_profile_controller.dart';
 
-class AdminProfileView extends StatefulWidget {
+class SharedProfileView extends StatefulWidget {
   final String roleName;
   final String description;
   final IconData icon;
 
-  const AdminProfileView({
+  const SharedProfileView({
     super.key,
     required this.roleName,
     this.description = 'Pengelola layanan eLingk',
@@ -17,19 +17,19 @@ class AdminProfileView extends StatefulWidget {
   });
 
   @override
-  State<AdminProfileView> createState() => _AdminProfileViewState();
+  State<SharedProfileView> createState() => _SharedProfileViewState();
 }
 
-class _AdminProfileViewState extends State<AdminProfileView> {
-  late final AdminProfileController controller;
+class _SharedProfileViewState extends State<SharedProfileView> {
+  late final SharedProfileController controller;
 
   @override
   void initState() {
     super.initState();
 
-    controller = Get.isRegistered<AdminProfileController>()
-        ? Get.find<AdminProfileController>()
-        : Get.put(AdminProfileController());
+    controller = Get.isRegistered<SharedProfileController>()
+        ? Get.find<SharedProfileController>()
+        : Get.put(SharedProfileController());
   }
 
   @override

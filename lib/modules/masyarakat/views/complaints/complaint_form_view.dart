@@ -1,12 +1,12 @@
 import 'package:elingk/modules/masyarakat/bindings/complaint_form_binding.dart';
 import 'package:elingk/modules/masyarakat/controllers/complaint_form_controller.dart';
+import 'package:elingk/modules/masyarakat/widgets/form/complaint_form_header.dart';
+import 'package:elingk/modules/masyarakat/widgets/form/complaint_location_card.dart';
+import 'package:elingk/modules/masyarakat/widgets/form/complaint_photo_section.dart';
+import 'package:elingk/modules/shared/views/complaint/complaint_photo_source_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../widgets/form/complaint_form_header.dart';
-import '../../widgets/form/complaint_location_card.dart';
-import '../../widgets/form/complaint_photo_section.dart';
 
 class ComplaintFormView extends StatefulWidget {
   const ComplaintFormView({super.key});
@@ -79,7 +79,7 @@ class _ComplaintFormViewState extends State<ComplaintFormView> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                _PhotoSourceButton(
+                ComplaintPhotoSourceButton(
                   icon: Icons.camera_alt_outlined,
                   title: 'Ambil Foto',
                   subtitle: 'Gunakan kamera perangkat',
@@ -89,7 +89,7 @@ class _ComplaintFormViewState extends State<ComplaintFormView> {
                   },
                 ),
                 const SizedBox(height: 10),
-                _PhotoSourceButton(
+                ComplaintPhotoSourceButton(
                   icon: Icons.photo_library_outlined,
                   title: 'Pilih dari Galeri',
                   subtitle: 'Pilih foto yang sudah tersimpan',
@@ -536,73 +536,6 @@ class _ComplaintFormViewState extends State<ComplaintFormView> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(18),
       border: Border.all(color: const Color(0xFFE7ECF3)),
-    );
-  }
-}
-
-class _PhotoSourceButton extends StatelessWidget {
-  const _PhotoSourceButton({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: const Color(0xFFF7F9FC),
-      borderRadius: BorderRadius.circular(14),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Row(
-            children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFEAF2FF),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(icon, color: const Color(0xFF245BC5)),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: Color(0xFF263650),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Color(0xFF68758A),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Icon(Icons.chevron_right_rounded, color: Color(0xFF8996A9)),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

@@ -37,7 +37,7 @@ class _AdminUnitDashboardViewState extends State<AdminUnitDashboardView> {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.all(20),
             children: [
-              AdminHeader(),
+              const AdminHeader(roleCode: 'unit_admin'),
               const SizedBox(height: 26),
               const AdminWelcomeCard(),
               const SizedBox(height: 28),

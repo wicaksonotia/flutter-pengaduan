@@ -37,7 +37,7 @@ class _AdminUtamaDashboardViewState extends State<AdminUtamaDashboardView> {
               padding: const EdgeInsets.fromLTRB(22, 22, 22, 30),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  const AdminHeader(),
+                  const AdminHeader(roleCode: 'main_admin'),
                   const SizedBox(height: 30),
                   const AdminWelcomeCard(),
                   const SizedBox(height: 27),

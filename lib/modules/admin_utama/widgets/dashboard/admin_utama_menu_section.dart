@@ -2,7 +2,7 @@ import 'package:elingk/app/theme/app_colors.dart';
 import 'package:elingk/modules/admin_utama/views/categories/admin_complaint_categories_view.dart';
 import 'package:elingk/modules/admin_utama/views/complaints/admin_complaints_view.dart';
 import 'package:elingk/modules/shared/widgets/dashboard/admin_menu_tile.dart';
-import 'package:elingk/modules/shared/views/admin_profile_view.dart';
+import 'package:elingk/modules/shared/views/shared_profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -61,7 +61,7 @@ class AdminUtamaMenuSection extends StatelessWidget {
           title: 'Profil Admin',
           subtitle: 'Informasi dan pengaturan akun',
           onTap: () => Get.to(
-            () => const AdminProfileView(
+            () => const SharedProfileView(
               roleName: 'Admin Utama',
               description: 'Pengelola layanan eLingk',
             ),
