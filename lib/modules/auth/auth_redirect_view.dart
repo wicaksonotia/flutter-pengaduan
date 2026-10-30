@@ -78,7 +78,15 @@ class _AuthRedirectViewState extends State<AuthRedirectView> {
 
     final roles = user['roles'];
 
+    // Masyarakat tidak memiliki role di database.
+    // Jika roles null atau kosong, arahkan ke Home Masyarakat.
+    if (roles == null || (roles is List && roles.isEmpty)) {
+      debugPrint('Akun tanpa role: menggunakan default masyarakat');
+      return 'masyarakat';
+    }
+
     if (roles is! List) {
+      debugPrint('Format roles tidak valid: $roles');
       return null;
     }
 
