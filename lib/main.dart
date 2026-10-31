@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'app/elingk_app.dart';
+import 'app/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ELingkApp());
+  runApp(const App());
 }

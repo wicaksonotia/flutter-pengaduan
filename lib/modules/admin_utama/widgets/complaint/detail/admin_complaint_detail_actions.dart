@@ -1,6 +1,5 @@
 import 'package:elingk/app/theme/app_colors.dart';
 import 'package:elingk/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/detail/category_selection_dialog.dart';
 import 'package:elingk/modules/admin_utama/widgets/complaint/detail/complaint_rejection_dialog.dart';
 import 'package:elingk/modules/admin_utama/widgets/complaint/detail/unit_delegation_dialog.dart';
 import 'package:flutter/material.dart';
@@ -13,42 +12,6 @@ class AdminComplaintDetailActions extends StatelessWidget {
   int? _intValue(dynamic value) {
     if (value is int) return value;
     return int.tryParse(value?.toString() ?? '');
-  }
-
-  int? get _categoryId {
-    final data = controller.complaint.value;
-    return _intValue(data?['category_id'] ?? data?['category']?['id']);
-  }
-
-  Future<void> _selectCategory(BuildContext context) async {
-    try {
-      await controller.loadCategories();
-
-      if (!context.mounted) return;
-
-      if (controller.categories.isEmpty) {
-        _showMessage(context, 'Belum ada kategori yang tersedia.');
-        return;
-      }
-
-      final categoryId = await CategorySelectionDialog.show(
-        context,
-        categories: controller.categories.toList(),
-        selectedId: _categoryId,
-      );
-
-      if (categoryId == null || !context.mounted) return;
-
-      await controller.setCategory(categoryId);
-
-      if (context.mounted) {
-        _showMessage(context, 'Kategori berhasil ditentukan.');
-      }
-    } catch (e) {
-      if (context.mounted) {
-        _showMessage(context, controller.errorMessage(e), isError: true);
-      }
-    }
   }
 
   Future<void> _delegate(BuildContext context) async {
@@ -207,7 +170,7 @@ class AdminComplaintDetailActions extends StatelessWidget {
     final data = controller.complaint.value!;
     final status = data['status']?.toString() ?? '';
     final canManage = controller.canManageComplaint;
-    final categoryName = data['category'] is Map
+    data['category'] is Map
         ? (data['category']['nama'] ??
                   data['category']['name'] ??
                   'Kategori ditentukan')

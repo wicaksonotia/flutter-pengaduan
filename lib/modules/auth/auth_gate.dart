@@ -1,9 +1,7 @@
+import 'package:elingk/app/routes/app_routes.dart';
 import 'package:elingk/core/storage/token_storage.dart';
-import 'package:elingk/modules/admin_unit/views/dashboard/admin_unit_dashboard_view.dart';
-import 'package:elingk/modules/admin_utama/views/dashboard/admin_utama_dashboard_view.dart';
-import 'package:elingk/modules/field_officer/views/dashboard/field_officer_dashboard_view.dart';
-import 'package:elingk/modules/masyarakat/views/home/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'auth_service.dart';
 import 'login_view.dart';
@@ -18,6 +16,8 @@ class AuthGate extends StatefulWidget {
 
 class _AuthGateState extends State<AuthGate> {
   late final Future<_SessionResult> _session = _checkSession();
+
+  bool _navigationStarted = false;
 
   Future<_SessionResult> _checkSession() async {
     final token = await TokenStorage.getToken();
@@ -34,6 +34,7 @@ class _AuthGateState extends State<AuthGate> {
     } catch (e) {
       debugPrint('AUTH GATE: gagal memeriksa sesi: $e');
       await TokenStorage.deleteToken();
+
       return const _SessionResult.loggedOut();
     }
   }
@@ -92,6 +93,37 @@ class _AuthGateState extends State<AuthGate> {
     return null;
   }
 
+  String? _getDashboardRoute(String? role) {
+    switch (role) {
+      case 'masyarakat':
+        return AppRoutes.home;
+
+      case 'main_admin':
+        return AppRoutes.adminUtama;
+
+      case 'unit_admin':
+        return AppRoutes.adminUnit;
+
+      case 'field_officer':
+        return AppRoutes.fieldOfficer;
+
+      default:
+        return null;
+    }
+  }
+
+  void _navigateToDashboard(String route) {
+    if (_navigationStarted) return;
+
+    _navigationStarted = true;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      Get.offAllNamed(route);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<_SessionResult>(
@@ -113,27 +145,20 @@ class _AuthGateState extends State<AuthGate> {
           return const LoginView();
         }
 
-        switch (session.role) {
-          case 'masyarakat':
-            return const HomeView();
+        final route = _getDashboardRoute(session.role);
 
-          case 'main_admin':
-            return const AdminUtamaDashboardView();
-
-          case 'unit_admin':
-            return const AdminUnitDashboardView();
-
-          case 'field_officer':
-            return const FieldOfficerDashboardView();
-
-          default:
-            return const RolePlaceholderPage(
-              title: 'Role belum dikenali',
-              description:
-                  'Role akun belum ditemukan atau belum didukung. '
-                  'Periksa respons API /me.',
-            );
+        if (route == null) {
+          return const RolePlaceholderPage(
+            title: 'Role belum dikenali',
+            description:
+                'Role akun belum ditemukan atau belum didukung. '
+                'Periksa respons API /me.',
+          );
         }
+
+        _navigateToDashboard(route);
+
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
   }
