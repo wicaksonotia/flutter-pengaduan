@@ -18,46 +18,75 @@ class ComplaintDetailResponses extends StatelessWidget {
       title: 'Tanggapan Petugas',
       icon: Icons.chat_bubble_outline_rounded,
       child: Column(
-        children: responses.map((response) {
-          final message =
-              response['isi'] ?? response['pesan'] ?? response['isi_tanggapan'];
+        children: [
+          for (int i = 0; i < responses.length; i++)
+            _ResponseItem(
+              response: responses[i],
+              isLast: i == responses.length - 1,
+            ),
+        ],
+      ),
+    );
+  }
+}
 
-          return Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(13),
-            decoration: BoxDecoration(
-              color: AppColors.background,
-              borderRadius: BorderRadius.circular(13),
+class _ResponseItem extends StatelessWidget {
+  const _ResponseItem({required this.response, required this.isLast});
+
+  final Map<String, dynamic> response;
+  final bool isLast;
+
+  @override
+  Widget build(BuildContext context) {
+    final message =
+        response['isi'] ?? response['pesan'] ?? response['isi_tanggapan'];
+
+    final date = response['created_at'];
+
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: isLast ? 0 : 12),
+      padding: const EdgeInsets.all(13),
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(13),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            _displayText(message),
+            style: const TextStyle(
+              color: AppColors.textBody,
+              fontSize: 12,
+              height: 1.6,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _text(message),
-                  style: const TextStyle(
-                    color: AppColors.textBody,
-                    fontSize: 12,
-                    height: 1.6,
-                  ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              const Icon(
+                Icons.access_time_rounded,
+                size: 13,
+                color: AppColors.textMuted,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                ComplaintHelpers.formatDateTime(date),
+                style: const TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 10,
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  ComplaintHelpers.formatDateTime(response['created_at']),
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 10,
-                  ),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
-  String _text(dynamic value) {
+  String _displayText(dynamic value) {
     if (value == null || value.toString().trim().isEmpty) {
       return '-';
     }

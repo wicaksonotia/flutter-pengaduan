@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:elingk/modules/auth/auth_service.dart';
 import 'package:elingk/modules/auth/login_view.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
@@ -12,6 +12,8 @@ class ProfileController extends GetxController {
 
   final isLoading = true.obs;
   final isSaving = false.obs;
+  final isLoggingOut = false.obs;
+
   final user = <String, dynamic>{}.obs;
 
   @override
@@ -21,7 +23,7 @@ class ProfileController extends GetxController {
   }
 
   Future<void> loadProfile() async {
-    if (isSaving.value) return;
+    if (isSaving.value || isLoggingOut.value) return;
 
     isLoading.value = true;
 
@@ -61,7 +63,7 @@ class ProfileController extends GetxController {
     required String name,
     required String email,
   }) async {
-    if (isSaving.value) return false;
+    if (isSaving.value || isLoggingOut.value) return false;
 
     isSaving.value = true;
 
@@ -98,46 +100,24 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<void> confirmLogout(BuildContext context) async {
-    if (isSaving.value) return;
-
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          title: const Text('Keluar dari akun?'),
-          content: const Text(
-            'Kamu perlu login kembali untuk menggunakan layanan eLingk.',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext, false);
-              },
-              child: const Text('Batal'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(dialogContext, true);
-              },
-              child: const Text('Keluar'),
-            ),
-          ],
-        );
-      },
-    );
-
-    if (confirmed != true) return;
+  Future<void> logout() async {
+    if (isLoggingOut.value || isSaving.value) return;
 
     try {
+      isLoggingOut.value = true;
+
       await _authService.logout();
+
+      Get.offAll(() => const LoginView());
     } catch (_) {
-      // Logout lokal tetap harus dilanjutkan jika API gagal.
+      showMessage(
+        'Tidak dapat keluar dari akun. Silakan coba lagi.',
+        isError: true,
+        title: 'Logout gagal',
+      );
+    } finally {
+      isLoggingOut.value = false;
     }
-
-    if (Get.context == null) return;
-
-    Get.offAll(() => const LoginView());
   }
 
   String errorMessage(Object error) {
@@ -170,11 +150,11 @@ class ProfileController extends GetxController {
     return 'Terjadi kesalahan. Silakan coba lagi.';
   }
 
-  void showMessage(String message, {bool isError = false}) {
+  void showMessage(String message, {bool isError = false, String? title}) {
     if (Get.context == null) return;
 
     Get.snackbar(
-      isError ? 'Perhatian' : 'Informasi',
+      title ?? (isError ? 'Perhatian' : 'Informasi'),
       message,
       snackPosition: SnackPosition.BOTTOM,
       margin: const EdgeInsets.all(16),

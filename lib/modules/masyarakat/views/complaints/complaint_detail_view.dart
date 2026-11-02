@@ -44,37 +44,26 @@ class _ComplaintDetailViewState extends State<ComplaintDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-        elevation: 0,
-        title: const Text(
-          'Detail Pengaduan',
-          style: TextStyle(
-            color: AppColors.navy,
-            fontSize: 19,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-      ),
+      appBar: _buildAppBar(),
       body: Obx(() {
-        if (controller.loading.value) {
-          return const Center(
-            child: CircularProgressIndicator(color: AppColors.blue),
-          );
-        }
-
+        final data = controller.complaint.value;
+        final isLoading = controller.loading.value;
         final error = controller.error.value;
 
-        if (error != null) {
+        // Loading pertama kali, ketika data belum tersedia.
+        if (data == null && isLoading) {
+          return _buildLoading();
+        }
+
+        // Error ketika data detail belum berhasil dimuat.
+        if (data == null && error != null) {
           return SharedComplaintError(
             message: error,
             onRetry: controller.loadDetail,
           );
         }
 
-        final data = controller.complaint.value;
-
+        // Kondisi ketika data benar-benar tidak tersedia.
         if (data == null) {
           return SharedComplaintError(
             message: 'Data detail pengaduan tidak ditemukan.',
@@ -82,12 +71,50 @@ class _ComplaintDetailViewState extends State<ComplaintDetailView> {
           );
         }
 
-        return ComplaintDetailContent(
-          data: Map<String, dynamic>.from(data),
-          onRefresh: controller.loadDetail,
-          mapList: controller.mapList,
+        return Stack(
+          children: [
+            ComplaintDetailContent(
+              data: Map<String, dynamic>.from(data),
+              onRefresh: controller.loadDetail,
+              mapList: controller.mapList,
+            ),
+
+            if (isLoading)
+              const Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: LinearProgressIndicator(
+                  minHeight: 2,
+                  color: AppColors.blue,
+                  backgroundColor: AppColors.surfaceSoft,
+                ),
+              ),
+          ],
         );
       }),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      backgroundColor: AppColors.surface,
+      surfaceTintColor: AppColors.surface,
+      elevation: 0,
+      title: const Text(
+        'Detail Pengaduan',
+        style: TextStyle(
+          color: AppColors.navy,
+          fontSize: 19,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return const Center(
+      child: CircularProgressIndicator(color: AppColors.blue),
     );
   }
 }

@@ -33,8 +33,6 @@ class AdminComplaintDetailController extends GetxController {
   }
 
   Future<void> loadDetail() async {
-    if (loading.value && complaint.value != null) return;
-
     loading.value = true;
     error.value = null;
 
@@ -73,37 +71,23 @@ class AdminComplaintDetailController extends GetxController {
 
   Future<void> setCategory(int categoryId) async {
     _ensureCanManage();
-
-    actionLoading.value = true;
-
-    try {
+    await _runAction(() async {
       await _service.setCategory(
         complaintId: complaintId,
         categoryId: categoryId,
       );
-
-      await _reloadAfterAction();
-    } finally {
-      actionLoading.value = false;
-    }
+    });
   }
 
   Future<void> delegate({required int unitId, String? catatan}) async {
     _ensureCanManage();
-
-    actionLoading.value = true;
-
-    try {
+    await _runAction(() async {
       await _service.delegate(
         complaintId: complaintId,
         unitId: unitId,
         catatan: catatan,
       );
-
-      await _reloadAfterAction();
-    } finally {
-      actionLoading.value = false;
-    }
+    });
   }
 
   Future<void> reject(String catatan) async {
@@ -113,15 +97,9 @@ class AdminComplaintDetailController extends GetxController {
       throw Exception('Alasan penolakan minimal 5 karakter.');
     }
 
-    actionLoading.value = true;
-
-    try {
+    await _runAction(() async {
       await _service.reject(complaintId: complaintId, catatan: catatan);
-
-      await _reloadAfterAction();
-    } finally {
-      actionLoading.value = false;
-    }
+    });
   }
 
   Future<void> verify({required String keputusan, String? catatan}) async {
@@ -138,15 +116,22 @@ class AdminComplaintDetailController extends GetxController {
       throw Exception('Alasan penolakan hasil penanganan minimal 5 karakter.');
     }
 
-    actionLoading.value = true;
-
-    try {
+    await _runAction(() async {
       await _service.verifyComplaint(
         complaintId: complaintId,
         keputusan: keputusan,
         catatan: catatan,
       );
+    });
+  }
 
+  Future<void> _runAction(Future<void> Function() action) async {
+    if (actionLoading.value) return;
+
+    actionLoading.value = true;
+
+    try {
+      await action();
       await _reloadAfterAction();
     } finally {
       actionLoading.value = false;
@@ -155,12 +140,13 @@ class AdminComplaintDetailController extends GetxController {
 
   Future<void> _reloadAfterAction() async {
     complaint.value = await _service.getComplaintDetail(complaintId);
+    error.value = null;
   }
 
   void _ensureCanManage() {
     if (!canManageComplaint) {
       throw Exception(
-        'Tindakan hanya dapat dilakukan pada pengaduan berstatus diajukan.',
+        'Tindakan hanya dapat dilakukan pada pengaduan berstatus diajukan atau dikembalikan.',
       );
     }
   }

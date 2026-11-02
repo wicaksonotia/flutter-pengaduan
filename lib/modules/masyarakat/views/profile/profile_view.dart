@@ -26,6 +26,106 @@ class _ProfileViewState extends State<ProfileView> {
     controller = Get.find<ProfileController>();
   }
 
+  Future<void> _confirmLogout() async {
+    if (controller.isSaving.value || controller.isLoggingOut.value) return;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      barrierDismissible: true,
+      builder: (dialogContext) {
+        return Dialog(
+          backgroundColor: AppColors.surface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 68,
+                  height: 68,
+                  decoration: BoxDecoration(
+                    color: AppColors.danger.withValues(alpha: 0.10),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.logout_rounded,
+                    color: AppColors.danger,
+                    size: 32,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Keluar dari Akun?',
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Apakah kamu yakin ingin keluar dari akun eLingk? '
+                  'Kamu perlu login kembali untuk mengakses layanan.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.textSecondary,
+                    height: 1.6,
+                    fontSize: 13,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.pop(dialogContext, false);
+                        },
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.textSecondary,
+                          side: const BorderSide(color: AppColors.border),
+                          padding: const EdgeInsets.symmetric(vertical: 13),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text('Batal'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: FilledButton(
+                        onPressed: () {
+                          Navigator.pop(dialogContext, true);
+                        },
+                        style: FilledButton.styleFrom(
+                          backgroundColor: AppColors.danger,
+                          foregroundColor: AppColors.textOnPrimary,
+                          padding: const EdgeInsets.symmetric(vertical: 13),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text('Ya, Keluar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    await controller.logout();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,27 +200,45 @@ class _ProfileViewState extends State<ProfileView> {
 
                 const SizedBox(height: 22),
 
-                OutlinedButton.icon(
-                  onPressed: isSaving
-                      ? null
-                      : () => controller.confirmLogout(context),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.danger,
-                    side: BorderSide(
-                      color: AppColors.danger.withValues(alpha: 0.35),
+                Obx(() {
+                  final isLoggingOut = controller.isLoggingOut.value;
+                  final isBusy = isLoggingOut || controller.isSaving.value;
+
+                  return SizedBox(
+                    width: double.infinity,
+                    height: 54,
+                    child: OutlinedButton.icon(
+                      onPressed: isBusy ? null : _confirmLogout,
+                      icon: isLoggingOut
+                          ? const SizedBox(
+                              width: 19,
+                              height: 19,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: AppColors.danger,
+                              ),
+                            )
+                          : const Icon(Icons.logout_rounded),
+                      label: Text(
+                        isLoggingOut ? 'Sedang keluar...' : 'Keluar dari Akun',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.danger,
+                        side: BorderSide(
+                          color: AppColors.danger.withValues(alpha: 0.45),
+                        ),
+                        backgroundColor: AppColors.surface,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
                     ),
-                    backgroundColor: AppColors.surface,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  icon: const Icon(Icons.logout_rounded),
-                  label: const Text(
-                    'Keluar dari Akun',
-                    style: TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                ),
+                  );
+                }),
 
                 if (isSaving)
                   const Padding(
@@ -138,7 +256,7 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   Future<void> _editProfile(BuildContext context) async {
-    if (controller.isSaving.value) return;
+    if (controller.isSaving.value || controller.isLoggingOut.value) return;
 
     await EditProfileSheet.show(
       context,

@@ -1,5 +1,6 @@
 import 'package:elingk/app/utils/image_url_helper.dart';
 import 'package:elingk/modules/admin_unit/controllers/admin_unit_complaint_detail_controller.dart';
+import 'package:elingk/modules/admin_unit/widgets/complaint/detail/admin_unit_assignment_history.dart';
 import 'package:elingk/modules/admin_unit/widgets/complaint/detail/admin_unit_complaint_detail_actions.dart';
 import 'package:elingk/modules/shared/views/complaint/complaint_detail_header.dart';
 import 'package:elingk/modules/shared/views/complaint/complaint_detail_history.dart';
@@ -29,14 +30,11 @@ class AdminUnitComplaintDetailContent extends StatelessWidget {
       data['status_histories'] ?? data['statusHistories'],
     );
 
-    final submittedAt = data['diajukan_pada'] ?? data['created_at'];
-
     final unit = data['unit'];
     final unitId = unit is Map ? int.tryParse('${unit['id']}') : null;
     final status = '${data['status'] ?? ''}'.toLowerCase();
 
-    final assignments = controller.mapList(data['assignments']);
-    final hasActiveAssignment = assignments.any(
+    final hasActiveAssignment = controller.assignments.any(
       (assignment) => assignment['selesai_pada'] == null,
     );
 
@@ -52,8 +50,9 @@ class AdminUnitComplaintDetailContent extends StatelessWidget {
         ComplaintDetailHeader(
           nomorPengaduan: data['nomor_pengaduan'],
           status: data['status'],
-          submittedAt: submittedAt,
+          submittedAt: data['diajukan_pada'] ?? data['created_at'],
         ),
+
         const SizedBox(height: 16),
 
         ComplaintDetailInformation(
@@ -62,6 +61,7 @@ class AdminUnitComplaintDetailContent extends StatelessWidget {
           category: data['category'],
           unit: unit,
         ),
+
         const SizedBox(height: 16),
 
         ComplaintDetailLocation(
@@ -78,11 +78,19 @@ class AdminUnitComplaintDetailContent extends StatelessWidget {
           ),
         ],
 
+        // RIWAYAT PENUGASAN FIELD OFFICER
+        if (controller.assignments.isNotEmpty) ...[
+          const SizedBox(height: 24),
+          AdminUnitAssignmentHistory(controller: controller),
+        ],
+
+        // RIWAYAT STATUS PENGADUAN
         if (histories.isNotEmpty) ...[
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           ComplaintDetailHistory(histories: histories),
         ],
 
+        // TOMBOL PENUGASAN PETUGAS
         if (canAssignOfficer) ...[
           const SizedBox(height: 24),
           AdminUnitComplaintDetailActions(

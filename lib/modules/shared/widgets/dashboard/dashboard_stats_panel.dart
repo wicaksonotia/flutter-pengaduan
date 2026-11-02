@@ -71,7 +71,7 @@ class DashboardStatsPanel extends StatelessWidget {
         border: Border.all(color: AppColors.border),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow.withOpacity(0.06),
+            color: AppColors.shadow.withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, 5),
           ),
@@ -87,7 +87,7 @@ class DashboardStatsPanel extends StatelessWidget {
                 width: 46,
                 height: 46,
                 decoration: BoxDecoration(
-                  color: AppColors.navy.withOpacity(0.08),
+                  color: AppColors.navy.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: const Icon(
@@ -142,7 +142,7 @@ class DashboardStatsPanel extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.blue.withOpacity(0.08),
+                    color: AppColors.blue.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Text(

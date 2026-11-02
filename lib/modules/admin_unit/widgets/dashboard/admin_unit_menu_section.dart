@@ -1,6 +1,5 @@
 import 'package:elingk/app/routes/app_routes.dart';
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/shared/views/shared_profile_view.dart';
 import 'package:elingk/modules/shared/widgets/dashboard/dashboard_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

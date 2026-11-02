@@ -1,12 +1,6 @@
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/app/utils/image_url_helper.dart';
 import 'package:elingk/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_actions.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_header.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_history.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_information.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_location.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_photos.dart';
+import 'package:elingk/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_content.dart';
 import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_error.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -74,72 +68,14 @@ class _AdminComplaintDetailViewState extends State<AdminComplaintDetailView> {
           );
         }
 
-        final photos = controller.mapList(data['photos']);
-
-        // debugPrint('=== DEBUG FOTO ADMIN ===');
-        // debugPrint('Complaint ID: ${widget.complaintId}');
-        // debugPrint('Data photos: ${data['photos']}');
-        // debugPrint('Jumlah foto: ${photos.length}');
-
-        // for (final photo in photos) {
-        //   debugPrint('Path foto: ${photo['path']}');
-        //   debugPrint('URL foto API: ${photo['url']}');
-        //   debugPrint(
-        //     'URL hasil resolve: ${ImageUrlHelper.resolve(photo['url'] ?? photo['path'])}',
-        //   );
-        // }
-
-        final histories = controller.mapList(
-          data['status_histories'] ?? data['statusHistories'],
-        );
-
-        final submittedAt = data['diajukan_pada'] ?? data['created_at'];
-
         return Stack(
           children: [
             RefreshIndicator(
               color: AppColors.blue,
               onRefresh: controller.loadDetail,
-              child: ListView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
-                children: [
-                  ComplaintDetailHeader(
-                    nomorPengaduan: data['nomor_pengaduan'],
-                    status: data['status'],
-                    submittedAt: submittedAt,
-                  ),
-                  const SizedBox(height: 16),
-
-                  ComplaintDetailInformation(
-                    judul: data['judul'],
-                    isiPengaduan: data['isi_pengaduan'],
-                    category: data['category'],
-                    unit: data['unit'],
-                  ),
-                  const SizedBox(height: 16),
-
-                  ComplaintDetailLocation(
-                    alamat: data['alamat'],
-                    latitude: data['latitude'],
-                    longitude: data['longitude'],
-                  ),
-
-                  if (photos.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    ComplaintDetailPhotos(
-                      photos: photos,
-                      resolveImageUrl: ImageUrlHelper.resolve,
-                    ),
-                  ],
-
-                  const SizedBox(height: 16),
-                  ComplaintDetailHistory(histories: histories),
-                  const SizedBox(height: 20),
-
-                  AdminComplaintDetailActions(controller: controller),
-                  const SizedBox(height: 16),
-                ],
+              child: AdminComplaintDetailContent(
+                data: data,
+                controller: controller,
               ),
             ),
 
@@ -156,10 +92,10 @@ class _AdminComplaintDetailViewState extends State<AdminComplaintDetailView> {
               ),
 
             if (controller.actionLoading.value)
-              Positioned.fill(
+              const Positioned.fill(
                 child: ColoredBox(
                   color: AppColors.shadow,
-                  child: const Center(
+                  child: Center(
                     child: CircularProgressIndicator(color: AppColors.blue),
                   ),
                 ),
