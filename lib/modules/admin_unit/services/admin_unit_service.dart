@@ -149,4 +149,20 @@ class AdminUnitService {
 
     return [];
   }
+
+  /// Mengambil statistik dan pengaduan terbaru untuk dashboard Admin Unit.
+  Future<Map<String, dynamic>> getDashboard() async {
+    final response = await _dio.get('/unit/dashboard');
+    final result = _asMap(response.data);
+
+    if (result['status'] == 'error') {
+      throw Exception(result['message'] ?? 'Gagal mengambil data dashboard.');
+    }
+
+    if (result['data'] is! Map) {
+      throw Exception('Format data dashboard tidak valid.');
+    }
+
+    return Map<String, dynamic>.from(result['data'] as Map);
+  }
 }

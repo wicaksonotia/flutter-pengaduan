@@ -70,4 +70,15 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color teal = Color(0xFF18B6A4);
+
+  // ==========================================
+  // DASHBOARD ACCENT COLORS
+  // ==========================================
+
+  static const Color purple = Color(0xFF8B5CF6);
+  static const Color pink = Color(0xFFEC4899);
+  static const Color orange = Color(0xFFF97316);
+  static const Color cyan = Color(0xFF06B6D4);
+  static const Color indigo = Color(0xFF6366F1);
+  static const Color green = Color(0xFF16A34A);
 }

@@ -8,12 +8,7 @@ class AdminUnitController extends GetxController {
   }
 
   void openComplaints() {
-    // Akan dihubungkan dengan modul pengaduan Admin Unit.
-    Get.snackbar(
-      'Pengelolaan Pengaduan',
-      'Modul ini akan dikembangkan pada tahap berikutnya.',
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    Get.toNamed(AppRoutes.adminUnitComplaints);
   }
 
   void openBerita() {

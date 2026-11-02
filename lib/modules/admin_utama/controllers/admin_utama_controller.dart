@@ -1,18 +1,20 @@
 import 'package:get/get.dart';
+import 'package:elingk/app/routes/app_routes.dart';
 
 class AdminUtamaController extends GetxController {
-  final isLoading = false.obs;
-  final errorMessage = ''.obs;
+  void openDashboard() {
+    Get.offAllNamed(AppRoutes.adminUtama);
+  }
 
-  // Statistik akan diisi dari API Laravel pada tahap berikutnya.
-  final totalPengaduan = 0.obs;
-  final pengaduanBaru = 0.obs;
-  final pengaduanDiproses = 0.obs;
-  final menungguPersetujuan = 0.obs;
+  void openComplaints() {
+    Get.toNamed(AppRoutes.adminUtamaComplaints);
+  }
 
-  void openDashboard() {}
-  void openComplaints() {}
-  void openOrganization() {}
-  void openUsers() {}
-  void openProfile() {}
+  void openBerita() {
+    Get.toNamed(AppRoutes.adminUtamaBerita);
+  }
+
+  void openProfile() {
+    // Profil menggunakan SharedProfileView dari menu.
+  }
 }
