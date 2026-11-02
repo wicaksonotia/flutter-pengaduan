@@ -1,5 +1,6 @@
 import 'package:elingk/modules/masyarakat/controllers/home_controller.dart';
 import 'package:elingk/modules/masyarakat/controllers/news_controller.dart';
+import 'package:elingk/modules/masyarakat/controllers/masyarakat_dashboard_controller.dart';
 import 'package:get/get.dart';
 
 class HomeBinding extends Bindings {
@@ -11,6 +12,12 @@ class HomeBinding extends Bindings {
 
     if (!Get.isRegistered<NewsController>()) {
       Get.lazyPut<NewsController>(() => NewsController());
+    }
+
+    if (!Get.isRegistered<MasyarakatDashboardController>()) {
+      Get.lazyPut<MasyarakatDashboardController>(
+        () => MasyarakatDashboardController(),
+      );
     }
   }
 }

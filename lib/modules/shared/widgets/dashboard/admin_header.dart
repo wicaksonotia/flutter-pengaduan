@@ -40,6 +40,16 @@ class AdminHeader extends StatelessWidget {
           'greeting': 'Dashboard Petugas',
         };
 
+      case 'masyarakat':
+      case 'user':
+        return {
+          'title': 'Masyarakat',
+          'roleName': 'Masyarakat',
+          'description': 'Layanan Pengaduan Masyarakat',
+          'icon': Icons.people_alt_rounded,
+          'greeting': 'Layanan Pengaduan eLingk',
+        };
+
       default:
         return {
           'title': 'Pengguna eLingk',
@@ -191,8 +201,12 @@ class AdminHeader extends StatelessWidget {
               ),
               const SizedBox(height: 7),
               Text(
-                'Kelola layanan dan pantau pengaduan masyarakat '
-                'melalui satu dashboard.',
+                roleCode.toLowerCase() == 'masyarakat' ||
+                        roleCode.toLowerCase() == 'user'
+                    ? 'Sampaikan pengaduan dan pantau perkembangan '
+                          'laporan Anda melalui eLingk.'
+                    : 'Kelola layanan dan pantau pengaduan masyarakat '
+                          'melalui satu dashboard.',
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12,
