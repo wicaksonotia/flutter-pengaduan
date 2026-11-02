@@ -92,6 +92,26 @@ class AdminComplaintsService {
     );
   }
 
+  Future<Map<String, dynamic>> verifyComplaint({
+    required int complaintId,
+    required String keputusan,
+    String? catatan,
+  }) async {
+    final response = await _dio.post(
+      '/admin/complaints/$complaintId/verify',
+      data: {
+        'keputusan': keputusan,
+        if (catatan != null && catatan.trim().isNotEmpty)
+          'catatan': catatan.trim(),
+      },
+    );
+
+    return _validateActionResponse(
+      response.data,
+      fallbackMessage: 'Gagal memproses verifikasi pengaduan.',
+    );
+  }
+
   Map<String, dynamic> _validateActionResponse(
     dynamic value, {
     required String fallbackMessage,

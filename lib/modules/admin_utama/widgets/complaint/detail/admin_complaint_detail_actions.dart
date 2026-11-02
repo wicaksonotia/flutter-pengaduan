@@ -15,15 +15,6 @@ class AdminComplaintDetailActions extends StatelessWidget {
   }
 
   Future<void> _delegate(BuildContext context) async {
-    // if (_categoryId == null) {
-    //   _showMessage(
-    //     context,
-    //     'Tentukan kategori terlebih dahulu sebelum delegasi.',
-    //     isError: true,
-    //   );
-    //   return;
-    // }
-
     try {
       await controller.loadUnits();
 
@@ -64,6 +55,7 @@ class AdminComplaintDetailActions extends StatelessWidget {
     }
   }
 
+  // Penolakan pengaduan pada pemeriksaan awal.
   Future<void> _reject(BuildContext context) async {
     final reason = await ComplaintRejectionDialog.show(context);
 
@@ -117,6 +109,125 @@ class AdminComplaintDetailActions extends StatelessWidget {
     }
   }
 
+  // Persetujuan hasil penanganan Admin Unit.
+  Future<void> _approveVerification(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.surface,
+        title: const Row(
+          children: [
+            Icon(Icons.verified_outlined, color: AppColors.success),
+            SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                'Setujui Hasil Penanganan',
+                style: TextStyle(color: AppColors.textPrimary),
+              ),
+            ),
+          ],
+        ),
+        content: const Text(
+          'Apakah kamu yakin hasil penanganan pengaduan ini sudah sesuai? '
+          'Jika disetujui, pengaduan akan dinyatakan selesai dan ditutup.',
+          style: TextStyle(color: AppColors.textSecondary, height: 1.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text(
+              'Periksa Kembali',
+              style: TextStyle(color: AppColors.textSecondary),
+            ),
+          ),
+          FilledButton.icon(
+            style: FilledButton.styleFrom(
+              backgroundColor: AppColors.success,
+              foregroundColor: AppColors.textOnPrimary,
+            ),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            icon: const Icon(Icons.check_circle_outline),
+            label: const Text('Ya, Setujui'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    try {
+      await controller.verify(keputusan: 'disetujui');
+
+      if (context.mounted) {
+        _showMessage(
+          context,
+          'Hasil penanganan disetujui. Pengaduan telah ditutup.',
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        _showMessage(context, controller.errorMessage(e), isError: true);
+      }
+    }
+  }
+
+  // Penolakan hasil penanganan Admin Unit.
+  Future<void> _rejectVerification(BuildContext context) async {
+    final reason = await ComplaintRejectionDialog.show(context);
+
+    if (reason == null || !context.mounted) return;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.surface,
+        title: const Text(
+          'Konfirmasi Pengembalian',
+          style: TextStyle(color: AppColors.textPrimary),
+        ),
+        content: const Text(
+          'Hasil penanganan akan ditolak. Pengaduan akan dikembalikan '
+          'ke Admin Unit untuk ditindaklanjuti kembali.',
+          style: TextStyle(color: AppColors.textSecondary, height: 1.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text(
+              'Kembali',
+              style: TextStyle(color: AppColors.textSecondary),
+            ),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: AppColors.danger,
+              foregroundColor: AppColors.textOnPrimary,
+            ),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Ya, Kembalikan'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    try {
+      await controller.verify(keputusan: 'ditolak', catatan: reason);
+
+      if (context.mounted) {
+        _showMessage(
+          context,
+          'Hasil penanganan ditolak dan dikembalikan ke Admin Unit.',
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        _showMessage(context, controller.errorMessage(e), isError: true);
+      }
+    }
+  }
+
   void _showMessage(
     BuildContext context,
     String message, {
@@ -139,15 +250,22 @@ class AdminComplaintDetailActions extends StatelessWidget {
     required VoidCallback? onPressed,
     bool outlined = false,
     bool danger = false,
+    bool success = false,
   }) {
+    final color = danger
+        ? AppColors.danger
+        : success
+        ? AppColors.success
+        : AppColors.blue;
+
     if (outlined) {
       return OutlinedButton.icon(
         onPressed: onPressed,
         icon: Icon(icon),
         label: Text(label),
         style: OutlinedButton.styleFrom(
-          foregroundColor: danger ? AppColors.danger : AppColors.blue,
-          side: BorderSide(color: danger ? AppColors.danger : AppColors.border),
+          foregroundColor: color,
+          side: BorderSide(color: color),
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
         ),
       );
@@ -158,7 +276,7 @@ class AdminComplaintDetailActions extends StatelessWidget {
       icon: Icon(icon),
       label: Text(label),
       style: FilledButton.styleFrom(
-        backgroundColor: AppColors.blue,
+        backgroundColor: color,
         foregroundColor: AppColors.textOnPrimary,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
       ),
@@ -169,13 +287,10 @@ class AdminComplaintDetailActions extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = controller.complaint.value!;
     final status = data['status']?.toString() ?? '';
+
     final canManage = controller.canManageComplaint;
-    data['category'] is Map
-        ? (data['category']['nama'] ??
-                  data['category']['name'] ??
-                  'Kategori ditentukan')
-              .toString()
-        : 'Belum ditentukan';
+    final canVerify = controller.canVerifyComplaint;
+    final isLoading = controller.actionLoading.value;
 
     final unitName = data['unit'] is Map
         ? (data['unit']['nama'] ?? data['unit']['name'] ?? 'Unit ditentukan')
@@ -208,36 +323,25 @@ class AdminComplaintDetailActions extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          const Text(
-            'Tinjau kategori dan tentukan unit yang menangani pengaduan.',
-            style: TextStyle(color: AppColors.textSecondary, height: 1.5),
+          Text(
+            canVerify
+                ? 'Periksa hasil penanganan dari Admin Unit sebelum menyelesaikan pengaduan.'
+                : 'Tinjau pengaduan dan tentukan tindakan yang diperlukan.',
+            style: const TextStyle(color: AppColors.textSecondary, height: 1.5),
           ),
           const SizedBox(height: 16),
-          // _InfoRow(label: 'Kategori', value: categoryName),
-          // const SizedBox(height: 10),
+
           _InfoRow(label: 'Unit tujuan', value: unitName),
+
           const SizedBox(height: 16),
+
           if (canManage) ...[
-            // SizedBox(
-            //   width: double.infinity,
-            //   child: _actionButton(
-            //     label: 'Tentukan Kategori',
-            //     icon: Icons.category_outlined,
-            //     outlined: true,
-            //     onPressed: controller.actionLoading.value
-            //         ? null
-            //         : () => _selectCategory(context),
-            //   ),
-            // ),
-            // const SizedBox(height: 10),
             SizedBox(
               width: double.infinity,
               child: _actionButton(
                 label: 'Delegasikan ke Unit',
                 icon: Icons.assignment_turned_in_outlined,
-                onPressed: controller.actionLoading.value
-                    ? null
-                    : () => _delegate(context),
+                onPressed: isLoading ? null : () => _delegate(context),
               ),
             ),
             const SizedBox(height: 10),
@@ -248,12 +352,62 @@ class AdminComplaintDetailActions extends StatelessWidget {
                 icon: Icons.block_outlined,
                 outlined: true,
                 danger: true,
-                onPressed: controller.actionLoading.value
-                    ? null
-                    : () => _reject(context),
+                onPressed: isLoading ? null : () => _reject(context),
               ),
             ),
-          ] else
+          ] else if (canVerify) ...[
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.surfaceSoft,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.fact_check_outlined, color: AppColors.blue),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Pengaduan menunggu keputusan verifikasi Admin Utama. '
+                      'Pastikan hasil penanganan dan bukti pendukung sudah diperiksa.',
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 14),
+            SizedBox(
+              width: double.infinity,
+              child: _actionButton(
+                label: 'Setujui Hasil Penanganan',
+                icon: Icons.check_circle_outline,
+                success: true,
+                onPressed: isLoading
+                    ? null
+                    : () => _approveVerification(context),
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: _actionButton(
+                label: 'Tolak Hasil Penanganan',
+                icon: Icons.assignment_return_outlined,
+                outlined: true,
+                danger: true,
+                onPressed: isLoading
+                    ? null
+                    : () => _rejectVerification(context),
+              ),
+            ),
+          ] else ...[
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(12),
@@ -262,13 +416,29 @@ class AdminComplaintDetailActions extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                'Tidak ada tindakan pemeriksaan awal untuk status "$status".',
+                'Tidak ada tindakan yang tersedia untuk status "$status".',
                 style: const TextStyle(
                   color: AppColors.textSecondary,
                   height: 1.5,
                 ),
               ),
             ),
+          ],
+
+          if (isLoading) ...[
+            const SizedBox(height: 14),
+            const LinearProgressIndicator(
+              minHeight: 3,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            const SizedBox(height: 6),
+            const Center(
+              child: Text(
+                'Sedang memproses tindakan...',
+                style: TextStyle(color: AppColors.textMuted, fontSize: 12),
+              ),
+            ),
+          ],
         ],
       ),
     );

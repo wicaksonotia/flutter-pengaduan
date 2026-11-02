@@ -24,6 +24,8 @@ class AdminComplaintDetailController extends GetxController {
   bool get canManageComplaint =>
       status == 'diajukan' || status == 'dikembalikan';
 
+  bool get canVerifyComplaint => status == 'menunggu_verifikasi';
+
   @override
   void onInit() {
     super.onInit();
@@ -115,6 +117,35 @@ class AdminComplaintDetailController extends GetxController {
 
     try {
       await _service.reject(complaintId: complaintId, catatan: catatan);
+
+      await _reloadAfterAction();
+    } finally {
+      actionLoading.value = false;
+    }
+  }
+
+  Future<void> verify({required String keputusan, String? catatan}) async {
+    if (!canVerifyComplaint) {
+      throw Exception('Pengaduan ini tidak sedang menunggu verifikasi.');
+    }
+
+    if (!['disetujui', 'ditolak'].contains(keputusan)) {
+      throw Exception('Keputusan verifikasi tidak valid.');
+    }
+
+    if (keputusan == 'ditolak' &&
+        (catatan == null || catatan.trim().length < 5)) {
+      throw Exception('Alasan penolakan hasil penanganan minimal 5 karakter.');
+    }
+
+    actionLoading.value = true;
+
+    try {
+      await _service.verifyComplaint(
+        complaintId: complaintId,
+        keputusan: keputusan,
+        catatan: catatan,
+      );
 
       await _reloadAfterAction();
     } finally {
