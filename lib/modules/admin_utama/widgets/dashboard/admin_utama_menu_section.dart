@@ -99,12 +99,7 @@ class AdminUtamaMenuSection extends StatelessWidget {
               subtitle: 'Akun saya',
               color: AppColors.indigo,
               compact: true,
-              onTap: () => Get.to(
-                () => const SharedProfileView(
-                  roleName: 'Admin Utama',
-                  description: 'Pengelola layanan eLingk',
-                ),
-              ),
+              onTap: () => Get.toNamed(AppRoutes.adminUtamaProfile),
             ),
           ],
         ),

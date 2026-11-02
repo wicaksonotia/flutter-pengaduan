@@ -1,6 +1,4 @@
-import 'package:elingk/modules/admin_unit/views/dashboard/admin_unit_dashboard_view.dart';
-import 'package:elingk/modules/admin_utama/views/dashboard/admin_utama_dashboard_view.dart';
-import 'package:elingk/modules/masyarakat/views/home/home_view.dart';
+import 'package:elingk/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,30 +27,28 @@ class _AuthRedirectViewState extends State<AuthRedirectView> {
 
       debugPrint('AUTH REDIRECT: respons diterima');
       debugPrint('AUTH REDIRECT: response = $response');
+
       if (!mounted) return;
 
       final role = _extractRole(response);
 
+      debugPrint('AUTH REDIRECT: role = $role');
+
       switch (role) {
         case 'masyarakat':
-          Get.offAll(() => const HomeView());
+          Get.offAllNamed(AppRoutes.home);
           break;
 
         case 'main_admin':
-          Get.offAll(() => const AdminUtamaDashboardView());
+          Get.offAllNamed(AppRoutes.adminUtama);
           break;
 
         case 'unit_admin':
-          Get.offAll(() => const AdminUnitDashboardView());
+          Get.offAllNamed(AppRoutes.adminUnit);
           break;
 
         case 'field_officer':
-          Get.offAll(
-            () => const _RolePlaceholder(
-              title: 'Petugas Lapangan',
-              message: 'Halaman Petugas Lapangan siap dikembangkan.',
-            ),
-          );
+          Get.offAllNamed(AppRoutes.fieldOfficer);
           break;
 
         default:
@@ -64,16 +60,24 @@ class _AuthRedirectViewState extends State<AuthRedirectView> {
             ),
           );
       }
-    } catch (_) {
+    } catch (e, stackTrace) {
+      debugPrint('=== AUTH REDIRECT ERROR ===');
+      debugPrint(e.toString());
+      debugPrint(stackTrace.toString());
+
+      if (!mounted) return;
+
       Get.offAll(() => const LoginView());
     }
   }
 
   String? _extractRole(Map<String, dynamic> response) {
     final data = response['data'];
+
     if (data is! Map) return null;
 
     final user = data['user'];
+
     if (user is! Map) return null;
 
     final roles = user['roles'];
@@ -124,6 +128,7 @@ class _AuthRedirectViewState extends State<AuthRedirectView> {
     }
 
     debugPrint('Role tidak dikenali. Data roles: $roles');
+
     return null;
   }
 

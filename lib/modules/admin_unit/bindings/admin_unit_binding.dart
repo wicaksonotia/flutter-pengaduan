@@ -5,10 +5,14 @@ import 'package:get/get.dart';
 class AdminUnitBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AdminUnitController>(() => AdminUnitController());
+    if (!Get.isRegistered<AdminUnitController>()) {
+      Get.lazyPut<AdminUnitController>(() => AdminUnitController());
+    }
 
-    Get.lazyPut<AdminUnitDashboardController>(
-      () => AdminUnitDashboardController(),
-    );
+    if (!Get.isRegistered<AdminUnitDashboardController>()) {
+      Get.lazyPut<AdminUnitDashboardController>(
+        () => AdminUnitDashboardController(),
+      );
+    }
   }
 }

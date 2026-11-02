@@ -8,6 +8,7 @@ import 'package:elingk/modules/admin_utama/bindings/admin_utama_binding.dart';
 import 'package:elingk/modules/admin_utama/bindings/admin_utama_complaints_binding.dart';
 import 'package:elingk/modules/admin_utama/views/berita/admin_utama_berita_view.dart';
 import 'package:elingk/modules/admin_utama/views/complaints/admin_complaints_view.dart';
+import 'package:elingk/modules/shared/views/shared_profile_view.dart';
 import 'package:get/get.dart';
 
 // Routes
@@ -76,6 +77,14 @@ class AppPages {
       binding: AdminUtamaComplaintsBinding(),
     ),
 
+    GetPage(
+      name: AppRoutes.adminUtamaProfile,
+      page: () => const SharedProfileView(
+        roleName: 'Admin Utama',
+        description: 'Pengelola layanan eLingk',
+      ),
+    ),
+
     // ==========================================
     // ADMIN UNIT
     // ==========================================
@@ -95,6 +104,14 @@ class AppPages {
       name: AppRoutes.adminUnitComplaints,
       page: () => const AdminUnitComplaintsView(),
       binding: AdminUnitComplaintsBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.adminUnitProfile,
+      page: () => const SharedProfileView(
+        roleName: 'Admin Unit',
+        description: 'Pengelola layanan eLingk',
+      ),
     ),
 
     // ==========================================

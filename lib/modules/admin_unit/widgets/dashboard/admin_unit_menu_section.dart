@@ -73,14 +73,7 @@ class AdminUnitMenuSection extends StatelessWidget {
               title: 'Profil Admin',
               subtitle: 'Informasi akun',
               color: AppColors.navy,
-              onTap: () {
-                Get.to(
-                  () => const SharedProfileView(
-                    roleName: 'Admin Unit',
-                    description: 'Pengelola layanan unit kerja',
-                  ),
-                );
-              },
+              onTap: () => Get.toNamed(AppRoutes.adminUnitProfile),
             ),
           ],
         ),
