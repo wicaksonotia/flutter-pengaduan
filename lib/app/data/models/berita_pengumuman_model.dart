@@ -16,6 +16,8 @@ class BeritaPengumumanModel {
   final DateTime? updatedAt;
   final DateTime? deletedAt;
   final InstansiBeritaModel? instansi;
+  final bool canEdit;
+  final bool canDelete;
 
   BeritaPengumumanModel({
     required this.id,
@@ -35,6 +37,8 @@ class BeritaPengumumanModel {
     this.updatedAt,
     this.deletedAt,
     this.instansi,
+    this.canEdit = false,
+    this.canDelete = false,
   });
 
   factory BeritaPengumumanModel.fromJson(Map<String, dynamic> json) {
@@ -60,6 +64,8 @@ class BeritaPengumumanModel {
               json['instansi'] as Map<String, dynamic>,
             )
           : null,
+      canEdit: json['can_edit'] == true,
+      canDelete: json['can_delete'] == true,
     );
   }
 

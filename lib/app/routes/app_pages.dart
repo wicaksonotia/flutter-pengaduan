@@ -1,3 +1,8 @@
+import 'package:elingk/modules/admin_unit/bindings/admin_unit_berita_binding.dart';
+import 'package:elingk/modules/admin_unit/bindings/admin_unit_binding.dart';
+import 'package:elingk/modules/admin_unit/views/berita/admin_unit_berita_view.dart';
+import 'package:elingk/modules/admin_utama/bindings/admin_utama_berita_binding.dart';
+import 'package:elingk/modules/admin_utama/views/berita/admin_utama_berita_view.dart';
 import 'package:get/get.dart';
 
 // Routes
@@ -9,8 +14,8 @@ import 'package:elingk/modules/masyarakat/bindings/news_binding.dart';
 import 'package:elingk/modules/masyarakat/bindings/news_detail_binding.dart';
 
 import 'package:elingk/modules/masyarakat/views/home/home_view.dart';
-import 'package:elingk/modules/masyarakat/views/news/news_list_view.dart';
-import 'package:elingk/modules/masyarakat/views/news/news_detail_view.dart';
+import 'package:elingk/modules/masyarakat/views/berita/masyarakat_berita_list_view.dart';
+import 'package:elingk/modules/masyarakat/views/berita/masyarakat_berita_detail_view.dart';
 
 // Admin
 import 'package:elingk/modules/admin_utama/views/dashboard/admin_utama_dashboard_view.dart';
@@ -53,12 +58,25 @@ class AppPages {
       page: () => const AdminUtamaDashboardView(),
     ),
 
+    GetPage(
+      name: AppRoutes.adminUtamaBerita,
+      page: () => const AdminUtamaBeritaView(),
+      binding: AdminUtamaBeritaBinding(),
+    ),
+
     // ==========================================
     // ADMIN UNIT
     // ==========================================
     GetPage(
       name: AppRoutes.adminUnit,
       page: () => const AdminUnitDashboardView(),
+      binding: AdminUnitBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.adminUnitBerita,
+      page: () => const AdminUnitBeritaView(),
+      binding: AdminUnitBeritaBinding(),
     ),
 
     // ==========================================

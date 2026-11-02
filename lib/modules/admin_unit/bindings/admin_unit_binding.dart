@@ -1,3 +1,4 @@
+import 'package:elingk/modules/admin_unit/controllers/admin_unit_controller.dart';
 import 'package:get/get.dart';
 import 'package:elingk/modules/admin_unit/controllers/admin_unit_complaints_controller.dart';
 
@@ -7,5 +8,6 @@ class AdminUnitBinding extends Bindings {
     if (!Get.isRegistered<AdminUnitComplaintsController>()) {
       Get.put<AdminUnitComplaintsController>(AdminUnitComplaintsController());
     }
+    Get.lazyPut<AdminUnitController>(() => AdminUnitController());
   }
 }

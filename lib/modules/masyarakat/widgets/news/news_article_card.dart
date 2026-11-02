@@ -1,6 +1,6 @@
 import 'package:elingk/app/data/models/berita_pengumuman_model.dart';
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/masyarakat/utils/news_helper.dart';
+import 'package:elingk/app/utils/news_helper.dart';
 import 'package:elingk/modules/masyarakat/widgets/news/news_category_badge.dart';
 import 'package:elingk/modules/masyarakat/widgets/news/news_image.dart';
 import 'package:flutter/material.dart';

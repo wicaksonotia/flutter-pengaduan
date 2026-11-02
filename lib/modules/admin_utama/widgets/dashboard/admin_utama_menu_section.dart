@@ -1,3 +1,4 @@
+import 'package:elingk/app/routes/app_routes.dart';
 import 'package:elingk/app/theme/app_colors.dart';
 import 'package:elingk/modules/admin_utama/views/categories/admin_complaint_categories_view.dart';
 import 'package:elingk/modules/admin_utama/views/complaints/admin_complaints_view.dart';
@@ -55,6 +56,12 @@ class AdminUtamaMenuSection extends StatelessWidget {
           title: 'Kategori Pengaduan',
           subtitle: 'Kelola kategori dan klasifikasi pengaduan',
           onTap: () => Get.to(() => AdminComplaintCategoriesView()),
+        ),
+        AdminMenuTile(
+          icon: Icons.article_outlined,
+          title: 'Berita & Pengumuman',
+          subtitle: 'Kelola informasi dan publikasi instansi',
+          onTap: () => Get.toNamed(AppRoutes.adminUtamaBerita),
         ),
         AdminMenuTile(
           icon: Icons.person_outline_rounded,

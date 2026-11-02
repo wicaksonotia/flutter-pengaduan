@@ -8,9 +8,6 @@ class AdminUnitBeritaController extends GetxController {
 
   final RxList<BeritaPengumumanModel> articles = <BeritaPengumumanModel>[].obs;
 
-  final Rxn<BeritaPengumumanModel> selectedArticle =
-      Rxn<BeritaPengumumanModel>();
-
   final RxBool isLoading = false.obs;
   final RxBool isLoadingMore = false.obs;
   final RxBool isSaving = false.obs;
@@ -20,11 +17,13 @@ class AdminUnitBeritaController extends GetxController {
   final RxString selectedJenis = 'semua'.obs;
   final RxString searchQuery = ''.obs;
 
-  final searchController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
 
   final RxInt currentPage = 1.obs;
   final RxInt lastPage = 1.obs;
   final RxInt total = 0.obs;
+
+  int _requestVersion = 0;
 
   bool get hasNextPage => currentPage.value < lastPage.value;
 
@@ -42,15 +41,19 @@ class AdminUnitBeritaController extends GetxController {
     super.onClose();
   }
 
-  // =======================================================
-  // DAFTAR ARTIKEL
-  // =======================================================
+  String _message(Object error) {
+    return error.toString().replaceFirst('Exception: ', '');
+  }
 
   Future<void> fetchArticles({bool refresh = false}) async {
-    if (isLoading.value) return;
+    final requestVersion = ++_requestVersion;
 
     isLoading.value = true;
     errorMessage.value = '';
+
+    if (refresh) {
+      currentPage.value = 1;
+    }
 
     try {
       final result = await _service.getAdminList(
@@ -60,26 +63,25 @@ class AdminUnitBeritaController extends GetxController {
         page: 1,
       );
 
-      articles.assignAll(result.data.data);
+      // Abaikan respons lama jika filter/search sudah berubah.
+      if (requestVersion != _requestVersion) return;
 
+      articles.assignAll(result.data.data);
       currentPage.value = result.data.currentPage;
       lastPage.value = result.data.lastPage;
       total.value = result.data.total;
     } catch (e) {
+      if (requestVersion != _requestVersion) return;
       errorMessage.value = _message(e);
     } finally {
-      isLoading.value = false;
+      if (requestVersion == _requestVersion) {
+        isLoading.value = false;
+      }
     }
   }
 
-  // =======================================================
-  // LOAD MORE
-  // =======================================================
-
   Future<void> loadMore() async {
-    if (!hasNextPage || isLoadingMore.value || isLoading.value) {
-      return;
-    }
+    if (!hasNextPage || isLoadingMore.value || isLoading.value) return;
 
     isLoadingMore.value = true;
 
@@ -92,20 +94,19 @@ class AdminUnitBeritaController extends GetxController {
       );
 
       articles.addAll(result.data.data);
-
       currentPage.value = result.data.currentPage;
       lastPage.value = result.data.lastPage;
       total.value = result.data.total;
     } catch (e) {
-      Get.snackbar('Gagal', _message(e));
+      Get.snackbar(
+        'Gagal memuat data',
+        _message(e),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       isLoadingMore.value = false;
     }
   }
-
-  // =======================================================
-  // FILTER JENIS
-  // =======================================================
 
   Future<void> changeJenis(String jenis) async {
     if (selectedJenis.value == jenis) return;
@@ -113,10 +114,6 @@ class AdminUnitBeritaController extends GetxController {
     selectedJenis.value = jenis;
     await fetchArticles(refresh: true);
   }
-
-  // =======================================================
-  // SEARCH
-  // =======================================================
 
   Future<void> search(String keyword) async {
     searchQuery.value = keyword.trim();
@@ -129,9 +126,9 @@ class AdminUnitBeritaController extends GetxController {
     await fetchArticles(refresh: true);
   }
 
-  // =======================================================
-  // TAMBAH ARTIKEL
-  // =======================================================
+  Future<void> refreshArticles() async {
+    await fetchArticles(refresh: true);
+  }
 
   Future<bool> createArticle({
     required Map<String, dynamic> data,
@@ -144,21 +141,21 @@ class AdminUnitBeritaController extends GetxController {
     try {
       await _service.create(data: data, gambarPath: gambarPath);
 
-      Get.snackbar('Berhasil', 'Berita/pengumuman berhasil ditambahkan.');
+      Get.snackbar(
+        'Berhasil',
+        'Berita berhasil ditambahkan.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
 
       await fetchArticles(refresh: true);
       return true;
     } catch (e) {
-      Get.snackbar('Gagal', _message(e));
+      Get.snackbar('Gagal', _message(e), snackPosition: SnackPosition.BOTTOM);
       return false;
     } finally {
       isSaving.value = false;
     }
   }
-
-  // =======================================================
-  // UPDATE ARTIKEL
-  // =======================================================
 
   Future<bool> updateArticle({
     required int id,
@@ -172,21 +169,21 @@ class AdminUnitBeritaController extends GetxController {
     try {
       await _service.update(id: id, data: data, gambarPath: gambarPath);
 
-      Get.snackbar('Berhasil', 'Berita/pengumuman berhasil diperbarui.');
+      Get.snackbar(
+        'Berhasil',
+        'Berita berhasil diperbarui.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
 
       await fetchArticles(refresh: true);
       return true;
     } catch (e) {
-      Get.snackbar('Gagal', _message(e));
+      Get.snackbar('Gagal', _message(e), snackPosition: SnackPosition.BOTTOM);
       return false;
     } finally {
       isSaving.value = false;
     }
   }
-
-  // =======================================================
-  // HAPUS ARTIKEL
-  // =======================================================
 
   Future<bool> deleteArticle(int id) async {
     if (isDeleting.value) return false;
@@ -196,39 +193,19 @@ class AdminUnitBeritaController extends GetxController {
     try {
       await _service.delete(id);
 
-      Get.snackbar('Berhasil', 'Berita/pengumuman berhasil dihapus.');
+      Get.snackbar(
+        'Berhasil',
+        'Berita berhasil dihapus.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
 
       await fetchArticles(refresh: true);
       return true;
     } catch (e) {
-      Get.snackbar('Gagal', _message(e));
+      Get.snackbar('Gagal', _message(e), snackPosition: SnackPosition.BOTTOM);
       return false;
     } finally {
       isDeleting.value = false;
     }
-  }
-
-  // =======================================================
-  // PILIH ARTIKEL
-  // =======================================================
-
-  void selectArticle(BeritaPengumumanModel article) {
-    selectedArticle.value = article;
-  }
-
-  void clearSelectedArticle() {
-    selectedArticle.value = null;
-  }
-
-  // =======================================================
-  // REFRESH
-  // =======================================================
-
-  Future<void> refreshArticles() async {
-    await fetchArticles(refresh: true);
-  }
-
-  String _message(Object error) {
-    return error.toString().replaceFirst('Exception: ', '');
   }
 }
