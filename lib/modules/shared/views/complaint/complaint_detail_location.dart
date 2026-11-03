@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'complaint_detail_section.dart';
+import 'expandable_detail_section.dart';
 
 class ComplaintDetailLocation extends StatelessWidget {
   const ComplaintDetailLocation({
@@ -23,7 +23,6 @@ class ComplaintDetailLocation extends StatelessWidget {
     if (value == null || value.toString().trim().isEmpty) {
       return fallback;
     }
-
     return value.toString();
   }
 
@@ -81,37 +80,23 @@ class ComplaintDetailLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final point = _validPoint();
+    final hasPoint = point != null;
 
-    return ComplaintDetailSection(
+    return ExpandableDetailSection(
       title: 'Lokasi Kejadian',
-      icon: Icons.location_on_outlined,
+      icon: Icons.location_on_rounded,
+      accentColor: AppColors.teal,
+      subtitle: _text(alamat, fallback: 'Alamat belum tersedia.'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            _text(alamat, fallback: 'Alamat belum tersedia.'),
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 13,
-              height: 1.7,
-            ),
-          ),
-          const SizedBox(height: 16),
           _buildMap(point),
-          const SizedBox(height: 16),
-          _coordinateRow('Latitude', latitude),
-          const SizedBox(height: 10),
-          _coordinateRow('Longitude', longitude),
-          const SizedBox(height: 15),
-          if (point != null)
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () => _openGoogleMaps(context),
-                icon: const Icon(Icons.map_outlined),
-                label: const Text('Buka Lokasi di Google Maps'),
-              ),
-            ),
+          if (hasPoint) ...[
+            const SizedBox(height: 12),
+            _buildCoordinates(),
+            const SizedBox(height: 13),
+            _buildGoogleMapsButton(context),
+          ],
         ],
       ),
     );
@@ -120,7 +105,7 @@ class ComplaintDetailLocation extends StatelessWidget {
   Widget _buildMap(LatLng? point) {
     if (point == null) {
       return Container(
-        height: 160,
+        height: 120,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: AppColors.background,
@@ -134,9 +119,9 @@ class ComplaintDetailLocation extends StatelessWidget {
     }
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(14),
       child: SizedBox(
-        height: 230,
+        height: 180,
         child: FlutterMap(
           options: MapOptions(
             initialCenter: point,
@@ -175,25 +160,50 @@ class ComplaintDetailLocation extends StatelessWidget {
     );
   }
 
-  Widget _coordinateRow(String label, dynamic value) {
+  Widget _buildCoordinates() {
     return Row(
       children: [
+        const Icon(
+          Icons.my_location_rounded,
+          size: 14,
+          color: AppColors.textMuted,
+        ),
+        const SizedBox(width: 7),
         Expanded(
           child: Text(
-            label,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Text(
-          ComplaintHelpers.formatCoordinate(value),
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
+            '${ComplaintHelpers.formatCoordinate(latitude)}, '
+            '${ComplaintHelpers.formatCoordinate(longitude)}',
+            style: const TextStyle(
+              color: AppColors.textSecondary,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildGoogleMapsButton(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 43,
+      child: FilledButton.icon(
+        onPressed: () => _openGoogleMaps(context),
+        style: FilledButton.styleFrom(
+          backgroundColor: AppColors.teal,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        icon: const Icon(Icons.directions_rounded, size: 18),
+        label: const Text(
+          'Lihat Petunjuk Lokasi',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+        ),
+      ),
     );
   }
 }

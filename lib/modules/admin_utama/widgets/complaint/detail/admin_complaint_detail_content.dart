@@ -64,16 +64,16 @@ class AdminComplaintDetailContent extends StatelessWidget {
           ),
         ],
 
-        // RIWAYAT PENUGASAN DAN HASIL PEKERJAAN
-        if (assignments.isNotEmpty) ...[
-          const SizedBox(height: 24),
-          AdminComplaintAssignmentHistory(assignments: assignments),
-        ],
-
         // RIWAYAT PERUBAHAN STATUS
         if (histories.isNotEmpty) ...[
           const SizedBox(height: 24),
           ComplaintDetailHistory(histories: histories),
+        ],
+
+        // RIWAYAT PENUGASAN DAN HASIL PEKERJAAN
+        if (assignments.isNotEmpty) ...[
+          const SizedBox(height: 24),
+          AdminComplaintAssignmentHistory(assignments: assignments),
         ],
 
         // VERIFIKASI ADMIN UTAMA

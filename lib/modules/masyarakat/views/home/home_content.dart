@@ -1,5 +1,4 @@
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/masyarakat/widgets/home/activity_section.dart';
 import 'package:elingk/modules/masyarakat/widgets/home/complaint_summary_section.dart';
 import 'package:elingk/modules/masyarakat/widgets/home/help_card.dart';
 import 'package:elingk/modules/masyarakat/widgets/home/news_section.dart';

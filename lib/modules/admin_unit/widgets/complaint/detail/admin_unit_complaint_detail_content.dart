@@ -78,16 +78,16 @@ class AdminUnitComplaintDetailContent extends StatelessWidget {
           ),
         ],
 
-        // RIWAYAT PENUGASAN FIELD OFFICER
-        if (controller.assignments.isNotEmpty) ...[
-          const SizedBox(height: 24),
-          AdminUnitAssignmentHistory(controller: controller),
-        ],
-
         // RIWAYAT STATUS PENGADUAN
         if (histories.isNotEmpty) ...[
           const SizedBox(height: 24),
           ComplaintDetailHistory(histories: histories),
+        ],
+
+        // RIWAYAT PENUGASAN FIELD OFFICER
+        if (controller.assignments.isNotEmpty) ...[
+          const SizedBox(height: 24),
+          AdminUnitAssignmentHistory(controller: controller),
         ],
 
         // TOMBOL PENUGASAN PETUGAS

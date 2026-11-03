@@ -43,7 +43,7 @@ class AdminUnitAssignmentHistory extends StatelessWidget {
             SizedBox(width: 9),
             Expanded(
               child: Text(
-                'Riwayat Penugasan Field Officer',
+                'Riwayat Penugasan Petugas Lapangan',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),

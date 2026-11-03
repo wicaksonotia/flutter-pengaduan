@@ -1,7 +1,6 @@
 import 'package:elingk/app/theme/app_colors.dart';
+import 'package:elingk/modules/shared/views/complaint/expandable_detail_section.dart';
 import 'package:flutter/material.dart';
-
-import 'complaint_detail_section.dart';
 
 class ComplaintDetailPhotos extends StatelessWidget {
   const ComplaintDetailPhotos({
@@ -64,9 +63,11 @@ class ComplaintDetailPhotos extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return ComplaintDetailSection(
+    return ExpandableDetailSection(
       title: title,
       icon: icon,
+      accentColor: AppColors.blue,
+      subtitle: '${photos.length} foto dokumentasi',
       child: SizedBox(
         height: 112,
         child: ListView.separated(

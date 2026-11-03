@@ -7,21 +7,32 @@ class ComplaintDetailSection extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.child,
+    this.accentColor,
   });
 
   final String title;
   final IconData icon;
   final Widget child;
+  final Color? accentColor;
 
   @override
   Widget build(BuildContext context) {
+    final color = accentColor ?? AppColors.blue;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.border),
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.7)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.navy.withValues(alpha: 0.035),
+            blurRadius: 16,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,15 +40,15 @@ class ComplaintDetailSection extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 35,
-                height: 35,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
-                  color: AppColors.blue.withValues(alpha: 0.09),
-                  borderRadius: BorderRadius.circular(11),
+                  color: color.withValues(alpha: 0.11),
+                  borderRadius: BorderRadius.circular(13),
                 ),
-                child: Icon(icon, color: AppColors.blue, size: 19),
+                child: Icon(icon, color: color, size: 21),
               ),
-              const SizedBox(width: 11),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   title,
@@ -50,7 +61,7 @@ class ComplaintDetailSection extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 17),
           child,
         ],
       ),
