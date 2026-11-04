@@ -1,4 +1,5 @@
 import 'package:elingk/app/theme/app_colors.dart';
+import 'package:elingk/modules/field_officer/controllers/field_officer_dashboard_controller.dart';
 import 'package:elingk/modules/field_officer/widgets/dashboard/field_officer_menu_section.dart';
 import 'package:elingk/modules/field_officer/widgets/dashboard/field_officer_recent_complaints.dart';
 import 'package:elingk/modules/field_officer/widgets/dashboard/field_officer_stats_section.dart';
@@ -6,8 +7,10 @@ import 'package:elingk/modules/shared/widgets/dashboard/admin_header.dart';
 import 'package:elingk/modules/shared/widgets/dashboard/dashboard_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
-class FieldOfficerDashboardView extends StatelessWidget {
+class FieldOfficerDashboardView
+    extends GetView<FieldOfficerDashboardController> {
   const FieldOfficerDashboardView({super.key});
 
   @override
@@ -15,20 +18,25 @@ class FieldOfficerDashboardView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: ListView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(20),
-          children: [
-            const AdminHeader(roleCode: 'field_officer'),
-            const Gap(26),
-            const FieldOfficerStatsSection(),
-            const Gap(28),
-            const FieldOfficerMenuSection(),
-            const Gap(28),
-            const FieldOfficerRecentComplaints(),
-            const Gap(20),
-            const DashboardFooter(),
-          ],
+        child: RefreshIndicator(
+          onRefresh: controller.refreshDashboard,
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            padding: const EdgeInsets.all(20),
+            children: [
+              const AdminHeader(roleCode: 'field_officer'),
+              const Gap(26),
+              const FieldOfficerStatsSection(),
+              const Gap(28),
+              const FieldOfficerMenuSection(),
+              const Gap(28),
+              const FieldOfficerRecentComplaints(),
+              const Gap(20),
+              const DashboardFooter(),
+            ],
+          ),
         ),
       ),
     );
