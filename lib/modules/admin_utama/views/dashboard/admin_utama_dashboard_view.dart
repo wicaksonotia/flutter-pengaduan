@@ -3,7 +3,9 @@ import 'package:elingk/modules/admin_utama/controllers/admin_utama_dashboard_con
 import 'package:elingk/modules/admin_utama/widgets/dashboard/admin_utama_menu_section.dart';
 import 'package:elingk/modules/admin_utama/widgets/dashboard/admin_utama_stats_section.dart';
 import 'package:elingk/modules/shared/widgets/dashboard/admin_header.dart';
+import 'package:elingk/modules/shared/widgets/dashboard/dashboard_footer.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class AdminUtamaDashboardView extends GetView<AdminUtamaDashboardController> {
@@ -23,21 +25,12 @@ class AdminUtamaDashboardView extends GetView<AdminUtamaDashboardController> {
             padding: const EdgeInsets.all(20),
             children: [
               const AdminHeader(roleCode: 'main_admin'),
-              const SizedBox(height: 26),
-
+              const Gap(26),
               AdminUtamaStatsSection(controller: controller),
-
-              const SizedBox(height: 28),
-
+              const Gap(28),
               const AdminUtamaMenuSection(),
-
-              const SizedBox(height: 24),
-
-              const Text(
-                'eLingk • Layanan Pengaduan Masyarakat',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.textSecondary, fontSize: 11),
-              ),
+              const Gap(20),
+              const DashboardFooter(),
             ],
           ),
         ),

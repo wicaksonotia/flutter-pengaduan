@@ -1,8 +1,11 @@
 import 'package:elingk/app/theme/app_colors.dart';
 import 'package:elingk/modules/field_officer/widgets/dashboard/field_officer_menu_section.dart';
 import 'package:elingk/modules/field_officer/widgets/dashboard/field_officer_recent_complaints.dart';
+import 'package:elingk/modules/field_officer/widgets/dashboard/field_officer_stats_section.dart';
 import 'package:elingk/modules/shared/widgets/dashboard/admin_header.dart';
+import 'package:elingk/modules/shared/widgets/dashboard/dashboard_footer.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class FieldOfficerDashboardView extends StatelessWidget {
   const FieldOfficerDashboardView({super.key});
@@ -17,28 +20,17 @@ class FieldOfficerDashboardView extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           children: [
             const AdminHeader(roleCode: 'field_officer'),
-            const SizedBox(height: 28),
+            const Gap(26),
+            const FieldOfficerStatsSection(),
+            const Gap(28),
             const FieldOfficerMenuSection(),
-            const SizedBox(height: 28),
+            const Gap(28),
             const FieldOfficerRecentComplaints(),
-            const SizedBox(height: 20),
-            const _DashboardFooter(),
+            const Gap(20),
+            const DashboardFooter(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _DashboardFooter extends StatelessWidget {
-  const _DashboardFooter();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text(
-      'eLingk • Layanan Pengaduan Masyarakat',
-      textAlign: TextAlign.center,
-      style: TextStyle(color: AppColors.textSecondary, fontSize: 11),
     );
   }
 }

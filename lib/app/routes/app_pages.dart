@@ -8,6 +8,9 @@ import 'package:elingk/modules/admin_utama/bindings/admin_utama_binding.dart';
 import 'package:elingk/modules/admin_utama/bindings/admin_utama_complaints_binding.dart';
 import 'package:elingk/modules/admin_utama/views/berita/admin_utama_berita_view.dart';
 import 'package:elingk/modules/admin_utama/views/complaints/admin_complaints_view.dart';
+import 'package:elingk/modules/field_officer/bindings/field_officer_binding.dart';
+import 'package:elingk/modules/field_officer/bindings/field_officer_complaints_binding.dart';
+import 'package:elingk/modules/field_officer/views/complaints/field_officer_complaints_view.dart';
 import 'package:elingk/modules/shared/views/shared_profile_view.dart';
 import 'package:get/get.dart';
 
@@ -120,6 +123,21 @@ class AppPages {
     GetPage(
       name: AppRoutes.fieldOfficer,
       page: () => const FieldOfficerDashboardView(),
+      binding: FieldOfficerBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.fieldOfficerComplaints,
+      page: () => const FieldOfficerComplaintsView(),
+      binding: FieldOfficerComplaintsBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.fieldOfficerProfile,
+      page: () => const SharedProfileView(
+        roleName: 'Petugas Lapangan',
+        description: 'Petugas lapangan',
+      ),
     ),
   ];
 }

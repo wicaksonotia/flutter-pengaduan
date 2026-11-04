@@ -18,4 +18,6 @@ abstract class AppRoutes {
 
   // Field Officer
   static const fieldOfficer = '/field-officer';
+  static const fieldOfficerComplaints = '/field-officer/pengaduan';
+  static const fieldOfficerProfile = '/field-officer/profile';
 }
