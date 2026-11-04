@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:elingk/app/theme/app_colors.dart';
+import 'package:elingk/modules/shared/widgets/dashboard/dashboard_stats_shimmer.dart';
 import 'package:flutter/material.dart';
 
 class DashboardStatItem {
@@ -42,10 +43,7 @@ class DashboardStatsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isLoading && total == 0 && items.every((e) => e.value == 0)) {
-      return const SizedBox(
-        height: 180,
-        child: Center(child: CircularProgressIndicator()),
-      );
+      return const DashboardStatsShimmer();
     }
 
     if (errorMessage.isNotEmpty &&
@@ -130,10 +128,23 @@ class DashboardStatsPanel extends StatelessWidget {
                 ),
               ),
               if (isLoading)
-                const SizedBox(
-                  width: 18,
-                  height: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.blue.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    'Ringkasan',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.blue,
+                    ),
+                  ),
                 )
               else
                 Container(
