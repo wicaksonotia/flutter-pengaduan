@@ -1,7 +1,5 @@
 import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/shared/views/shared_profile_view.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AdminHeader extends StatelessWidget {
   const AdminHeader({super.key, required this.roleCode});
@@ -153,29 +151,6 @@ class AdminHeader extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  Material(
-                    color: Colors.white.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(15),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(15),
-                      onTap: () {
-                        Get.to(
-                          () => SharedProfileView(
-                            roleName: config['roleName'] as String,
-                            description: config['description'] as String,
-                          ),
-                        );
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(11),
-                        child: Icon(
-                          Icons.person_outline_rounded,
-                          color: Colors.white,
-                          size: 23,
-                        ),
-                      ),
                     ),
                   ),
                 ],

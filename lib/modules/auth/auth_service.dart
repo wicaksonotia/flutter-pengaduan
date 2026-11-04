@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:elingk/core/network/api_client.dart';
 import 'package:elingk/core/storage/token_storage.dart';
-import 'package:flutter/foundation.dart';
 
 class AuthService {
   final Dio _dio = ApiClient.dio;
@@ -59,11 +58,6 @@ class AuthService {
 
   Future<Map<String, dynamic>> getMe() async {
     final response = await _dio.get('/me');
-
-    debugPrint('=== RESPONS API /me ===');
-    debugPrint(response.data.toString());
-    debugPrint('=== AKHIR RESPONS API /me ===');
-
     return _asMap(response.data);
   }
 

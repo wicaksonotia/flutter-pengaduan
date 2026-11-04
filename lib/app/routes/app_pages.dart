@@ -11,6 +11,7 @@ import 'package:elingk/modules/admin_utama/views/complaints/admin_complaints_vie
 import 'package:elingk/modules/field_officer/bindings/field_officer_binding.dart';
 import 'package:elingk/modules/field_officer/bindings/field_officer_complaints_binding.dart';
 import 'package:elingk/modules/field_officer/views/complaints/field_officer_complaints_view.dart';
+import 'package:elingk/modules/shared/bindings/shared_profile_binding.dart';
 import 'package:elingk/modules/shared/views/shared_profile_view.dart';
 import 'package:get/get.dart';
 
@@ -82,10 +83,8 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.adminUtamaProfile,
-      page: () => const SharedProfileView(
-        roleName: 'Admin Utama',
-        description: 'Pengelola layanan eLingk',
-      ),
+      page: () => const SharedProfileView(),
+      binding: SharedProfileBinding(),
     ),
 
     // ==========================================
@@ -111,10 +110,8 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.adminUnitProfile,
-      page: () => const SharedProfileView(
-        roleName: 'Admin Unit',
-        description: 'Pengelola layanan eLingk',
-      ),
+      page: () => const SharedProfileView(),
+      binding: SharedProfileBinding(),
     ),
 
     // ==========================================
@@ -134,10 +131,8 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.fieldOfficerProfile,
-      page: () => const SharedProfileView(
-        roleName: 'Petugas Lapangan',
-        description: 'Petugas lapangan',
-      ),
+      page: () => const SharedProfileView(),
+      binding: SharedProfileBinding(),
     ),
   ];
 }
