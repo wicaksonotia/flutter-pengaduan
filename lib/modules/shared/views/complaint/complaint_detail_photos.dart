@@ -1,5 +1,5 @@
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/shared/views/complaint/expandable_detail_section.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/modules/shared/views/complaint/expandable_detail_section.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintDetailPhotos extends StatelessWidget {

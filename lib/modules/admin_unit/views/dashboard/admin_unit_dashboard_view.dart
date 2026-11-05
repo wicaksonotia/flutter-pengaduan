@@ -1,10 +1,10 @@
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/admin_unit/controllers/admin_unit_dashboard_controller.dart';
-import 'package:elingk/modules/admin_unit/widgets/dashboard/admin_unit_menu_section.dart';
-import 'package:elingk/modules/admin_unit/widgets/dashboard/admin_unit_recent_complaints.dart';
-import 'package:elingk/modules/admin_unit/widgets/dashboard/admin_unit_stats_section.dart';
-import 'package:elingk/modules/shared/widgets/dashboard/admin_header.dart';
-import 'package:elingk/modules/shared/widgets/dashboard/dashboard_footer.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/modules/admin_unit/controllers/admin_unit_dashboard_controller.dart';
+import 'package:sapahub/modules/admin_unit/widgets/dashboard/admin_unit_menu_section.dart';
+import 'package:sapahub/modules/admin_unit/widgets/dashboard/admin_unit_recent_complaints.dart';
+import 'package:sapahub/modules/admin_unit/widgets/dashboard/admin_unit_stats_section.dart';
+import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_header.dart';
+import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class AdminUnitDashboardView extends GetView<AdminUnitDashboardController> {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.all(20),
             children: [
-              const AdminHeader(roleCode: 'unit_admin'),
+              const DashboardHeader(),
               const Gap(26),
               const AdminUnitStatsSection(),
               const Gap(28),

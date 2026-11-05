@@ -1,9 +1,11 @@
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/masyarakat/widgets/home/complaint_summary_section.dart';
-import 'package:elingk/modules/masyarakat/widgets/home/help_card.dart';
-import 'package:elingk/modules/masyarakat/widgets/home/news_section.dart';
-import 'package:elingk/modules/shared/widgets/dashboard/admin_header.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/modules/masyarakat/widgets/home/complaint_summary_section.dart';
+import 'package:sapahub/modules/masyarakat/widgets/home/help_card.dart';
+import 'package:sapahub/modules/masyarakat/widgets/home/news_section.dart';
+import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_header.dart';
+import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_footer.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
@@ -17,26 +19,17 @@ class HomeContent extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(20),
           children: [
-            const AdminHeader(roleCode: 'masyarakat'),
-            const SizedBox(height: 26),
-
+            const DashboardHeader(),
+            const Gap(26),
             const ComplaintSummarySection(),
-            const SizedBox(height: 28),
-
+            const Gap(28),
             // const ActivitySection(),
             // const SizedBox(height: 28),
             const NewsSection(),
-            const SizedBox(height: 24),
-
+            const Gap(24),
             const HelpCard(),
-
-            const SizedBox(height: 24),
-
-            const Text(
-              'eLingk • Layanan Pengaduan Masyarakat',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 11),
-            ),
+            const Gap(24),
+            DashboardFooter(),
           ],
         ),
       ),

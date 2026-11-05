@@ -1,4 +1,4 @@
-import 'package:elingk/app/theme/app_colors.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -47,7 +47,7 @@ class ProfileLogoutDialog extends StatelessWidget {
             ),
             const Gap(10),
             const Text(
-              'Apakah kamu yakin ingin keluar dari akun eLingk? '
+              'Apakah kamu yakin ingin keluar? '
               'Kamu perlu login kembali untuk mengakses layanan.',
               textAlign: TextAlign.center,
               style: TextStyle(

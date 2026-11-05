@@ -1,6 +1,6 @@
-import 'package:elingk/modules/auth/auth_service.dart';
-import 'package:elingk/modules/auth/login_view.dart';
-import 'package:elingk/modules/shared/models/shared_profile_model.dart';
+import 'package:sapahub/modules/auth/auth_service.dart';
+import 'package:sapahub/modules/auth/login_view.dart';
+import 'package:sapahub/modules/shared/models/shared_profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,6 +1,6 @@
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/masyarakat/bindings/profile_binding.dart';
-import 'package:elingk/modules/masyarakat/controllers/profile_controller.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/modules/masyarakat/bindings/profile_binding.dart';
+import 'package:sapahub/modules/masyarakat/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -67,7 +67,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Apakah kamu yakin ingin keluar dari akun eLingk? '
+                  'Apakah kamu yakin ingin keluar? '
                   'Kamu perlu login kembali untuk mengakses layanan.',
                   textAlign: TextAlign.center,
                   style: TextStyle(

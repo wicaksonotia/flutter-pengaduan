@@ -1,6 +1,6 @@
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_action_handler.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
+import 'package:sapahub/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_action_handler.dart';
 import 'package:flutter/material.dart';
 
 class AdminComplaintDetailActions extends StatelessWidget {

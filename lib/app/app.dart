@@ -1,5 +1,5 @@
-import 'package:elingk/app/routes/app_pages.dart';
-import 'package:elingk/modules/auth/auth_gate.dart';
+import 'package:sapahub/app/routes/app_pages.dart';
+import 'package:sapahub/modules/auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'eLingk',
+      title: 'SapaHub',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
 

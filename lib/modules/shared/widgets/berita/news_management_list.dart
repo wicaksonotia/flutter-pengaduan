@@ -1,7 +1,7 @@
-import 'package:elingk/app/data/models/berita_pengumuman_model.dart';
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/shared/widgets/berita/news_article_card.dart';
-import 'package:elingk/modules/shared/widgets/berita/news_list_state.dart';
+import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_article_card.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_list_state.dart';
 import 'package:flutter/material.dart';
 
 class NewsManagementList extends StatelessWidget {

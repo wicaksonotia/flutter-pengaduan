@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:elingk/modules/admin_utama/services/admin_utama_service.dart';
+import 'package:sapahub/modules/admin_utama/services/admin_utama_service.dart';
 
 class AdminUtamaDashboardController extends GetxController {
   final AdminUtamaService _service = AdminUtamaService();

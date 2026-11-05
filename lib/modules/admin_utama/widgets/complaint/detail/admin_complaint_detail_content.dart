@@ -1,12 +1,12 @@
-import 'package:elingk/app/utils/image_url_helper.dart';
-import 'package:elingk/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/detail/admin_complaint_assignment_history.dart';
-import 'package:elingk/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_actions.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_header.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_history.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_information.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_location.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_photos.dart';
+import 'package:sapahub/app/utils/image_url_helper.dart';
+import 'package:sapahub/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
+import 'package:sapahub/modules/admin_utama/widgets/complaint/detail/admin_complaint_assignment_history.dart';
+import 'package:sapahub/modules/admin_utama/widgets/complaint/detail/admin_complaint_detail_actions.dart';
+import 'package:sapahub/modules/shared/views/complaint/complaint_detail_header.dart';
+import 'package:sapahub/modules/shared/views/complaint/complaint_detail_history.dart';
+import 'package:sapahub/modules/shared/views/complaint/complaint_detail_information.dart';
+import 'package:sapahub/modules/shared/views/complaint/complaint_detail_location.dart';
+import 'package:sapahub/modules/shared/views/complaint/complaint_detail_photos.dart';
 import 'package:flutter/material.dart';
 
 class AdminComplaintDetailContent extends StatelessWidget {

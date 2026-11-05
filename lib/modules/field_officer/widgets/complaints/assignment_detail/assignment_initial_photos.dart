@@ -1,5 +1,5 @@
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/app/utils/image_url_helper.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/app/utils/image_url_helper.dart';
 import 'package:flutter/material.dart';
 
 import 'assignment_detail_section.dart';

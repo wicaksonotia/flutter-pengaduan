@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'package:elingk/app/routes/app_routes.dart';
+import 'package:sapahub/app/routes/app_routes.dart';
 
 class AdminUnitController extends GetxController {
   void openDashboard() {

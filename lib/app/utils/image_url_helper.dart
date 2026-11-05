@@ -1,4 +1,4 @@
-import 'package:elingk/core/network/api_client.dart';
+import 'package:sapahub/core/network/api_client.dart';
 
 class ImageUrlHelper {
   ImageUrlHelper._();

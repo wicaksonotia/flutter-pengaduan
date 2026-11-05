@@ -1,5 +1,5 @@
-import 'package:elingk/app/data/models/berita_pengumuman_model.dart';
-import 'package:elingk/modules/shared/widgets/berita/news_article_card.dart';
+import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_article_card.dart';
 import 'package:flutter/material.dart';
 
 class NewsArticleList extends StatelessWidget {

@@ -1,5 +1,5 @@
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/modules/shared/models/shared_profile_model.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/modules/shared/models/shared_profile_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfileAccountCard extends StatelessWidget {

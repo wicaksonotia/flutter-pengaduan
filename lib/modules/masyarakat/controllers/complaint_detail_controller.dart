@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:elingk/modules/masyarakat/views/complaints/complaint_service.dart';
+import 'package:sapahub/modules/masyarakat/views/complaints/complaint_service.dart';
 import 'package:get/get.dart';
 
 class ComplaintDetailController extends GetxController {

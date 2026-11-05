@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:elingk/app/theme/app_colors.dart';
-import 'package:elingk/core/storage/token_storage.dart';
-import 'package:elingk/modules/auth/auth_redirect_view.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sapahub/core/storage/token_storage.dart';
+import 'package:sapahub/modules/auth/auth_redirect_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

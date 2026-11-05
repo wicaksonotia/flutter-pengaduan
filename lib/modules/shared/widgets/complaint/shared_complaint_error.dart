@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:elingk/app/theme/app_colors.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
 
 class SharedComplaintError extends StatelessWidget {
   const SharedComplaintError({

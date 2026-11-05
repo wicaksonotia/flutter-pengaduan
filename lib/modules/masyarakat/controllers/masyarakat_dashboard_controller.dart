@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:elingk/modules/masyarakat/services/masyarakat_dashboard_service.dart';
+import 'package:sapahub/modules/masyarakat/services/masyarakat_dashboard_service.dart';
 
 class MasyarakatDashboardController extends GetxController {
   final MasyarakatDashboardService _service = MasyarakatDashboardService();

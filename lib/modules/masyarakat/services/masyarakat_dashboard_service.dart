@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:elingk/core/network/api_client.dart';
+import 'package:sapahub/core/network/api_client.dart';
 
 class MasyarakatDashboardService {
   final Dio _dio = ApiClient.dio;

@@ -1,4 +1,4 @@
-import 'package:elingk/modules/admin_utama/controllers/admin_complaints_controller.dart';
+import 'package:sapahub/modules/admin_utama/controllers/admin_complaints_controller.dart';
 import 'package:get/get.dart';
 
 class AdminUtamaComplaintsBinding extends Bindings {

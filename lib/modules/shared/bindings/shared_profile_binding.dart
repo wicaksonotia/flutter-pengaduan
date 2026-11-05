@@ -1,4 +1,4 @@
-import 'package:elingk/modules/shared/controllers/shared_profile_controller.dart';
+import 'package:sapahub/modules/shared/controllers/shared_profile_controller.dart';
 import 'package:get/get.dart';
 
 class SharedProfileBinding extends Bindings {

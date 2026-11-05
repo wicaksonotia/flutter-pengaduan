@@ -1,15 +1,15 @@
-import 'package:elingk/app/data/models/berita_pengumuman_model.dart';
-import 'package:elingk/app/theme/app_colors.dart';
+import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
+import 'package:sapahub/app/theme/app_colors.dart';
 
-import 'package:elingk/modules/admin_utama/bindings/admin_utama_berita_binding.dart';
-import 'package:elingk/modules/admin_utama/controllers/admin_utama_berita_controller.dart';
-import 'package:elingk/modules/shared/widgets/berita/admin_berita_header.dart';
+import 'package:sapahub/modules/admin_utama/bindings/admin_utama_berita_binding.dart';
+import 'package:sapahub/modules/admin_utama/controllers/admin_utama_berita_controller.dart';
+import 'package:sapahub/modules/shared/widgets/berita/admin_berita_header.dart';
 
-import 'package:elingk/modules/shared/widgets/berita/news_article_form_dialog.dart';
-import 'package:elingk/modules/shared/widgets/berita/news_category_filter.dart';
-import 'package:elingk/modules/shared/widgets/berita/news_delete_dialog.dart';
-import 'package:elingk/modules/shared/widgets/berita/news_management_list.dart';
-import 'package:elingk/modules/shared/widgets/berita/news_search.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_article_form_dialog.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_category_filter.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_delete_dialog.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_management_list.dart';
+import 'package:sapahub/modules/shared/widgets/berita/news_search.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

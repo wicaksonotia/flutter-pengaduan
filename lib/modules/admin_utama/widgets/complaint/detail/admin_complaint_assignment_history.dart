@@ -1,5 +1,5 @@
-import 'package:elingk/app/utils/image_url_helper.dart';
-import 'package:elingk/modules/shared/views/complaint/complaint_detail_photos.dart';
+import 'package:sapahub/app/utils/image_url_helper.dart';
+import 'package:sapahub/modules/shared/views/complaint/complaint_detail_photos.dart';
 import 'package:flutter/material.dart';
 
 class AdminComplaintAssignmentHistory extends StatelessWidget {

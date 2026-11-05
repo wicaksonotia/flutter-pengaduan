@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:elingk/modules/admin_utama/services/admin_complaint_categories_service.dart';
+import 'package:sapahub/modules/admin_utama/services/admin_complaint_categories_service.dart';
 
 class AdminComplaintCategoriesController extends GetxController {
   final AdminComplaintCategoriesService _service =

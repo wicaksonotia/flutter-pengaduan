@@ -1,4 +1,4 @@
-import 'package:elingk/modules/masyarakat/controllers/complaint_detail_controller.dart';
+import 'package:sapahub/modules/masyarakat/controllers/complaint_detail_controller.dart';
 import 'package:get/get.dart';
 
 class ComplaintDetailBinding extends Bindings {

@@ -1,6 +1,6 @@
-import 'package:elingk/modules/field_officer/bindings/field_officer_assignment_detail_binding.dart';
-import 'package:elingk/modules/field_officer/views/complaints/field_officer_assignment_detail_view.dart';
-import 'package:elingk/modules/shared/widgets/complaint/shared_complaint_card.dart';
+import 'package:sapahub/modules/field_officer/bindings/field_officer_assignment_detail_binding.dart';
+import 'package:sapahub/modules/field_officer/views/complaints/field_officer_assignment_detail_view.dart';
+import 'package:sapahub/modules/shared/widgets/complaint/shared_complaint_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

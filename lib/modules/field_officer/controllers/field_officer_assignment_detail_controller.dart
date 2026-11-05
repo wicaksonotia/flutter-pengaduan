@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:elingk/modules/field_officer/controllers/field_officer_assignments_controller.dart';
-import 'package:elingk/modules/field_officer/services/field_officer_service.dart';
+import 'package:sapahub/modules/field_officer/controllers/field_officer_assignments_controller.dart';
+import 'package:sapahub/modules/field_officer/services/field_officer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

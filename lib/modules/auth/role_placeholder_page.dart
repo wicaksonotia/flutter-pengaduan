@@ -23,7 +23,7 @@ class RolePlaceholderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('eLingk'),
+        title: const Text('SapaHub'),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
