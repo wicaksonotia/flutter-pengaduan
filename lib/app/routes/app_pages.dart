@@ -6,8 +6,10 @@ import 'package:sapahub/modules/admin_unit/views/complaints/admin_unit_complaint
 import 'package:sapahub/modules/admin_utama/bindings/admin_utama_berita_binding.dart';
 import 'package:sapahub/modules/admin_utama/bindings/admin_utama_binding.dart';
 import 'package:sapahub/modules/admin_utama/bindings/admin_utama_complaints_binding.dart';
+import 'package:sapahub/modules/admin_utama/bindings/admin_utama_unit_binding.dart';
 import 'package:sapahub/modules/admin_utama/views/berita/admin_utama_berita_view.dart';
 import 'package:sapahub/modules/admin_utama/views/complaints/admin_complaints_view.dart';
+import 'package:sapahub/modules/admin_utama/views/units/admin_utama_units_view.dart';
 import 'package:sapahub/modules/field_officer/bindings/field_officer_binding.dart';
 import 'package:sapahub/modules/field_officer/bindings/field_officer_complaints_binding.dart';
 import 'package:sapahub/modules/field_officer/views/complaints/field_officer_complaints_view.dart';
@@ -85,6 +87,12 @@ class AppPages {
       name: AppRoutes.adminUtamaProfile,
       page: () => const SharedProfileView(),
       binding: SharedProfileBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.adminUtamaUnits,
+      page: () => const AdminUtamaUnitsView(),
+      binding: AdminUtamaUnitBinding(),
     ),
 
     // ==========================================

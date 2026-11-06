@@ -9,6 +9,7 @@ abstract class AppRoutes {
   static const adminUtamaBerita = '/admin-utama/berita-pengumuman';
   static const adminUtamaComplaints = '/admin-utama/pengaduan';
   static const adminUtamaProfile = '/admin-utama/profile';
+  static const adminUtamaUnits = '/admin-utama/units';
 
   // Admin Unit
   static const adminUnit = '/admin-unit';

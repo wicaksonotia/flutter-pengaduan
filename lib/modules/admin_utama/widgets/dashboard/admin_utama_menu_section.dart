@@ -24,12 +24,12 @@ class AdminUtamaMenuSection extends StatelessWidget {
           color: AppColors.blue,
           onTap: () => Get.toNamed(AppRoutes.adminUtamaComplaints),
         ),
-        DashboardMenuEntry.comingSoon(
+        DashboardMenuEntry(
           icon: Icons.apartment_rounded,
           title: 'Instansi & Unit',
           subtitle: 'Data unit',
           color: AppColors.teal,
-          messageTitle: 'Instansi dan Unit',
+          onTap: () => Get.toNamed(AppRoutes.adminUtamaUnits),
         ),
         DashboardMenuEntry.comingSoon(
           icon: Icons.people_alt_rounded,
