@@ -199,12 +199,6 @@ class UnitCard extends StatelessWidget {
           label: 'Instansi',
           value: unit.instansi?.nama ?? '-',
         ),
-        const SizedBox(height: 11),
-        UnitInfoRow(
-          icon: Icons.account_tree_outlined,
-          label: 'Unit Induk',
-          value: unit.parent?.nama ?? 'Unit Utama',
-        ),
         if (unit.alamat?.isNotEmpty == true) ...[
           const SizedBox(height: 11),
           UnitInfoRow(

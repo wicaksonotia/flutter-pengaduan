@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sapahub/app/data/models/unit_model.dart';
 import 'package:sapahub/app/theme/app_colors.dart';
 import 'package:sapahub/modules/admin_utama/controllers/admin_utama_units_controller.dart';
+import 'package:sapahub/modules/admin_utama/widgets/units/form/unit_form_dialog.dart';
 import 'package:sapahub/modules/admin_utama/widgets/units/view/unit_deactivate_dialog.dart';
 import 'package:sapahub/modules/admin_utama/widgets/units/view/unit_list_shimmer.dart';
 import 'package:sapahub/modules/admin_utama/widgets/units/view/units_filter.dart';
@@ -47,7 +48,7 @@ class _AdminUtamaUnitsViewState extends State<AdminUtamaUnitsView> {
         label: const Text('Tambah Unit'),
       ),
       body: RefreshIndicator(
-        onRefresh: controller.refresh,
+        onRefresh: controller.refreshUnits,
         color: AppColors.blue,
         backgroundColor: AppColors.surface,
         displacement: 45,
@@ -106,7 +107,7 @@ class _AdminUtamaUnitsViewState extends State<AdminUtamaUnitsView> {
         const SizedBox(height: 16),
         Center(
           child: OutlinedButton.icon(
-            onPressed: controller.refresh,
+            onPressed: controller.refreshUnits,
             icon: const Icon(Icons.refresh_rounded),
             label: const Text('Coba Lagi'),
           ),
@@ -116,19 +117,11 @@ class _AdminUtamaUnitsViewState extends State<AdminUtamaUnitsView> {
   }
 
   void _showAddUnit() {
-    Get.snackbar(
-      'Tambah Unit',
-      'Form tambah unit akan segera tersedia.',
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    UnitFormDialog.show(controller: controller);
   }
 
   void _showEditUnit(UnitModel unit) {
-    Get.snackbar(
-      'Edit Unit',
-      'Form edit unit akan segera tersedia.',
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    UnitFormDialog.show(unit: unit, controller: controller);
   }
 
   void _showUnitDetail(UnitModel unit) {

@@ -4,10 +4,13 @@ import 'package:sapahub/core/network/api_client.dart';
 class AdminUtamaUnitsService {
   final Dio _dio = ApiClient.dio;
 
+  // ============================================================
+  // GET LIST
+  // ============================================================
+
   Future<Map<String, dynamic>> getUnits({
     int page = 1,
     int perPage = 15,
-    int? instansiId,
     bool? aktif,
     String? search,
   }) async {
@@ -16,7 +19,6 @@ class AdminUtamaUnitsService {
       queryParameters: {
         'page': page,
         'per_page': perPage,
-        'instansi_id': ?instansiId,
         if (aktif != null) 'aktif': aktif ? 1 : 0,
         if (search != null && search.trim().isNotEmpty) 'q': search.trim(),
       },
@@ -25,8 +27,13 @@ class AdminUtamaUnitsService {
     return _asMap(response.data);
   }
 
+  // ============================================================
+  // GET DETAIL
+  // ============================================================
+
   Future<Map<String, dynamic>> getUnitDetail(int id) async {
     final response = await _dio.get('/admin/units/$id');
+
     final result = _asMap(response.data);
 
     if (result['status'] != 'success' || result['data'] is! Map) {
@@ -36,23 +43,19 @@ class AdminUtamaUnitsService {
     return Map<String, dynamic>.from(result['data']);
   }
 
-  Future<List<Map<String, dynamic>>> getInstansiOptions() async {
-    final response = await _dio.get('/admin/instansi');
-
-    final result = _asMap(response.data);
-
-    if (result['status'] != 'success') {
-      throw Exception(result['message'] ?? 'Gagal mengambil daftar instansi.');
-    }
-
-    return _extractList(result['data']);
-  }
+  // ============================================================
+  // CREATE
+  // ============================================================
 
   Future<Map<String, dynamic>> createUnit(Map<String, dynamic> data) async {
     final response = await _dio.post('/admin/units', data: data);
 
     return _validateResponse(response.data, 'Gagal menambahkan unit.');
   }
+
+  // ============================================================
+  // UPDATE
+  // ============================================================
 
   Future<Map<String, dynamic>> updateUnit({
     required int id,
@@ -63,11 +66,9 @@ class AdminUtamaUnitsService {
     return _validateResponse(response.data, 'Gagal memperbarui unit.');
   }
 
-  Future<Map<String, dynamic>> deactivateUnit(int id) async {
-    final response = await _dio.delete('/admin/units/$id');
-
-    return _validateResponse(response.data, 'Gagal menonaktifkan unit.');
-  }
+  // ============================================================
+  // RESPONSE HELPERS
+  // ============================================================
 
   Map<String, dynamic> _validateResponse(
     dynamic value,
@@ -83,7 +84,9 @@ class AdminUtamaUnitsService {
   }
 
   Map<String, dynamic> _asMap(dynamic value) {
-    if (value is Map<String, dynamic>) return value;
+    if (value is Map<String, dynamic>) {
+      return value;
+    }
 
     if (value is Map) {
       return Map<String, dynamic>.from(value);
@@ -92,24 +95,38 @@ class AdminUtamaUnitsService {
     throw Exception('Format respons server tidak valid.');
   }
 
-  List<Map<String, dynamic>> _extractList(dynamic value) {
-    if (value is List) {
-      return value
-          .whereType<Map>()
-          .map((e) => Map<String, dynamic>.from(e))
-          .toList();
-    }
+  String getErrorMessage(dynamic error) {
+    if (error is DioException) {
+      final responseData = error.response?.data;
 
-    if (value is Map) {
-      final map = Map<String, dynamic>.from(value);
+      if (responseData is Map) {
+        // Pesan validasi Laravel (422).
+        final errors = responseData['errors'];
 
-      for (final key in ['data', 'items', 'results']) {
-        if (map.containsKey(key)) {
-          return _extractList(map[key]);
+        if (errors is Map) {
+          final messages = <String>[];
+
+          errors.forEach((key, value) {
+            if (value is List) {
+              messages.addAll(value.map((e) => e.toString()));
+            } else {
+              messages.add(value.toString());
+            }
+          });
+
+          if (messages.isNotEmpty) {
+            return messages.join('\n');
+          }
+        }
+
+        if (responseData['message'] != null) {
+          return responseData['message'].toString();
         }
       }
+
+      return error.message ?? 'Terjadi kesalahan komunikasi dengan server.';
     }
 
-    return [];
+    return error.toString().replaceFirst('Exception: ', '');
   }
 }
