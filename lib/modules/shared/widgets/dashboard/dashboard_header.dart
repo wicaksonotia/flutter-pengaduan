@@ -1,5 +1,5 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/shared/controllers/shared_profile_controller.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/shared/controllers/shared_profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,9 +12,9 @@ class DashboardHeader extends StatelessWidget {
       case 'admin_utama':
         return {
           'title': 'Administrator Utama',
-          'description': 'Pengelola layanan SAPA HUB',
+          'description': 'Pengelola layanan SIGAP KAWAN',
           'icon': Icons.admin_panel_settings_rounded,
-          'greeting': 'Pusat Kendali SAPA HUB',
+          'greeting': 'Pusat Kendali SIGAP KAWAN',
         };
 
       case 'unit_admin':
@@ -41,12 +41,12 @@ class DashboardHeader extends StatelessWidget {
           'title': 'Masyarakat',
           'description': 'Layanan Pengaduan Masyarakat',
           'icon': Icons.people_alt_rounded,
-          'greeting': 'Layanan Pengaduan SAPA HUB',
+          'greeting': 'Layanan Pengaduan SIGAP KAWAN',
         };
 
       default:
         return {
-          'title': 'Pengguna SAPA HUB',
+          'title': 'Pengguna SIGAP KAWAN',
           'description': 'Layanan pengaduan perhubungan',
           'icon': Icons.account_circle_rounded,
           'greeting': 'Selamat datang',
@@ -80,7 +80,7 @@ class DashboardHeader extends StatelessWidget {
 
       final description = isMasyarakat
           ? 'Sampaikan pengaduan dan pantau perkembangan '
-                'laporan Anda melalui SAPA HUB.'
+                'laporan Anda melalui SIGAP KAWAN.'
           : 'Kelola layanan dan pantau pengaduan masyarakat '
                 'melalui satu dashboard.';
 
@@ -156,7 +156,7 @@ class DashboardHeader extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'SAPA HUB',
+                            'SIGAP KAWAN',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 21,

@@ -1,7 +1,7 @@
-import 'package:sapahub/app/utils/image_url_helper.dart';
-import 'package:sapahub/modules/admin_unit/controllers/admin_unit_complaint_detail_controller.dart';
-import 'package:sapahub/modules/admin_unit/widgets/complaint/detail/admin_unit_assignment_review.dart';
-import 'package:sapahub/modules/shared/views/complaint/complaint_detail_photos.dart';
+import 'package:sigapkawan/app/utils/image_url_helper.dart';
+import 'package:sigapkawan/modules/admin_unit/controllers/admin_unit_complaint_detail_controller.dart';
+import 'package:sigapkawan/modules/admin_unit/widgets/complaint/detail/admin_unit_assignment_review.dart';
+import 'package:sigapkawan/modules/shared/views/complaint/complaint_detail_photos.dart';
 import 'package:flutter/material.dart';
 
 class AdminUnitAssignmentHistory extends StatelessWidget {

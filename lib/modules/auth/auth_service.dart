@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:sapahub/core/network/api_client.dart';
-import 'package:sapahub/core/storage/token_storage.dart';
+import 'package:sigapkawan/core/network/api_client.dart';
+import 'package:sigapkawan/core/storage/token_storage.dart';
 
 class AuthService {
   final Dio _dio = ApiClient.dio;

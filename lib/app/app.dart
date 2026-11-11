@@ -1,5 +1,5 @@
-import 'package:sapahub/app/routes/app_pages.dart';
-import 'package:sapahub/modules/auth/auth_gate.dart';
+import 'package:sigapkawan/app/routes/app_pages.dart';
+import 'package:sigapkawan/modules/auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'SapaHub',
+      title: 'SigapKawan',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
 

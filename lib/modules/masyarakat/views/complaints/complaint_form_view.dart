@@ -1,9 +1,9 @@
-import 'package:sapahub/modules/masyarakat/bindings/complaint_form_binding.dart';
-import 'package:sapahub/modules/masyarakat/controllers/complaint_form_controller.dart';
-import 'package:sapahub/modules/masyarakat/widgets/form/complaint_form_header.dart';
-import 'package:sapahub/modules/masyarakat/widgets/form/complaint_location_card.dart';
-import 'package:sapahub/modules/masyarakat/widgets/form/complaint_photo_section.dart';
-import 'package:sapahub/modules/shared/views/complaint/complaint_photo_source_button.dart';
+import 'package:sigapkawan/modules/masyarakat/bindings/complaint_form_binding.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/complaint_form_controller.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/form/complaint_form_header.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/form/complaint_location_card.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/form/complaint_photo_section.dart';
+import 'package:sigapkawan/modules/shared/views/complaint/complaint_photo_source_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

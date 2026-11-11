@@ -54,7 +54,7 @@ class SharedProfileModel {
 
   String get roleName => primaryRole?.nama.isNotEmpty == true
       ? primaryRole!.nama
-      : 'Pengguna SapaHub';
+      : 'Pengguna SigapKawan';
 
   String get unitName => primaryRole?.unitNama ?? '';
 

@@ -1,12 +1,12 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/shared/controllers/shared_profile_controller.dart';
-import 'package:sapahub/modules/shared/widgets/profile/profile_account_card.dart';
-import 'package:sapahub/modules/shared/widgets/profile/profile_footer.dart';
-import 'package:sapahub/modules/shared/widgets/profile/profile_header.dart';
-import 'package:sapahub/modules/shared/widgets/profile/profile_logout_button.dart';
-import 'package:sapahub/modules/shared/widgets/profile/profile_logout_dialog.dart';
-import 'package:sapahub/modules/shared/widgets/profile/profile_section_title.dart';
-import 'package:sapahub/modules/shared/widgets/profile/profile_shimmer.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/shared/controllers/shared_profile_controller.dart';
+import 'package:sigapkawan/modules/shared/widgets/profile/profile_account_card.dart';
+import 'package:sigapkawan/modules/shared/widgets/profile/profile_footer.dart';
+import 'package:sigapkawan/modules/shared/widgets/profile/profile_header.dart';
+import 'package:sigapkawan/modules/shared/widgets/profile/profile_logout_button.dart';
+import 'package:sigapkawan/modules/shared/widgets/profile/profile_logout_dialog.dart';
+import 'package:sigapkawan/modules/shared/widgets/profile/profile_section_title.dart';
+import 'package:sigapkawan/modules/shared/widgets/profile/profile_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

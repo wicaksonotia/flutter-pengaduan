@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sapahub/app/data/models/unit_model.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/admin_utama/widgets/units/view/unit_info_row.dart';
-import 'package:sapahub/modules/admin_utama/widgets/units/view/unit_status_badge.dart';
+import 'package:sigapkawan/app/data/models/unit_model.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/admin_utama/widgets/units/view/unit_info_row.dart';
+import 'package:sigapkawan/modules/admin_utama/widgets/units/view/unit_status_badge.dart';
 
 class UnitCard extends StatelessWidget {
   const UnitCard({

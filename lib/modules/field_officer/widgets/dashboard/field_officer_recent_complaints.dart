@@ -1,7 +1,7 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/field_officer/bindings/field_officer_binding.dart';
-import 'package:sapahub/modules/field_officer/controllers/field_officer_assignments_controller.dart';
-import 'package:sapahub/modules/field_officer/views/complaints/field_officer_complaints_view.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/field_officer/bindings/field_officer_binding.dart';
+import 'package:sigapkawan/modules/field_officer/controllers/field_officer_assignments_controller.dart';
+import 'package:sigapkawan/modules/field_officer/views/complaints/field_officer_complaints_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

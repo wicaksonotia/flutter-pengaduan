@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/shared/constants/complaint_status.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/shared/constants/complaint_status.dart';
 
 class SharedComplaintCard extends StatelessWidget {
   const SharedComplaintCard({

@@ -1,8 +1,8 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/masyarakat/bindings/complaint_detail_binding.dart';
-import 'package:sapahub/modules/masyarakat/controllers/complaint_detail_controller.dart';
-import 'package:sapahub/modules/masyarakat/widgets/detail/complaint_detail_content.dart';
-import 'package:sapahub/modules/shared/widgets/complaint/shared_complaint_error.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/masyarakat/bindings/complaint_detail_binding.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/complaint_detail_controller.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/detail/complaint_detail_content.dart';
+import 'package:sigapkawan/modules/shared/widgets/complaint/shared_complaint_error.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

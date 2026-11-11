@@ -1,7 +1,7 @@
-import 'package:sapahub/modules/masyarakat/bindings/news_binding.dart';
-import 'package:sapahub/modules/masyarakat/controllers/home_controller.dart';
-import 'package:sapahub/modules/masyarakat/controllers/masyarakat_dashboard_controller.dart';
-import 'package:sapahub/modules/shared/bindings/shared_profile_binding.dart';
+import 'package:sigapkawan/modules/masyarakat/bindings/news_binding.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/home_controller.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/masyarakat_dashboard_controller.dart';
+import 'package:sigapkawan/modules/shared/bindings/shared_profile_binding.dart';
 import 'package:get/get.dart';
 
 class HomeBinding extends Bindings {

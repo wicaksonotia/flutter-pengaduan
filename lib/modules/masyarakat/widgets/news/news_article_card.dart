@@ -1,8 +1,8 @@
-import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/app/utils/news_helper.dart';
-import 'package:sapahub/modules/masyarakat/widgets/news/news_category_badge.dart';
-import 'package:sapahub/modules/masyarakat/widgets/news/news_image.dart';
+import 'package:sigapkawan/app/data/models/berita_pengumuman_model.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/app/utils/news_helper.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/news/news_category_badge.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/news/news_image.dart';
 import 'package:flutter/material.dart';
 
 class NewsArticleCard extends StatelessWidget {

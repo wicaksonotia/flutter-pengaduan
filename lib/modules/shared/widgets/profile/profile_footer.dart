@@ -1,4 +1,4 @@
-import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -10,7 +10,7 @@ class ProfileFooter extends StatelessWidget {
     return const Column(
       children: [
         Text(
-          'SAPA HUB',
+          'SIGAP KAWAN',
           style: TextStyle(
             color: AppColors.navy,
             fontWeight: FontWeight.w800,

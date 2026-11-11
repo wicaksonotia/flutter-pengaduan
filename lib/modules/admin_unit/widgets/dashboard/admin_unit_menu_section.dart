@@ -1,6 +1,6 @@
-import 'package:sapahub/app/routes/app_routes.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_menu_section.dart';
+import 'package:sigapkawan/app/routes/app_routes.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/shared/widgets/dashboard/dashboard_menu_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

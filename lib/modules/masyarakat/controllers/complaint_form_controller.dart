@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:sapahub/modules/masyarakat/views/complaints/complaint_service.dart';
+import 'package:sigapkawan/modules/masyarakat/views/complaints/complaint_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
@@ -31,7 +31,7 @@ class ComplaintFormController extends GetxController {
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
       headers: {
-        'User-Agent': 'SapaHub/1.0 Flutter Mobile App',
+        'User-Agent': 'SigapKawan/1.0 Flutter Mobile App',
         'Accept-Language': 'id',
       },
     ),

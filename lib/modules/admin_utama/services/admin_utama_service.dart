@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:sapahub/core/network/api_client.dart';
+import 'package:sigapkawan/core/network/api_client.dart';
 
 class AdminUtamaService {
   final Dio _dio = ApiClient.dio;

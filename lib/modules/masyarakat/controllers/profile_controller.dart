@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:sapahub/modules/auth/auth_service.dart';
-import 'package:sapahub/modules/auth/login_view.dart';
+import 'package:sigapkawan/modules/auth/auth_service.dart';
+import 'package:sigapkawan/modules/auth/login_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -163,7 +163,7 @@ class ProfileController extends GetxController {
 
   String get displayName {
     final name = user['name']?.toString().trim() ?? '';
-    return name.isEmpty ? 'Pengguna SapaHub' : name;
+    return name.isEmpty ? 'Pengguna SigapKawan' : name;
   }
 
   String get phone => user['phone']?.toString() ?? '';

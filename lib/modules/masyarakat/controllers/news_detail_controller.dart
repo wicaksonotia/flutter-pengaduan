@@ -1,5 +1,5 @@
-import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
-import 'package:sapahub/app/data/services/berita_pengumuman_service.dart';
+import 'package:sigapkawan/app/data/models/berita_pengumuman_model.dart';
+import 'package:sigapkawan/app/data/services/berita_pengumuman_service.dart';
 import 'package:get/get.dart';
 
 class NewsDetailController extends GetxController {

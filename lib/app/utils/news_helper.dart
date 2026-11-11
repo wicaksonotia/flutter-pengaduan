@@ -1,4 +1,4 @@
-import 'package:sapahub/core/network/api_client.dart';
+import 'package:sigapkawan/core/network/api_client.dart';
 
 class NewsHelper {
   NewsHelper._();

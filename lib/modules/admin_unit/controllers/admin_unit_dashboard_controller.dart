@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:sapahub/modules/admin_unit/services/admin_unit_service.dart';
+import 'package:sigapkawan/modules/admin_unit/services/admin_unit_service.dart';
 
 class AdminUnitDashboardController extends GetxController {
   final AdminUnitService _service = AdminUnitService();

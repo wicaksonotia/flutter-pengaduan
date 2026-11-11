@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:sapahub/modules/field_officer/services/field_officer_service.dart';
+import 'package:sigapkawan/modules/field_officer/services/field_officer_service.dart';
 
 class FieldOfficerDashboardController extends GetxController {
   final FieldOfficerService _service = FieldOfficerService();

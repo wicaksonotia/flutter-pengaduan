@@ -1,9 +1,9 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/masyarakat/widgets/home/complaint_summary_section.dart';
-import 'package:sapahub/modules/masyarakat/widgets/home/help_card.dart';
-import 'package:sapahub/modules/masyarakat/widgets/home/news_section.dart';
-import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_header.dart';
-import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_footer.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/home/complaint_summary_section.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/home/help_card.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/home/news_section.dart';
+import 'package:sigapkawan/modules/shared/widgets/dashboard/dashboard_header.dart';
+import 'package:sigapkawan/modules/shared/widgets/dashboard/dashboard_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

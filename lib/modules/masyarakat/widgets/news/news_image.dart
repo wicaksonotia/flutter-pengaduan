@@ -1,5 +1,5 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/app/utils/news_helper.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/app/utils/news_helper.dart';
 import 'package:flutter/material.dart';
 
 class NewsImage extends StatelessWidget {

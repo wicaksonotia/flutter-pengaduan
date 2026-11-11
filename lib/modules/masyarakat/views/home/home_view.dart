@@ -1,9 +1,9 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/masyarakat/bindings/home_binding.dart';
-import 'package:sapahub/modules/masyarakat/controllers/home_controller.dart';
-import 'package:sapahub/modules/masyarakat/views/complaints/complaint_list_view.dart';
-import 'package:sapahub/modules/masyarakat/views/home/home_content.dart';
-import 'package:sapahub/modules/masyarakat/views/profile/profile_view.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/masyarakat/bindings/home_binding.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/home_controller.dart';
+import 'package:sigapkawan/modules/masyarakat/views/complaints/complaint_list_view.dart';
+import 'package:sigapkawan/modules/masyarakat/views/home/home_content.dart';
+import 'package:sigapkawan/modules/masyarakat/views/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

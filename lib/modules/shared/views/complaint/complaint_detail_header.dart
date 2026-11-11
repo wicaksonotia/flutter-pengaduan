@@ -1,5 +1,5 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/masyarakat/views/complaints/complaint_helpers.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/masyarakat/views/complaints/complaint_helpers.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintDetailHeader extends StatelessWidget {

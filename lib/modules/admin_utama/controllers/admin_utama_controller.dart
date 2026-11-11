@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:sapahub/app/routes/app_routes.dart';
+import 'package:sigapkawan/app/routes/app_routes.dart';
 
 class AdminUtamaController extends GetxController {
   void openDashboard() {

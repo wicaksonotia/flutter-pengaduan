@@ -1,4 +1,4 @@
-import 'package:sapahub/modules/masyarakat/views/complaints/complaint_service.dart';
+import 'package:sigapkawan/modules/masyarakat/views/complaints/complaint_service.dart';
 import 'package:get/get.dart';
 
 class ComplaintListController extends GetxController {

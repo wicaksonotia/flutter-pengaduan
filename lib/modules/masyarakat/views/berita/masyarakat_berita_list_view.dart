@@ -1,9 +1,9 @@
-import 'package:sapahub/app/routes/app_routes.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/masyarakat/controllers/news_controller.dart';
-import 'package:sapahub/modules/masyarakat/widgets/news/news_article_card.dart';
-import 'package:sapahub/modules/shared/widgets/berita/news_search.dart';
-import 'package:sapahub/modules/shared/widgets/berita/news_category_filter.dart';
+import 'package:sigapkawan/app/routes/app_routes.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/news_controller.dart';
+import 'package:sigapkawan/modules/masyarakat/widgets/news/news_article_card.dart';
+import 'package:sigapkawan/modules/shared/widgets/berita/news_search.dart';
+import 'package:sigapkawan/modules/shared/widgets/berita/news_category_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

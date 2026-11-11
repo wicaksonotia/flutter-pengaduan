@@ -1,12 +1,12 @@
-import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/admin_unit/bindings/admin_unit_berita_binding.dart';
-import 'package:sapahub/modules/admin_unit/controllers/admin_unit_berita_controller.dart';
-import 'package:sapahub/modules/shared/widgets/berita/news_article_form_dialog.dart';
-import 'package:sapahub/modules/shared/widgets/berita/news_category_filter.dart';
-import 'package:sapahub/modules/shared/widgets/berita/news_delete_dialog.dart';
-import 'package:sapahub/modules/shared/widgets/berita/news_management_list.dart';
-import 'package:sapahub/modules/shared/widgets/berita/news_search.dart';
+import 'package:sigapkawan/app/data/models/berita_pengumuman_model.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/admin_unit/bindings/admin_unit_berita_binding.dart';
+import 'package:sigapkawan/modules/admin_unit/controllers/admin_unit_berita_controller.dart';
+import 'package:sigapkawan/modules/shared/widgets/berita/news_article_form_dialog.dart';
+import 'package:sigapkawan/modules/shared/widgets/berita/news_category_filter.dart';
+import 'package:sigapkawan/modules/shared/widgets/berita/news_delete_dialog.dart';
+import 'package:sigapkawan/modules/shared/widgets/berita/news_management_list.dart';
+import 'package:sigapkawan/modules/shared/widgets/berita/news_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

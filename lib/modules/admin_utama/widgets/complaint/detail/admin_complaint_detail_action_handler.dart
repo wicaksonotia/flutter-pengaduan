@@ -1,7 +1,7 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
-import 'package:sapahub/modules/admin_utama/widgets/complaint/detail/complaint_rejection_dialog.dart';
-import 'package:sapahub/modules/admin_utama/widgets/complaint/detail/unit_delegation_dialog.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/admin_utama/controllers/admin_complaint_detail_controller.dart';
+import 'package:sigapkawan/modules/admin_utama/widgets/complaint/detail/complaint_rejection_dialog.dart';
+import 'package:sigapkawan/modules/admin_utama/widgets/complaint/detail/unit_delegation_dialog.dart';
 import 'package:flutter/material.dart';
 
 class AdminComplaintDetailActionHandler {

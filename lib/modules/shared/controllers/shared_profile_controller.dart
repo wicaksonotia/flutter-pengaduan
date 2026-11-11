@@ -1,6 +1,6 @@
-import 'package:sapahub/modules/auth/auth_service.dart';
-import 'package:sapahub/modules/auth/login_view.dart';
-import 'package:sapahub/modules/shared/models/shared_profile_model.dart';
+import 'package:sigapkawan/modules/auth/auth_service.dart';
+import 'package:sigapkawan/modules/auth/login_view.dart';
+import 'package:sigapkawan/modules/shared/models/shared_profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

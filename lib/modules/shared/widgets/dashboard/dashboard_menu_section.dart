@@ -1,5 +1,5 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_menu_item.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/shared/widgets/dashboard/dashboard_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';

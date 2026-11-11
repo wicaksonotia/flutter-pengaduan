@@ -1,5 +1,5 @@
-import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sigapkawan/app/data/models/berita_pengumuman_model.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

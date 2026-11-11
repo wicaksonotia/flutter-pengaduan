@@ -1,4 +1,4 @@
-import 'package:sapahub/modules/admin_unit/controllers/admin_unit_complaint_detail_controller.dart';
+import 'package:sigapkawan/modules/admin_unit/controllers/admin_unit_complaint_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:sapahub/app/data/models/berita_pengumuman_model.dart';
-import 'package:sapahub/core/network/api_client.dart';
+import 'package:sigapkawan/app/data/models/berita_pengumuman_model.dart';
+import 'package:sigapkawan/core/network/api_client.dart';
 
 class BeritaPengumumanService {
   static const String _publicEndpoint = '/berita-pengumuman';

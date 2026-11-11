@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:sapahub/app/theme/app_colors.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -121,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 const SizedBox(height: 34),
                 const Text(
-                  'Selamat datang\ndi SapaHub',
+                  'Selamat datang\ndi SigapKawan',
                   style: TextStyle(
                     color: AppColors.navy,
                     fontSize: 31,

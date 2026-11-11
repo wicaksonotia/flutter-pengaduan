@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:sapahub/modules/masyarakat/controllers/news_controller.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/news_controller.dart';
 
 class NewsBinding extends Bindings {
   @override

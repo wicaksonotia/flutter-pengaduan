@@ -1,4 +1,4 @@
-import 'package:sapahub/app/routes/app_routes.dart';
+import 'package:sigapkawan/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -148,7 +148,7 @@ class _RolePlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SapaHub'),
+        title: const Text('SigapKawan'),
         automaticallyImplyLeading: false,
       ),
       body: Center(

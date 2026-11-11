@@ -1,4 +1,4 @@
-import 'package:sapahub/modules/masyarakat/controllers/complaint_form_controller.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/complaint_form_controller.dart';
 import 'package:get/get.dart';
 
 class ComplaintFormBinding extends Bindings {

@@ -1,4 +1,4 @@
-import 'package:sapahub/modules/admin_utama/services/admin_complaints_service.dart';
+import 'package:sigapkawan/modules/admin_utama/services/admin_complaints_service.dart';
 import 'package:get/get.dart';
 
 class AdminComplaintsController extends GetxController {

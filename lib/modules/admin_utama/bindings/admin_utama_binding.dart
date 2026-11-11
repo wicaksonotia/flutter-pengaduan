@@ -1,4 +1,4 @@
-import 'package:sapahub/modules/shared/bindings/shared_profile_binding.dart';
+import 'package:sigapkawan/modules/shared/bindings/shared_profile_binding.dart';
 import 'package:get/get.dart';
 
 import '../controllers/admin_utama_controller.dart';

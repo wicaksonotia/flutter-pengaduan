@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/shared/widgets/dashboard/dashboard_stats_shimmer.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/shared/widgets/dashboard/dashboard_stats_shimmer.dart';
 import 'package:flutter/material.dart';
 
 class DashboardStatItem {

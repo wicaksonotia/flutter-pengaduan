@@ -1,6 +1,6 @@
-import 'package:sapahub/app/theme/app_colors.dart';
-import 'package:sapahub/modules/masyarakat/bindings/profile_binding.dart';
-import 'package:sapahub/modules/masyarakat/controllers/profile_controller.dart';
+import 'package:sigapkawan/app/theme/app_colors.dart';
+import 'package:sigapkawan/modules/masyarakat/bindings/profile_binding.dart';
+import 'package:sigapkawan/modules/masyarakat/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,6 +1,6 @@
-import 'package:sapahub/modules/admin_unit/controllers/admin_unit_controller.dart';
-import 'package:sapahub/modules/admin_unit/controllers/admin_unit_dashboard_controller.dart';
-import 'package:sapahub/modules/shared/bindings/shared_profile_binding.dart';
+import 'package:sigapkawan/modules/admin_unit/controllers/admin_unit_controller.dart';
+import 'package:sigapkawan/modules/admin_unit/controllers/admin_unit_dashboard_controller.dart';
+import 'package:sigapkawan/modules/shared/bindings/shared_profile_binding.dart';
 import 'package:get/get.dart';
 
 class AdminUnitBinding extends Bindings {

@@ -1,6 +1,6 @@
-import 'package:sapahub/modules/field_officer/controllers/field_officer_assignments_controller.dart';
-import 'package:sapahub/modules/field_officer/controllers/field_officer_dashboard_controller.dart';
-import 'package:sapahub/modules/shared/bindings/shared_profile_binding.dart';
+import 'package:sigapkawan/modules/field_officer/controllers/field_officer_assignments_controller.dart';
+import 'package:sigapkawan/modules/field_officer/controllers/field_officer_dashboard_controller.dart';
+import 'package:sigapkawan/modules/shared/bindings/shared_profile_binding.dart';
 import 'package:get/get.dart';
 
 class FieldOfficerBinding extends Bindings {
